@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface Props {
 	title: string
+	colorClass: string
+	hoverClass: string
 	disabled?: boolean
 	onClick?: (e: any) => void | Promise<void>
 	className?: string
-	colorClass: string
-	hoverClass: string
 	textColor?: string
 }
 

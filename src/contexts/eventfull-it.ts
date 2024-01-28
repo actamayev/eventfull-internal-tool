@@ -64,6 +64,7 @@ export class EventfullITContext {
 
 	public logout(): void {
 		localStorage.clear()
+		sessionStorage.clear()
 		runInAction(() => {
 			this.authClass = new AuthClass()
 			this.personalData = null

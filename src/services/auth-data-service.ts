@@ -8,5 +8,13 @@ export default class AuthDataService {
 	async login(loginInformation: AuthCredentials): Promise<AxiosResponse<LoginSuccess | NonSuccessResponse>> {
 		return await this.httpClient.http.post<LoginSuccess | NonSuccessResponse>("/auth/login", { loginInformation })
 	}
+
+	async register(registerInformation: AuthCredentials): Promise<AxiosResponse<LoginSuccess | NonSuccessResponse>> {
+		return await this.httpClient.http.post<LoginSuccess | NonSuccessResponse>("/auth/register", { registerInformation })
+	}
+
+	async logout(): Promise<AxiosResponse<ErrorResponse>> {
+		return await this.httpClient.http.post<ErrorResponse>("/auth/logout")
+	}
 	// TOOD: Add logout, register
 }
