@@ -4,7 +4,8 @@ import useLoginSubmit from "../hooks/auth/login-submit"
 import useRedirectKnownUser from "../hooks/redirects/redirect-known-user"
 import LoginAndRegistrationForm from "../components/login-and-registration-form/login-and-registration-form"
 
-function Login() {
+// TODO: Make this actually register
+function Register() {
 	const [loginInformation, setLoginInformation] =
 		useState<AuthCredentials>({
 			contact: "",
@@ -23,9 +24,9 @@ function Login() {
 			setCredentials = {setLoginInformation}
 			error = {error}
 			loading = {loading}
-			loginOrSignUp = "Login"
+			loginOrSignUp = "Sign up"
 		/>
 	)
 }
 
-export default observer(Login)
+export default observer(Register)

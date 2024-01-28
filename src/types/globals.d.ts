@@ -1,6 +1,6 @@
 declare global {
 	interface AuthCredentials {
-		email: string
+		contact: string
 		password: string
 	}
 }

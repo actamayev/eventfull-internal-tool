@@ -7,7 +7,7 @@ export default class EventfullITHttpClient {
 
 	constructor() {
 		this.http = axios.create({
-			baseURL: process.env.BASE_URL,
+			baseURL: process.env.REACT_APP_BASE_URL,
 			withCredentials: true,
 			headers: {
 				"Content-Type": "application/json",
