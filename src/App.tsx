@@ -4,6 +4,7 @@ import Dashboard from "./pages/dashboard"
 import Missing from "./pages/missing"
 import Register from "./pages/register"
 import useRetrievePersonalInfo from "./hooks/retrieve-personal-info"
+import AddEvent from "./pages/add-event"
 
 export default function App() {
 	useRetrievePersonalInfo()
@@ -14,6 +15,7 @@ export default function App() {
 			<Route path = "/login" element = {<Login />} />
 			<Route path = "/register" element = {<Register />} />
 			<Route path = "/dashboard" element = {<Dashboard />} />
+			<Route path = "/add-event" element = {<AddEvent />} />
 			<Route path = "*" element = {<Missing />} />
 		</Routes>
 	)
