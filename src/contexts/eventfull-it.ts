@@ -34,17 +34,12 @@ export class EventfullITContext {
 	private getAllDataFromStorage(): void {
 		this.getAuthDataFromStorage()
 		if (_.isNull(this.authClass.accessToken)) return
-		this.getPersonalDataFromStorage()
+		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
 	}
 
 	public getAuthDataFromStorage(): void {
 		this.authClass.getAuthDataFromStorage()
 		this.eventfullApiClient.httpClient.accessToken = this.authClass.accessToken
-	}
-
-	private getPersonalDataFromStorage(): void {
-		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
-		this.personalData.getPersonalDataFromStorage()
 	}
 
 	public setDataAfterLogin(accessToken: string, userInfo: PersonalInfoLoginSuccess): void {
@@ -57,7 +52,7 @@ export class EventfullITContext {
 		this.setPersonalData(userInfo)
 	}
 
-	private setPersonalData(userInfo: PersonalInfoLoginSuccess): void {
+	public setPersonalData(userInfo: PersonalInfoLoginSuccess): void {
 		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
 		this.personalData.savePersonalData(userInfo)
 	}
@@ -69,7 +64,6 @@ export class EventfullITContext {
 
 	public logout(): void {
 		localStorage.clear()
-		sessionStorage.clear()
 		runInAction(() => {
 			this.authClass = new AuthClass()
 			this.personalData = null

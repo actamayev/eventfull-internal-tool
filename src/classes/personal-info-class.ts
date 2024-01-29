@@ -1,10 +1,10 @@
 import _ from "lodash"
-import { makeAutoObservable, runInAction } from "mobx"
+import { makeAutoObservable } from "mobx"
 
 export default class PersonalInfoClass {
 	private _firstName: string | null = null
 	private _lastName: string | null = null
-	private _email?: string | null = null
+	private _email: string | null = null
 	private _username: string | null = null
 
 	constructor() {
@@ -27,11 +27,11 @@ export default class PersonalInfoClass {
 		return this._lastName
 	}
 
-	get email(): string | null | undefined {
+	get email(): string | null {
 		return this._email
 	}
 
-	set email(email: string | null | undefined) {
+	set email(email: string | null) {
 		this._email = email
 	}
 
@@ -43,37 +43,10 @@ export default class PersonalInfoClass {
 		this._username = username
 	}
 
-	// TODO: remove this. don't save personal data in session storage. if it doesn't exist, fetch it from the server.
-	public getPersonalDataFromStorage(): void {
-		const storedFirstName = sessionStorage.getItem("First Name")
-		const storedLastName = sessionStorage.getItem("Last Name")
-		const storedUsername = sessionStorage.getItem("Username")
-		const storedEmail = sessionStorage.getItem("Email")
-
-		runInAction(() => {
-			if (!_.isUndefined(storedFirstName)) this.firstName = storedFirstName
-			if (!_.isUndefined(storedLastName)) this.lastName = storedLastName
-			if (!_.isUndefined(storedUsername)) this.username = storedUsername
-			if (!_.isUndefined(storedEmail)) this.email = storedEmail
-		})
-	}
-
 	public savePersonalData(personalData: PersonalInfoLoginSuccess): void {
-		if (!_.isUndefined(personalData.firstName)) {
-			this.firstName = personalData.firstName
-			sessionStorage.setItem("First Name", personalData.firstName)
-		}
-		if (!_.isUndefined(personalData.lastName)) {
-			this.lastName = personalData.lastName
-			sessionStorage.setItem("Last Name", personalData.lastName)
-		}
-		if (!_.isUndefined(personalData.username)) {
-			this.username = personalData.username
-			sessionStorage.setItem("Username", personalData.username)
-		}
-		if (!_.isUndefined(personalData.email)) {
-			this.email = personalData.email
-			sessionStorage.setItem("Email", personalData.email)
-		}
+		if (!_.isUndefined(personalData.firstName)) this.firstName = personalData.firstName
+		if (!_.isUndefined(personalData.lastName)) this.lastName = personalData.lastName
+		if (!_.isUndefined(personalData.username)) this.username = personalData.username
+		if (!_.isUndefined(personalData.email)) this.email = personalData.email
 	}
 }

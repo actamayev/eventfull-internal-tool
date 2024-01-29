@@ -18,6 +18,8 @@ declare global {
 	type LoginSuccess = PersonalInfoLoginSuccess & {
 		accessToken: string
 	}
+
+	type PersonalInfoResponse = { personalInfo: PersonalInfoLoginSuccess }
 }
 
 export {}

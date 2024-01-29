@@ -18,7 +18,6 @@ function Sidebar() {
 			if (!_.isEqual(response.status, 200) || isErrorResponse(response.data)) {
 				throw new Error("Failed to logout")
 			}
-			console.log(response.data)
 			appContext.logout()
 			navigate("/login")
 		} catch (error) {
@@ -31,7 +30,6 @@ function Sidebar() {
 	return (
 		<div className="fixed left-0 top-0 h-full w-30 bg-gray-800 text-white flex flex-col justify-between">
 			<div className="flex items-center justify-start p-4">
-				{/* <img src="path-to-your-image.jpg" alt="Logo" className="h-8 w-8 mr-2" /> */}
 				<span className="text-lg font-semibold">Eventfull</span>
 			</div>
 			<div className="p-4 text-center">

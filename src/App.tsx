@@ -3,8 +3,11 @@ import Login from "./pages/login"
 import Dashboard from "./pages/dashboard"
 import Missing from "./pages/missing"
 import Register from "./pages/register"
+import useRetrievePersonalInfo from "./hooks/retrieve-personal-info"
 
 export default function App() {
+	useRetrievePersonalInfo()
+
 	return (
 		<Routes>
 			<Route path = "/" element = {<Login />} />

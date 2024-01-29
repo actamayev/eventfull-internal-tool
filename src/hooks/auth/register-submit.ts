@@ -39,7 +39,6 @@ export default function useRegisterSubmit (): (
 			appContext.setDataAfterRegister(response.data.accessToken, registerInfo)
 			navigate("/dashboard")
 		} catch (error: unknown) {
-			console.log(error)
 			setErrorAxiosResponse(error, setError, "Unable to register")
 		}
 		setLoading(false)
