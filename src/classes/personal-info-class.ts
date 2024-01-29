@@ -43,6 +43,7 @@ export default class PersonalInfoClass {
 		this._username = username
 	}
 
+	// TODO: remove this. don't save personal data in session storage. if it doesn't exist, fetch it from the server.
 	public getPersonalDataFromStorage(): void {
 		const storedFirstName = sessionStorage.getItem("First Name")
 		const storedLastName = sessionStorage.getItem("Last Name")

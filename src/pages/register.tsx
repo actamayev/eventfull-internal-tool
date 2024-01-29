@@ -36,11 +36,16 @@ function Register() {
 
 	const registerSubmit = useRegisterSubmit()
 
-
 	const setRegisterInformationGeneric = (newCredentials: Partial<RegisterCredentials>) => {
 		setRegisterInformation(prev => ({ ...prev, ...newCredentials }))
 	}
 
+	// TODO: Validate the register information client-side.
+	// make sure the password is at least 6 characters long,
+	// validate email.
+	// make sure the username is at least 3 characters long.
+	// make sure the username is not taken (make a request to the server while the user is typing).
+	// make sure the email is not taken (make a request to the server while the user is typing).
 	return (
 		<AuthTemplate loginOrSignUp="Sign up">
 			<form>
