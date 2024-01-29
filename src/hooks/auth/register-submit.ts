@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { isNonSuccessResponse } from "src/utils/type-checks"
 import AppContext from "../../contexts/eventfull-it-context"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
-import registerFieldsErrorParser from "../../utils/auth/register-fields-error-parser"
+import confirmRegisterFields from "../../utils/auth/confirm-register-fields"
 
 export default function useRegisterSubmit (): (
 	e: React.FormEvent<HTMLFormElement>,
@@ -24,7 +24,7 @@ export default function useRegisterSubmit (): (
 		e.preventDefault()
 		setError("")
 		try {
-			const areCredentialsValid = registerFieldsErrorParser(registerInformationObject, setError)
+			const areCredentialsValid = confirmRegisterFields(registerInformationObject, setError)
 			if (areCredentialsValid === false) return
 
 			setLoading(true)

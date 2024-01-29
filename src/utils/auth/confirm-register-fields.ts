@@ -2,7 +2,7 @@ import _ from "lodash"
 import validator from "validator"
 
 // eslint-disable-next-line complexity
-export default function registerFieldsErrorParser(credentials: RegisterCredentials, setError: (error: string) => void): boolean {
+export default function confirmRegisterFields(credentials: RegisterCredentials, setError: (error: string) => void): boolean {
 	if (_.isEmpty(credentials.email)) {
 		setError("Please enter an Email")
 		return false

@@ -1,9 +1,15 @@
 import _ from "lodash"
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 import { Autocomplete } from "@react-google-maps/api"
+import FormGroup from "../form-group"
 
-function AddressInput() {
-	const [address, setAddress] = useState("")
+interface Props {
+	eventDetails: CreatingEvent,
+	setEventDetails: React.Dispatch<React.SetStateAction<CreatingEvent>>,
+}
+
+function AddressInput(props: Props) {
+	const { eventDetails, setEventDetails } = props
 	const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null)
 
 	useEffect(() => {
@@ -13,7 +19,7 @@ function AddressInput() {
 			const place = autocompleteRef.current?.getPlace()
 			if (!_.isUndefined(place)) {
 				if (!place.formatted_address) return
-				setAddress(place.formatted_address)
+				setEventDetails({...eventDetails, address: place.formatted_address})
 				// You can get more data from 'place' object like coordinates
 			}
 		})
@@ -29,11 +35,15 @@ function AddressInput() {
 				autocompleteRef.current = autocomplete
 			}}
 		>
-			<input
+			<FormGroup
+				id="address"
+				label="Address"
 				type="text"
-				value={address}
-				onChange={(e) => setAddress(e.target.value)}
-				placeholder="Enter your address"
+				placeholder="Bowser's Castle"
+				value={eventDetails.address}
+				onChange={(e) => setEventDetails({...eventDetails, address: e.target.value})}
+				required
+
 			/>
 		</Autocomplete>
 	)
