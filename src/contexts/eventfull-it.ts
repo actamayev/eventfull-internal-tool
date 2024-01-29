@@ -47,12 +47,17 @@ export class EventfullITContext {
 		this.personalData.getPersonalDataFromStorage()
 	}
 
-	public setDataAfterLogin(accessToken: string, userInfo: LoginSuccess): void {
+	public setDataAfterLogin(accessToken: string, userInfo: PersonalInfoLoginSuccess): void {
 		this.setAccessToken(accessToken)
 		this.setPersonalData(userInfo)
 	}
 
-	private setPersonalData(userInfo: LoginSuccess): void {
+	public setDataAfterRegister(accessToken: string, userInfo: PersonalInfoLoginSuccess): void {
+		this.setAccessToken(accessToken)
+		this.setPersonalData(userInfo)
+	}
+
+	private setPersonalData(userInfo: PersonalInfoLoginSuccess): void {
 		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
 		this.personalData.savePersonalData(userInfo)
 	}

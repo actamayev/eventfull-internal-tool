@@ -8,12 +8,15 @@ declare global {
 	type NonSuccessResponse = MessageResponse | ErrorResponses
 	type AllCommonResponses = SuccessResponse | NonSuccessResponse
 
-	type LoginSuccess = {
+	type PersonalInfoLoginSuccess = {
+		firstName: string
+		lastName: string
+		email: string
+		username: string
+	}
+
+	type LoginSuccess = PersonalInfoLoginSuccess & {
 		accessToken: string
-		firstName?: string
-		lastName?: string
-		email?: string
-		username?: string
 	}
 }
 

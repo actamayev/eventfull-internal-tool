@@ -1,14 +1,6 @@
 import { Link } from "react-router-dom"
 
-interface Props {
-	loginOrSignUp: "Login" | "Sign up"
-}
-
-export default function NeedNewAccountLink (props: Props) {
-	const { loginOrSignUp } = props
-
-	if (loginOrSignUp !== "Login") return null
-
+export default function NeedNewAccountLink () {
 	return (
 		<div className = "w-100 text-center mt-2">
 			Need an account?

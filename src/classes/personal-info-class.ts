@@ -57,7 +57,7 @@ export default class PersonalInfoClass {
 		})
 	}
 
-	public savePersonalData(personalData: LoginSuccess): void {
+	public savePersonalData(personalData: PersonalInfoLoginSuccess): void {
 		if (!_.isUndefined(personalData.firstName)) {
 			this.firstName = personalData.firstName
 			sessionStorage.setItem("First Name", personalData.firstName)

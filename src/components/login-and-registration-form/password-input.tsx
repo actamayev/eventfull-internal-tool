@@ -1,9 +1,9 @@
 import FormGroup from "../form-group"
 
 interface Props {
-	credentials: AuthCredentials,
-	setCredentials: (credentials: AuthCredentials) => void,
-	showPassword: "text" | "password",
+	credentials: AuthCredentials | RegisterCredentials,
+    setCredentials: (newCredentials: Partial<AuthCredentials | RegisterCredentials>) => void;
+	showPassword: "text" | "password"
 }
 
 export default function PasswordInput (props: Props) {
@@ -15,7 +15,7 @@ export default function PasswordInput (props: Props) {
 			label = "Password"
 			type = {showPassword}
 			placeholder = "Password"
-			onChange = {(event) => setCredentials({...credentials, password: event.target.value})}
+			onChange={(event) => setCredentials({ password: event.target.value })}
 			required
 			value = {credentials.password || ""}
 		/>

@@ -1,4 +1,5 @@
-import FormGroup from "../form-group"
+import FormGroup from "../../form-group"
+import isAuthCredentials from "../../../utils/is-login-credentials"
 
 interface Props {
 	credentials: AuthCredentials,
@@ -7,6 +8,9 @@ interface Props {
 
 export default function ContactInput (props: Props) {
 	const { credentials, setCredentials } = props
+
+	if (isAuthCredentials(credentials) === false) return null
+
 	return (
 		<FormGroup
 			id = "contact"
