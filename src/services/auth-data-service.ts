@@ -9,8 +9,10 @@ export default class AuthDataService {
 		return await this.httpClient.http.post<LoginSuccess | NonSuccessResponse>("/auth/login", { loginInformation })
 	}
 
-	async register(registerInformation: RegisterCredentialsWithoutConfirmation): Promise<AxiosResponse<LoginSuccess | NonSuccessResponse>> {
-		return await this.httpClient.http.post<LoginSuccess | NonSuccessResponse>("/auth/register", { registerInformation })
+	async register(
+		registerInformation: RegisterCredentialsWithoutConfirmation
+	): Promise<AxiosResponse<AccesTokenResponse | NonSuccessResponse>> {
+		return await this.httpClient.http.post<AccesTokenResponse | NonSuccessResponse>("/auth/register", { registerInformation })
 	}
 
 	async logout(): Promise<AxiosResponse<ErrorResponse>> {

@@ -12,8 +12,8 @@ export default function UsernameInput (props: Props) {
 		<FormGroup
 			id = "username"
 			label = "Username"
-			type = "contact"
-			placeholder = "abc@123.com"
+			type = "username"
+			placeholder = "tigerKing123"
 			onChange = {(event) => setCredentials({...credentials, username: event.target.value})}
 			required
 			value = {credentials.username || ""}

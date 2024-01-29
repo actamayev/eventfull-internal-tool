@@ -19,6 +19,8 @@ declare global {
 		accessToken: string
 	}
 
+	type AccesTokenResponse = { accessToken: string }
+
 	type PersonalInfoResponse = { personalInfo: PersonalInfoLoginSuccess }
 }
 
