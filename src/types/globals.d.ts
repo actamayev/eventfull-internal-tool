@@ -1,5 +1,5 @@
 declare global {
-	interface AuthCredentials {
+	interface LoginCredentials {
 		contact: string
 		password: string
 	}

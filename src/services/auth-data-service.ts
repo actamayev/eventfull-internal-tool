@@ -5,7 +5,7 @@ export default class AuthDataService {
 	constructor(private readonly httpClient: EventfullITHttpClient) {
 	}
 
-	async login(loginInformation: AuthCredentials): Promise<AxiosResponse<LoginSuccess | NonSuccessResponse>> {
+	async login(loginInformation: LoginCredentials): Promise<AxiosResponse<LoginSuccess | NonSuccessResponse>> {
 		return await this.httpClient.http.post<LoginSuccess | NonSuccessResponse>("/auth/login", { loginInformation })
 	}
 

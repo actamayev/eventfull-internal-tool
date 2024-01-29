@@ -13,7 +13,7 @@ import ShowOrHidePasswordButton from "../components/login-and-registration-form/
 function Login() {
 	useRedirectKnownUser()
 	const [loginInformation, setLoginInformation] =
-		useState<AuthCredentials>({
+		useState<LoginCredentials>({
 			contact: "",
 			password: ""
 		})
@@ -28,14 +28,18 @@ function Login() {
 
 	const loginSubmit = useLoginSubmit()
 
-
-	const setLoginInformationGeneric = (newCredentials: Partial<AuthCredentials>) => {
+	const setLoginInformationGeneric = (newCredentials: Partial<LoginCredentials>) => {
 		setLoginInformation(prev => ({ ...prev, ...newCredentials }))
+	}
+
+	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+		e.preventDefault()
+		await loginSubmit(e, loginInformation, setError, setLoading)
 	}
 
 	return (
 		<AuthTemplate loginOrSignUp="Login">
-			<form>
+			<form onSubmit={handleFormSubmit}>
 				<ContactInput
 					credentials={loginInformation}
 					setCredentials={setLoginInformation}
@@ -61,7 +65,6 @@ function Login() {
 					disabled = {loading}
 					title = "Login"
 					textColor = "text-white"
-					onClick = {(e) => loginSubmit(e, loginInformation, setError, setLoading)}
 				/>
 			</form>
 			<NeedNewAccountLink />

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { isNonSuccessResponse } from "src/utils/type-checks"
 import AppContext from "../../contexts/eventfull-it"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
+import registerFieldsErrorParser from "../../utils/auth/register-fields-error-parser"
 
 export default function useRegisterSubmit (): (
 	e: React.FormEvent<HTMLFormElement>,
@@ -22,12 +23,10 @@ export default function useRegisterSubmit (): (
 	): Promise<void> => {
 		e.preventDefault()
 		setError("")
-		if (registerInformationObject.password !== registerInformationObject.passwordConfirmation) {
-			setError("Passwords do not match")
-			return
-		}
-
 		try {
+			const areCredentialsValid = registerFieldsErrorParser(registerInformationObject, setError)
+			if (areCredentialsValid === false) return
+
 			setLoading(true)
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const { passwordConfirmation, ...registerInfo } = registerInformationObject
