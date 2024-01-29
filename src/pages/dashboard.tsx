@@ -10,12 +10,13 @@ function Dashboard() {
 	const handleNavigateToAddEvent = () => {
 		navigate("/add-event")
 	}
+
 	return (
 		<div className="flex-grow">
 			<div className="mx-auto w-full max-w-md">
 				<h1>Dashboard</h1>
 				<Button
-					title = "Add event"
+					title = "+ Add event"
 					onClick={handleNavigateToAddEvent}
 					colorClass="bg-green-500"
 					hoverClass="hover:bg-green-600"

@@ -8,16 +8,31 @@ declare global {
 
 	type EventFrequency = "one-time" | "repeated" | "regularly-repeated" | "ongoing"
 
+	type DayOfWeek = "Sunday" | "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday"
+
 	interface DateTimes {
 		startDateTime: Date
 		endDateTime: Date
+	}
+
+	interface OngoingEvents {
+		dayOfWeek: DayOfWeek
+		startTime: string
+		endTime: string
 	}
 
 	interface CreatingEvent {
 		eventName: string
 		eventFrequency: EventFrequency | ""
 		address: string
-		eventTimeSpanMinutes: number
+		eventTimeSpanMinutes: {
+			hours: number
+			minutes: number
+		}
+		addedBy?: string // TODO: add this: Username of the user who added the event
+
+		// For ongoing events:
+		ongoingEventTimes?: OngoingEvents[]
 
 		// For repeated events:
 		dates?: DateTimes[]
