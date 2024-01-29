@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import AppContext, { EventfullITContext } from "./contexts/eventfull-it"
+import AppContext, { EventfullITContext } from "./contexts/eventfull-it-context"
 
 export default function TopLevelComponent ({ children } : { children: React.ReactNode }) {
 	const sharedState = useMemo(() => new EventfullITContext(), [])

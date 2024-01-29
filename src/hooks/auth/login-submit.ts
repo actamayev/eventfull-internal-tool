@@ -2,7 +2,7 @@ import _ from "lodash"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { isNonSuccessResponse } from "src/utils/type-checks"
-import AppContext from "../../contexts/eventfull-it"
+import AppContext from "../../contexts/eventfull-it-context"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
 import loginFieldsErrorParser from "../../utils/auth/login-fields-error-parser"
 

@@ -1,0 +1,86 @@
+import _ from "lodash"
+import { observer } from "mobx-react"
+import { useContext, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import AppContext from "../contexts/eventfull-it-context"
+import { isErrorResponse } from "../utils/type-checks"
+import Button from "./button"
+import VerticalNavBar from "./vertical-nav"
+import CustomLink, { TopNavLink } from "./custom-link"
+
+interface Props {
+	children: React.ReactNode
+}
+
+function Layout (props: Props) {
+	const { children } = props
+	const appContext = useContext(AppContext)
+	const navigate = useNavigate()
+	const [logoutDisabled, setLogoutDisabled] = useState(false)
+
+	const handleLogout = async (): Promise<void> => {
+		try {
+			setLogoutDisabled(true)
+			const response = await appContext.eventfullApiClient.authDataService.logout()
+			if (!_.isEqual(response.status, 200) || isErrorResponse(response.data)) {
+				throw new Error("Failed to logout")
+			}
+			appContext.logout()
+			navigate("/")
+		} catch (error) {
+			console.error(error)
+		} finally {
+			setLogoutDisabled(false)
+		}
+	}
+
+	function LinkToHome () {
+		if (!_.isNull(appContext.authClass.accessToken)) {
+			return <CustomLink href = "/dashboard" title = "Eventfull" css = "text-white font-bold text-xl"/>
+		}
+		return <CustomLink href = "/" title = "Eventfull" css = "text-white font-bold text-xl"/>
+	}
+
+	function LoginLogout () {
+		if (_.isNull(appContext.authClass.accessToken)) {
+			return <TopNavLink href = "/" title = "Login"/>
+		}
+		return (
+			<Button
+				title = "Logout"
+				onClick={handleLogout}
+				disabled={logoutDisabled}
+				colorClass="bg-red-500"
+				hoverClass="hover:bg-red-600"
+			/>
+		)
+	}
+
+	function ShowVerticalNavBar () {
+		if (_.isNull(appContext.authClass.accessToken)) return null
+		return <VerticalNavBar />
+	}
+
+	return (
+		<div>
+			<nav className="bg-gray-900">
+				<div className="mx-auto px-4 flex justify-between h-16">
+					<div className="flex items-center">
+						<LinkToHome />
+					</div>
+					<div className="flex items-center space-x-4">
+						<LoginLogout />
+					</div>
+				</div>
+			</nav>
+			<div className="flex flex-row">
+				<ShowVerticalNavBar />
+				<div className="flex-1 w-full bg-white overflow-y-auto px-20 py-14">
+					{children}
+				</div>
+			</div>
+		</div>
+	)
+}
+
+export default observer(Layout)

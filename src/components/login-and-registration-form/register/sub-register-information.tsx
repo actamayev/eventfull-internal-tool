@@ -5,7 +5,7 @@ export default function SubRegisterInformation () {
 		<div className = "w-100 text-center mt-2">
 			Already have an account? {""}
 			<Link
-				to = "/login"
+				to = "/"
 				className="font-bold hover:underline"
 			>
 				Log In

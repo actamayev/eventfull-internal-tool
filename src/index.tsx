@@ -5,6 +5,7 @@ import { disableReactDevTools } from "@fvilers/disable-react-devtools"
 import "./styles/index.css"
 import App from "./App"
 import TopLevelComponent from "./top-level-component"
+import Layout from "./components/layout"
 
 if (process.env.NODE_ENV === "production") disableReactDevTools()
 
@@ -16,10 +17,12 @@ root.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<TopLevelComponent>
+				<Layout>
 
-				<Routes>
-					<Route path = "/*" element = {<App/>} />
-				</Routes>
+					<Routes>
+						<Route path = "/*" element = {<App/>} />
+					</Routes>
+				</Layout>
 
 			</TopLevelComponent>
 		</BrowserRouter>

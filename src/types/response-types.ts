@@ -8,6 +8,7 @@ declare global {
 	type NonSuccessResponse = MessageResponse | ErrorResponses
 	type AllCommonResponses = SuccessResponse | NonSuccessResponse
 
+	// Auth:
 	type PersonalInfoLoginSuccess = {
 		firstName: string
 		lastName: string
@@ -21,7 +22,18 @@ declare global {
 
 	type AccesTokenResponse = { accessToken: string }
 
+	// Personal Info:
 	type PersonalInfoResponse = { personalInfo: PersonalInfoLoginSuccess }
+
+	// Events:
+	type NewEventResponse = {
+		eventId: string
+		eventName: string
+		eventFrequency: EventFrequency
+		isActive: boolean
+		createdAt: Date
+		updatedAt: Date
+	}
 }
 
 export {}

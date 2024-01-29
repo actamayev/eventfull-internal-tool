@@ -1,7 +1,7 @@
 import _ from "lodash"
 import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import AppContext from "../../contexts/eventfull-it"
+import AppContext from "../../contexts/eventfull-it-context"
 
 export default function useRedirectUnknownUser (): void {
 	const appContext = useContext(AppContext)
@@ -9,7 +9,7 @@ export default function useRedirectUnknownUser (): void {
 
 	useEffect(() => {
 		if (_.isNil(appContext.authClass.accessToken)) {
-			navigate("/login")
+			navigate("/")
 		}
 	}, [])
 }

@@ -2,12 +2,14 @@ import _ from "lodash"
 import { createContext } from "react"
 import { makeAutoObservable, runInAction } from "mobx"
 import AuthClass from "../classes/auth-class"
-import EventfullITApiClient from "../classes/eventfull-it-api-client"
+import EventsClass from "../classes/events/events-class"
 import PersonalInfoClass from "../classes/personal-info-class"
+import EventfullITApiClient from "../classes/eventfull-it-api-client"
 
 export class EventfullITContext {
 	private _authClass = new AuthClass()
 	private _personalData: PersonalInfoClass | null = null
+	private _eventsData: EventsClass | null = null
 	public eventfullApiClient = new EventfullITApiClient()
 
 	constructor() {
@@ -31,10 +33,19 @@ export class EventfullITContext {
 		this._personalData = personalData
 	}
 
+	get eventsData(): EventsClass | null {
+		return this._eventsData
+	}
+
+	set eventsData(eventsData: EventsClass | null) {
+		this._eventsData = eventsData
+	}
+
 	private getAllDataFromStorage(): void {
 		this.getAuthDataFromStorage()
 		if (_.isNull(this.authClass.accessToken)) return
 		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
+		if (_.isNull(this.eventsData)) this.eventsData = new EventsClass()
 	}
 
 	public getAuthDataFromStorage(): void {
@@ -67,6 +78,7 @@ export class EventfullITContext {
 		runInAction(() => {
 			this.authClass = new AuthClass()
 			this.personalData = null
+			this.eventsData = null
 			this.eventfullApiClient = new EventfullITApiClient()
 		})
 	}
