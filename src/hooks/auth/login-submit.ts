@@ -1,0 +1,46 @@
+import _ from "lodash"
+import { useContext } from "react"
+import { useNavigate } from "react-router-dom"
+import { isNonSuccessResponse } from "src/utils/type-checks"
+import AppContext from "../../contexts/eventfull-it"
+import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
+import loginFieldsErrorParser from "../../utils/auth/login-fields-error-parser"
+
+export default function useLoginSubmit (): (
+	e: React.FormEvent<HTMLFormElement>,
+	loginInformation: LoginCredentials,
+	setError: (error: string) => void,
+	setLoading: (loading: boolean) => void,
+) => Promise<void> {
+	const appContext = useContext(AppContext)
+	const navigate = useNavigate()
+
+	const loginSubmit = async (
+		e: React.FormEvent<HTMLFormElement>,
+		loginInformation: LoginCredentials,
+		setError: (error: string) => void,
+		setLoading: (loading: boolean) => void,
+	): Promise<void> => {
+		setError("")
+		e.preventDefault()
+
+		try {
+			const areCredentialsValid = loginFieldsErrorParser(loginInformation, setError)
+			if (areCredentialsValid === false) return
+
+			setLoading(true)
+			const response = await appContext.eventfullApiClient.authDataService.login(loginInformation)
+			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
+				setError("Unable to login. Please reload and try again.")
+				return
+			}
+			appContext.setDataAfterLogin(response.data.accessToken, response.data)
+			navigate("/dashboard")
+		} catch (error: unknown) {
+			setErrorAxiosResponse(error, setError, "Unable to login")
+		}
+		setLoading(false)
+	}
+
+	return loginSubmit
+}
