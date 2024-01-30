@@ -2,10 +2,13 @@ import { observer } from "mobx-react"
 import { useNavigate } from "react-router-dom"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 import Button from "../components/button"
+import useRetrieveEvents from "../hooks/events/retrieve-events"
+import EventsGrid from "../components/events-grid"
 
 function Dashboard() {
 	const navigate = useNavigate()
 	useRedirectUnknownUser()
+	useRetrieveEvents()
 
 	const handleNavigateToAddEvent = () => {
 		navigate("/add-event")
@@ -22,6 +25,7 @@ function Dashboard() {
 					hoverClass="hover:bg-green-600"
 				/>
 			</div>
+			<EventsGrid />
 		</div>
 	)
 }

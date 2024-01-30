@@ -26,13 +26,39 @@ declare global {
 	type PersonalInfoResponse = { personalInfo: PersonalInfoLoginSuccess }
 
 	// Events:
-	type NewEventResponse = {
-		eventId: string
+	type SingleEventResponse = { event: EventFromDB }
+	type EventsResponse = { events: EventFromDB[] }
+
+	interface EventFromDB extends TimestampsInterface {
+		_id: string
+		address: string
+		attendees: string[]
+		canInvitedUsersInviteOthers: boolean
+		coHosts: string[]
+		createdBy: {
+			createdAt: Date
+			isCreatedByAdmin: boolean
+			userId: string
+			username: string
+		}
+		eventCapacity: number | null
+		eventDescription: string
+		eventDuration: {
+			hours: number
+			minutes: number
+		}
+		eventEndTime: Date
 		eventName: string
-		eventFrequency: EventFrequency
+		eventPrice: number
+		eventPublic: boolean
+		eventReviewable: boolean
+		eventStartTime: Date
+		eventType: string
+		eventURL: string | null
+		extraEventCategories: string[]
+		invitees: string[]
 		isActive: boolean
-		createdAt: Date
-		updatedAt: Date
+		isVirtual: boolean
 	}
 }
 

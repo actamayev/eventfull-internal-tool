@@ -42,6 +42,13 @@ declare global {
 		// For one time events:
 		eventTime?: Date | null
 	}
+
+	interface GridRowData {
+		eventName: string
+		eventDescription: string
+		address: string
+		createdByUsername: string
+	}
 }
 
 export {}

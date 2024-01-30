@@ -11,6 +11,7 @@ export default function useAddEvent(): (
 ) => Promise<void> {
 	const appContext = useContext(AppContext)
 	const navigate = useNavigate()
+
 	const addEventSubmit = async (
 		e: React.FormEvent<HTMLFormElement>,
 		eventDetails: CreatingEvent
@@ -25,7 +26,7 @@ export default function useAddEvent(): (
 			}
 
 			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
-			appContext.eventsData.addEvent(response.data)
+			appContext.eventsData.addEvent(response.data.event)
 			navigate("/dashboard")
 		} catch (error) {
 			console.error(error)
