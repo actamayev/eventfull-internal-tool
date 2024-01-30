@@ -1,4 +1,3 @@
-import _ from "lodash"
 import { useEffect, useRef } from "react"
 import { Autocomplete } from "@react-google-maps/api"
 import FormGroup from "../form-group"
@@ -17,17 +16,16 @@ function AddressInput(props: Props) {
 
 		const listener = autocompleteRef.current.addListener("place_changed", () => {
 			const place = autocompleteRef.current?.getPlace()
-			if (!_.isUndefined(place)) {
-				if (!place.formatted_address) return
+			if (place && place.formatted_address) {
 				setEventDetails({...eventDetails, address: place.formatted_address})
-				// You can get more data from 'place' object like coordinates
 			}
 		})
 
 		return () => {
-			listener.remove()
+			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+			if (listener) listener.remove()
 		}
-	}, [])
+	}, [setEventDetails, eventDetails])  // Add dependencies here
 
 	return (
 		<Autocomplete

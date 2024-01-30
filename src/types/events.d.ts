@@ -25,11 +25,14 @@ declare global {
 		eventName: string
 		eventFrequency: EventFrequency | ""
 		address: string
-		eventTimeSpanMinutes: {
+		eventDuration: {
 			hours: number
 			minutes: number
 		}
-		addedBy?: string // TODO: add this: Username of the user who added the event
+		eventDescription: string
+		eventPrice: number
+
+		eventURL?: string
 
 		// For ongoing events:
 		ongoingEventTimes?: OngoingEvents[]
@@ -37,7 +40,7 @@ declare global {
 		// For repeated events:
 		dates?: DateTimes[]
 		// For one time events:
-		eventTime?: Date
+		eventTime?: Date | null
 	}
 }
 

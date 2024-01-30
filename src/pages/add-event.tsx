@@ -30,14 +30,17 @@ export default function AddEvent() {
 		eventName: "",
 		eventFrequency: "",
 		address: "",
-		eventTimeSpanMinutes: {
+		eventDuration: {
 			hours: 0,
 			minutes: 0,
 		},
+		eventDescription: "Test description",
+		eventURL: "google.com",
+		eventPrice: 0,
 
 		ongoingEventTimes: [],
 		dates: [],
-		eventTime: new Date(),
+		eventTime: null,
 	})
 	const addEvent = useAddEvent()
 
@@ -47,11 +50,9 @@ export default function AddEvent() {
 	})
 
 	const handleDurationChange = (hours: number, minutes: number) => {
-		console.log(`Event Duration: ${hours} hours and ${minutes} minutes`)
-
 		setEventDetails({
 			...eventDetails,
-			eventTimeSpanMinutes: {
+			eventDuration: {
 				hours: hours,
 				minutes: minutes
 			}
@@ -76,23 +77,29 @@ export default function AddEvent() {
 						setEventDetails={setEventDetails}
 					/>
 				)}
-				<select
-					value={eventDetails.eventFrequency}
-					onChange={(e) => setEventDetails({...eventDetails, eventFrequency: e.target.value as EventFrequency})}
-				>
-					<option value = "">Select Event Frequency</option>
-					<option value="ongoing">Ongoing</option>
-					<option value="one-time">One-time</option>
-					<option value="repeated">Non-standard Repeated</option>
-					<option value="regularly-repeated">Non-standard Repeated</option>
-				</select>
 				<EventDurationSelector onDurationChange={handleDurationChange} />
+				<div className="mt-1 mb-4">
+
+					<select
+						value={eventDetails.eventFrequency}
+						onChange={(e) => setEventDetails({...eventDetails, eventFrequency: e.target.value as EventFrequency})}
+						className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white \
+							rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+					>
+						<option value="">Select Event Frequency</option>
+						<option value="ongoing">Ongoing</option>
+						<option value="one-time">One-time</option>
+						<option value="repeated">Non-standard Repeated</option>
+						<option value="regularly-repeated">Regularly Repeated</option>
+					</select>
+
+				</div>
 				{eventDetails.eventFrequency === "one-time" && (
 					<FormGroup
 						id="event-date-time"
 						label="Event Date and Time"
 						type="datetime-local"
-						onChange={(e) => setEventDetails({...eventDetails, eventTime: new Date(e.target.value)})}
+						onChange={(e) => setEventDetails({...eventDetails, eventTime: e.target.value ? new Date(e.target.value) : null})}
 						required
 						value={eventDetails.eventTime instanceof Date ? formatDateToDateTimeLocal(eventDetails.eventTime) : ""}
 					/>

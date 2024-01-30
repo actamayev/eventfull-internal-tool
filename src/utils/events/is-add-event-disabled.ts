@@ -5,13 +5,20 @@ export default function isEventDisabled(eventDetails: CreatingEvent): boolean {
 		return true
 	} else if (_.isEmpty(eventDetails.address)) {
 		return true
-	} else if (_.isEmpty(eventDetails.eventTimeSpanMinutes)) {
+	} else if (_.isEmpty(eventDetails.eventDuration)) {
 		return true
-	} else if (eventDetails.eventFrequency === "one-time" && _.isEmpty(eventDetails.eventTime)) {
-		return true
-	} else if (eventDetails.eventFrequency !== "one-time" && _.isEmpty(eventDetails.dates)) {
-		return true
+	}
+	return frequencyCheck(eventDetails)
+}
+
+const frequencyCheck = (eventDetails: CreatingEvent): boolean => {
+	if (eventDetails.eventFrequency === "one-time") {
+		return _.isNull(eventDetails.eventTime)
+	} else if (eventDetails.eventFrequency === "repeated") {
+		return _.isEmpty(eventDetails.dates)
+	} else if (eventDetails.eventFrequency === "ongoing") {
+		return _.isEmpty(eventDetails.ongoingEventTimes)
 	} else {
-		return false
+		return true
 	}
 }
