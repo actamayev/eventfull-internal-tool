@@ -12,6 +12,31 @@ export default function ChooseOneTimeEvent(props: Props) {
 
 	if (eventDetails.eventFrequency !== "one-time") return null
 
+	const handleEndTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const newEndTime = e.target.value ? new Date(e.target.value) : null
+		const startTime = eventDetails.singularEventTime?.startTime !== undefined
+			? eventDetails.singularEventTime.startTime
+			: null
+
+		if (newEndTime && startTime && newEndTime > startTime) {
+			// Valid end time, update the state
+			setEventDetails({
+				...eventDetails,
+				singularEventTime: {
+					...eventDetails.singularEventTime,
+					startTime: startTime, // startTime is now guaranteed to be Date or null
+					endTime: newEndTime,
+					eventDuration: calculateEventDuration(startTime, newEndTime)
+				},
+			})
+		} else {
+			// Invalid end time, show an error or revert to a valid value
+			alert("End time must be after the start time.")
+			// eslint-disable-next-line max-len
+			e.target.value = eventDetails.singularEventTime?.endTime ? formatDateToDateTimeLocal(eventDetails.singularEventTime.endTime) : ""
+		}
+	}
+
 	return (
 		<>
 			<FormGroup
@@ -40,7 +65,6 @@ export default function ChooseOneTimeEvent(props: Props) {
 				value={eventDetails.singularEventTime?.startTime ? formatDateToDateTimeLocal(eventDetails.singularEventTime.startTime) : ""}
 			/>
 
-			{/* TODO: The min time doesn't work for same day events. Ie if my min time is April 5, 10AM, i can still select April 5, 9AM */}
 			<FormGroup
 				id="event-end-time"
 				label="Event End Time"
@@ -48,25 +72,7 @@ export default function ChooseOneTimeEvent(props: Props) {
 				minDate={
 					eventDetails.singularEventTime?.startTime ? formatDateToDateTimeLocal(eventDetails.singularEventTime.startTime) : ""
 				}
-				onChange={(e) => {
-					const newEndTime = e.target.value ? new Date(e.target.value) : null
-
-					// Ensure endTime is either a Date or null, but not undefined
-					const startTime = eventDetails.singularEventTime?.startTime !== undefined
-						? eventDetails.singularEventTime.startTime
-						: null
-
-					setEventDetails({
-						...eventDetails,
-						singularEventTime: {
-							...eventDetails.singularEventTime,
-							startTime: startTime,  // Use the ensured startTime
-							endTime: newEndTime,
-							// Calculate eventDuration based on existing startTime and newEndTime
-							eventDuration: calculateEventDuration(startTime, newEndTime)
-						}
-					})
-				}}
+				onChange={handleEndTimeChange}
 				required
 				value={eventDetails.singularEventTime?.endTime ? formatDateToDateTimeLocal(eventDetails.singularEventTime.endTime) : ""}
 			/>

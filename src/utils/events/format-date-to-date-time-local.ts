@@ -3,6 +3,7 @@ export default function formatDateToDateTimeLocal(date: Date): string {
 		console.error("formatDateToDateTimeLocal expects a Date object")
 		return ""
 	}
+	// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 	const ten = (i: number) => (i < 10 ? "0" : "") + i
 	const year = date.getFullYear()
 	const month = ten(date.getMonth() + 1)
