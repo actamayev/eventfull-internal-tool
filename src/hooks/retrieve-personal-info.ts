@@ -15,7 +15,7 @@ export default function useRetrievePersonalInfo(): void {
 		try {
 			const response = await appContext.eventfullApiClient.personalDataService.retrievePersonalData()
 			if (!_.isEqual(response.status, 200) || isErrorResponse(response.data)) return
-			appContext.setPersonalData(response.data.personalInfo)
+			appContext.setAllPersonalData(response.data.personalInfo)
 		} catch (error) {
 			console.error(error)
 		}

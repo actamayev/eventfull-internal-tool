@@ -4,15 +4,23 @@ declare global {
 		password: string
 	}
 
-	interface RegisterCredentialsWithoutConfirmation {
+	interface OTPCredentials {
+		email: string
+		otp: string
+	}
+
+	interface InitialAdminRegisterInformation {
 		email: string
 		firstName: string
 		lastName: string
+	}
+
+	interface SecondaryAdminRegisterInformationWithoutConfirmation {
 		username: string
 		password: string
 	}
 
-	interface RegisterCredentials extends RegisterCredentialsWithoutConfirmation {
+	interface SecondaryAdminRegisterInformation extends SecondaryAdminRegisterInformationWithoutConfirmation {
 		passwordConfirmation: string
 	}
 }

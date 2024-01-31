@@ -1,30 +1,22 @@
 import { useState } from "react"
-import { observer } from "mobx-react"
-import useRedirectKnownUser from "../hooks/redirects/redirect-known-user"
 import AuthTemplate from "../components/login-and-registration-form/auth-template"
-import EmailInput from "../components/login-and-registration-form/register/email-input"
 import PasswordInput from "../components/login-and-registration-form/password-input"
 import ConfirmPassword from "../components/login-and-registration-form/register/confirm-password"
 import UsernameInput from "../components/login-and-registration-form/register/username-input"
-import FirstNameInput from "../components/login-and-registration-form/register/first-name-input"
-import LastNameInput from "../components/login-and-registration-form/register/last-name-input"
 import SubRegisterInformation from "../components/login-and-registration-form/register/sub-register-information"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
 import Button from "../components/button"
-import useRegisterSubmit from "../hooks/auth/register-submit"
 import ShowOrHidePasswordButton from "../components/login-and-registration-form/show-or-hide-password-button"
+import useSecondaryAdminInfoSubmit from "../hooks/auth/secondary-admin-info-submit"
+import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 
-// eslint-disable-next-line max-lines-per-function
-function Register() {
-	useRedirectKnownUser()
+export default function FinishAdminRegistration() {
+	useRedirectUnknownUser()
 	const [registerInformation, setRegisterInformation] =
-		useState<RegisterCredentials>({
+		useState<SecondaryAdminRegisterInformation>({
 			username: "",
 			password: "",
 			passwordConfirmation: "",
-			email: "",
-			firstName: "",
-			lastName: "",
 		})
 	const [error, setError] = useState("")
 	const [loading, setLoading] = useState(false)
@@ -35,41 +27,30 @@ function Register() {
 		return "password"
 	}
 
-	const registerSubmit = useRegisterSubmit()
+	const secondaryAdminSubmit = useSecondaryAdminInfoSubmit()
 
-	const setRegisterInformationGeneric = (newCredentials: Partial<RegisterCredentials>) => {
+	const setRegisterInformationGeneric = (newCredentials: Partial<SecondaryAdminRegisterInformation>) => {
 		setRegisterInformation(prev => ({ ...prev, ...newCredentials }))
 	}
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
-		await registerSubmit(e, registerInformation, setError, setLoading)
+		await secondaryAdminSubmit(e, registerInformation, setError, setLoading)
 	}
 
 	// TODO: make sure the username is not taken (make a request to the server while the user is typing).
-	// make sure the email is not taken (make a request to the server while the user is typing).
 	return (
-		<AuthTemplate loginOrSignUp="Sign up">
+		<AuthTemplate title="Finish Admin Registration">
 			<form onSubmit={handleFormSubmit}>
 				<div className="flex">
-					<div className="w-1/2">
-						<EmailInput
-							credentials={registerInformation}
-							setCredentials={setRegisterInformation}
-						/>
-					</div>
-
-					<div className="w-1/2 mx-4">
+					<div className="w-1/3 ml-4">
 
 						<UsernameInput
 							credentials = {registerInformation}
 							setCredentials = {setRegisterInformation}
 						/>
 					</div>
-				</div>
-
-				<div className="flex">
-					<div className="w-1/2">
+					<div className="w-1/3 mx-4">
 
 						<PasswordInput
 							credentials = {registerInformation}
@@ -77,31 +58,12 @@ function Register() {
 							showPassword = {isShowPassword()}
 						/>
 					</div>
-					<div className="w-1/2 mx-4">
+					<div className="w-1/2 mr-4">
 
 						<ConfirmPassword
 							credentials = {registerInformation}
 							setCredentials = {setRegisterInformation}
 							showPassword = {isShowPassword()}
-						/>
-					</div>
-
-				</div>
-
-				<div className="flex">
-					<div className="w-1/2">
-
-						<FirstNameInput
-							credentials = {registerInformation}
-							setCredentials = {setRegisterInformation}
-						/>
-					</div>
-
-					<div className="w-1/2 mx-4">
-
-						<LastNameInput
-							credentials = {registerInformation}
-							setCredentials = {setRegisterInformation}
 						/>
 					</div>
 
@@ -129,5 +91,3 @@ function Register() {
 		</AuthTemplate>
 	)
 }
-
-export default observer(Register)

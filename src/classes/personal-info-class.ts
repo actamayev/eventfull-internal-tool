@@ -43,10 +43,16 @@ export default class PersonalInfoClass {
 		this._username = username
 	}
 
-	public savePersonalData(personalData: PersonalInfoLoginSuccess): void {
+	public savePersonalData(personalData: PersonalInfo): void {
 		if (!_.isUndefined(personalData.firstName)) this.firstName = personalData.firstName
 		if (!_.isUndefined(personalData.lastName)) this.lastName = personalData.lastName
 		if (!_.isUndefined(personalData.username)) this.username = personalData.username
+		if (!_.isUndefined(personalData.email)) this.email = personalData.email
+	}
+
+	public savePersonalDataAfterOTPLogin(personalData: OTPLoginPersonalInfo): void {
+		if (!_.isUndefined(personalData.firstName)) this.firstName = personalData.firstName
+		if (!_.isUndefined(personalData.lastName)) this.lastName = personalData.lastName
 		if (!_.isUndefined(personalData.email)) this.email = personalData.email
 	}
 }

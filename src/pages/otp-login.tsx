@@ -1,58 +1,44 @@
 import { useState } from "react"
-import { observer } from "mobx-react"
-import useLoginSubmit from "../hooks/auth/login-submit"
 import useRedirectKnownUser from "../hooks/redirects/redirect-known-user"
 import AuthTemplate from "../components/login-and-registration-form/auth-template"
-import ContactInput from "../components/login-and-registration-form/login/contact-input"
-import PasswordInput from "../components/login-and-registration-form/password-input"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
 import Button from "../components/button"
-import ShowOrHidePasswordButton from "../components/login-and-registration-form/show-or-hide-password-button"
+import OTPInput from "../components/login-and-registration-form/login/otp-input"
+import useOTPLoginSubmit from "../hooks/auth/otp-login-submit"
+import EmailInput from "../components/login-and-registration-form/register/email-input"
 
-function Login() {
+export default function OTPLogin() {
 	useRedirectKnownUser()
 	const [loginInformation, setLoginInformation] =
-		useState<LoginCredentials>({
-			contact: "",
-			password: ""
+		useState<OTPCredentials>({
+			email: "",
+			otp: ""
 		})
 	const [error, setError] = useState("")
 	const [loading, setLoading] = useState(false)
-	const [showPassword, setShowPassword] = useState(false)
 
-	const isShowPassword = () => {
-		if (showPassword) return "text"
-		return "password"
-	}
+	const otpLoginSubmit = useOTPLoginSubmit()
 
-	const loginSubmit = useLoginSubmit()
-
-	const setLoginInformationGeneric = (newCredentials: Partial<LoginCredentials>) => {
+	const setLoginInformationGeneric = (newCredentials: Partial<OTPCredentials>) => {
 		setLoginInformation(prev => ({ ...prev, ...newCredentials }))
 	}
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
-		await loginSubmit(e, loginInformation, setError, setLoading)
+		await otpLoginSubmit(e, loginInformation, setError, setLoading)
 	}
 
 	return (
-		<AuthTemplate title="Login">
+		<AuthTemplate title="Login with One-Time Passcode">
 			<form onSubmit={handleFormSubmit}>
-				<ContactInput
+				<EmailInput
 					credentials={loginInformation}
-					setCredentials={setLoginInformation}
+					setCredentials={setLoginInformationGeneric}
 				/>
 
-				<PasswordInput
+				<OTPInput
 					credentials = {loginInformation}
 					setCredentials = {setLoginInformationGeneric}
-					showPassword = {isShowPassword()}
-				/>
-
-				<ShowOrHidePasswordButton
-					showPassword = {showPassword}
-					setShowPassword = {setShowPassword}
 				/>
 
 				<ErrorMessage error={error} />
@@ -69,5 +55,3 @@ function Login() {
 		</AuthTemplate>
 	)
 }
-
-export default observer(Login)

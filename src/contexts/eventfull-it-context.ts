@@ -53,19 +53,29 @@ export class EventfullITContext {
 		this.eventfullApiClient.httpClient.accessToken = this.authClass.accessToken
 	}
 
-	public setDataAfterLogin(accessToken: string, userInfo: PersonalInfoLoginSuccess): void {
+	public setDataAfterLogin(accessToken: string, userInfo: PersonalInfo): void {
 		this.setAccessToken(accessToken)
-		this.setPersonalData(userInfo)
+		this.setAllPersonalData(userInfo)
 	}
 
-	public setDataAfterRegister(accessToken: string, userInfo: PersonalInfoLoginSuccess): void {
-		this.setAccessToken(accessToken)
-		this.setPersonalData(userInfo)
+	public setDataAfterOTPLogin(userInfo: OTPLoginPersonalInfo): void {
+		this.setAccessToken(userInfo.accessToken)
+		this.setPersonalDataAfterOTPLogin(userInfo)
 	}
 
-	public setPersonalData(userInfo: PersonalInfoLoginSuccess): void {
+	public setUsername(username: string): void {
+		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
+		this.personalData.username = username
+	}
+
+	public setAllPersonalData(userInfo: PersonalInfo): void {
 		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
 		this.personalData.savePersonalData(userInfo)
+	}
+
+	private setPersonalDataAfterOTPLogin(userInfo: OTPLoginPersonalInfo): void {
+		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
+		this.personalData.savePersonalDataAfterOTPLogin(userInfo)
 	}
 
 	private setAccessToken(accessToken: string): void {

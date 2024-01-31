@@ -9,21 +9,28 @@ declare global {
 	type AllCommonResponses = SuccessResponse | NonSuccessResponse
 
 	// Auth:
-	type PersonalInfoLoginSuccess = {
+	type PersonalInfo = {
 		firstName: string
 		lastName: string
 		email: string
 		username: string
 	}
 
-	type LoginSuccess = PersonalInfoLoginSuccess & {
+	type LoginSuccess = PersonalInfo & {
 		accessToken: string
+	}
+
+	type OTPLoginPersonalInfo = {
+		accessToken: string
+		email: string
+		firstName: string
+		lastName: string
 	}
 
 	type AccessTokenResponse = { accessToken: string }
 
 	// Personal Info:
-	type PersonalInfoResponse = { personalInfo: PersonalInfoLoginSuccess }
+	type PersonalInfoResponse = { personalInfo: PersonalInfo }
 
 	// Events:
 	type SingleEventResponse = { newEvent: EventFromDB }

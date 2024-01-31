@@ -1,8 +1,8 @@
 import FormGroup from "../../form-group"
 
 interface Props {
-	credentials: RegisterCredentials,
-	setCredentials: (credentials: RegisterCredentials) => void,
+	credentials: InitialAdminRegisterInformation | OTPCredentials,
+	setCredentials: (credentials: InitialAdminRegisterInformation | OTPCredentials) => void,
 }
 
 export default function EmailInput (props: Props) {

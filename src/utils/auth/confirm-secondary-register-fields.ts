@@ -1,22 +1,14 @@
 import _ from "lodash"
-import validator from "validator"
 
-// eslint-disable-next-line complexity
-export default function confirmRegisterFields(credentials: RegisterCredentials, setError: (error: string) => void): boolean {
-	if (_.isEmpty(credentials.email)) {
-		setError("Please enter an Email")
-		return false
-	} else if (_.isEmpty(credentials.password)) {
+export default function confirmSecondaryRegisterFields(
+	credentials: SecondaryAdminRegisterInformation,
+	setError: (error: string) => void
+): boolean {
+	if (_.isEmpty(credentials.password)) {
 		setError("Please enter a password")
 		return false
 	} else if (_.isEmpty(credentials.passwordConfirmation)) {
 		setError("Please confirm your password")
-		return false
-	} else if (_.isEmpty(credentials.firstName)) {
-		setError("Please enter your first name")
-		return false
-	} else if (_.isEmpty(credentials.lastName)) {
-		setError("Please enter your first name")
 		return false
 	} else if (_.isEmpty(credentials.username)) {
 		setError("Please enter your username")
@@ -29,9 +21,6 @@ export default function confirmRegisterFields(credentials: RegisterCredentials, 
 		return false
 	} else if (!_.isEqual(credentials.password, credentials.passwordConfirmation)) {
 		setError("Passwords must match")
-		return false
-	} else if (validator.isEmail(credentials.email) === false) {
-		setError("Please enter a valid email")
 		return false
 	} else if (credentials.username.includes("@") === true) {
 		setError("Username cannot contain '@'")
