@@ -11,6 +11,7 @@ export default function ChooseOneTimeEvent(props: Props) {
 	const { eventDetails, setEventDetails } = props
 
 	if (eventDetails.eventFrequency !== "one-time") return null
+	const currentDateTime = new Date().toISOString().slice(0, 16)
 
 	const handleEndTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const newEndTime = e.target.value ? new Date(e.target.value) : null
@@ -63,6 +64,7 @@ export default function ChooseOneTimeEvent(props: Props) {
 				}}
 				required
 				value={eventDetails.singularEventTime?.startTime ? formatDateToDateTimeLocal(eventDetails.singularEventTime.startTime) : ""}
+				minDate={currentDateTime}
 			/>
 
 			<FormGroup

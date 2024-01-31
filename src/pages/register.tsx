@@ -14,6 +14,7 @@ import Button from "../components/button"
 import useRegisterSubmit from "../hooks/auth/register-submit"
 import ShowOrHidePasswordButton from "../components/login-and-registration-form/show-or-hide-password-button"
 
+// eslint-disable-next-line max-lines-per-function
 function Register() {
 	useRedirectKnownUser()
 	const [registerInformation, setRegisterInformation] =
@@ -50,38 +51,61 @@ function Register() {
 	return (
 		<AuthTemplate loginOrSignUp="Sign up">
 			<form onSubmit={handleFormSubmit}>
+				<div className="flex">
+					<div className="w-1/2">
+						<EmailInput
+							credentials={registerInformation}
+							setCredentials={setRegisterInformation}
+						/>
+					</div>
 
-				<EmailInput
-					credentials={registerInformation}
-					setCredentials={setRegisterInformation}
-				/>
+					<div className="w-1/2 mx-4">
 
-				<PasswordInput
-					credentials = {registerInformation}
-					setCredentials = {setRegisterInformationGeneric}
-					showPassword = {isShowPassword()}
-				/>
+						<UsernameInput
+							credentials = {registerInformation}
+							setCredentials = {setRegisterInformation}
+						/>
+					</div>
+				</div>
 
-				<ConfirmPassword
-					credentials = {registerInformation}
-					setCredentials = {setRegisterInformation}
-					showPassword = {isShowPassword()}
-				/>
+				<div className="flex">
+					<div className="w-1/2">
 
-				<UsernameInput
-					credentials = {registerInformation}
-					setCredentials = {setRegisterInformation}
-				/>
+						<PasswordInput
+							credentials = {registerInformation}
+							setCredentials = {setRegisterInformationGeneric}
+							showPassword = {isShowPassword()}
+						/>
+					</div>
+					<div className="w-1/2 mx-4">
 
-				<FirstNameInput
-					credentials = {registerInformation}
-					setCredentials = {setRegisterInformation}
-				/>
+						<ConfirmPassword
+							credentials = {registerInformation}
+							setCredentials = {setRegisterInformation}
+							showPassword = {isShowPassword()}
+						/>
+					</div>
 
-				<LastNameInput
-					credentials = {registerInformation}
-					setCredentials = {setRegisterInformation}
-				/>
+				</div>
+
+				<div className="flex">
+					<div className="w-1/2">
+
+						<FirstNameInput
+							credentials = {registerInformation}
+							setCredentials = {setRegisterInformation}
+						/>
+					</div>
+
+					<div className="w-1/2 mx-4">
+
+						<LastNameInput
+							credentials = {registerInformation}
+							setCredentials = {setRegisterInformation}
+						/>
+					</div>
+
+				</div>
 
 				<ShowOrHidePasswordButton
 					showPassword = {showPassword}

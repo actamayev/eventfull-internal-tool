@@ -11,8 +11,8 @@ export default class AuthDataService {
 
 	async register(
 		registerInformation: RegisterCredentialsWithoutConfirmation
-	): Promise<AxiosResponse<AccesTokenResponse | NonSuccessResponse>> {
-		return await this.httpClient.http.post<AccesTokenResponse | NonSuccessResponse>("/auth/register", { registerInformation })
+	): Promise<AxiosResponse<AccessTokenResponse | NonSuccessResponse>> {
+		return await this.httpClient.http.post<AccessTokenResponse | NonSuccessResponse>("/auth/register", { registerInformation })
 	}
 
 	async logout(): Promise<AxiosResponse<ErrorResponse>> {

@@ -22,7 +22,7 @@ export default function Button (props: Props) {
 	}
 	if (props.textColor) textColor = props.textColor
 
-	const css = `transition-all duration-100 rounded p-2 ${backgroundColor} ${hoverColor} ${textColor} ${props.className}`
+	const css = `transition-all duration-0 rounded p-2 ${backgroundColor} ${hoverColor} ${textColor} ${props.className}`
 
 	return (
 		<button

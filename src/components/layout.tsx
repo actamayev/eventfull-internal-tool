@@ -4,7 +4,6 @@ import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import AppContext from "../contexts/eventfull-it-context"
 import { isErrorResponse } from "../utils/type-checks"
-import Button from "./button"
 import VerticalNavBar from "./vertical-nav"
 import CustomLink, { TopNavLink } from "./custom-link"
 
@@ -34,11 +33,14 @@ function Layout (props: Props) {
 		}
 	}
 
-	function LinkToHome () {
-		if (!_.isNull(appContext.authClass.accessToken)) {
-			return <CustomLink href = "/dashboard" title = "Eventfull" css = "text-white font-bold text-xl"/>
-		}
-		return <CustomLink href = "/" title = "Eventfull" css = "text-white font-bold text-xl"/>
+	function LinkToHome() {
+		return (
+			<CustomLink
+				href={!_.isNull(appContext.authClass.accessToken) ? "/dashboard" : "/"}
+				title="Eventfull"
+				css = "text-gray-200 hover:text-white font-bold text-xl"
+			/>
+		)
 	}
 
 	function LoginLogout () {
@@ -46,12 +48,11 @@ function Layout (props: Props) {
 			return <TopNavLink href = "/" title = "Login"/>
 		}
 		return (
-			<Button
+			<TopNavLink
+				href = "/"
 				title = "Logout"
 				onClick={handleLogout}
-				disabled={logoutDisabled}
-				colorClass="bg-red-500"
-				hoverClass="hover:bg-red-600"
+				disabled = {logoutDisabled}
 			/>
 		)
 	}

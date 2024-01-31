@@ -20,7 +20,7 @@ declare global {
 		accessToken: string
 	}
 
-	type AccesTokenResponse = { accessToken: string }
+	type AccessTokenResponse = { accessToken: string }
 
 	// Personal Info:
 	type PersonalInfoResponse = { personalInfo: PersonalInfoLoginSuccess }

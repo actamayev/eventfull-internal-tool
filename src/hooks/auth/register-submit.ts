@@ -36,7 +36,7 @@ export default function useRegisterSubmit (): (
 				return
 			}
 			appContext.setDataAfterRegister(response.data.accessToken, registerInfo)
-			navigate("/dashboard")
+			navigate("/unverified-user")
 		} catch (error: unknown) {
 			setErrorAxiosResponse(error, setError, "Unable to register")
 		}

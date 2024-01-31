@@ -41,6 +41,7 @@ export default function DayTimeSelector (props: Props) {
 		setEventDetails({ ...eventDetails, ongoingEventTimes: updatedEventTimes })
 	}
 
+	// TODO: Show an alert if the start time is after the end time
 	const handleTimeChange = (type: "startTime" | "endTime", value: string) => {
 		// Ensure currentTimes has the correct structure
 		const currentTimes: OngoingEvents = {
@@ -72,7 +73,6 @@ export default function DayTimeSelector (props: Props) {
 		return dayjs(date).format("HH:mm")
 	}
 
-	// TODO: Make sure that the startTime is before the endTime
 	return (
 		<div className={`grid grid-cols-[auto_minmax(120px,_1fr)_auto_minmax(120px,_1fr)] gap-2 items-center mb-2 p-2 ${bgColor}`}>
 			<label className="flex items-center cursor-pointer col-span-1">
@@ -97,6 +97,7 @@ export default function DayTimeSelector (props: Props) {
 				disabled={!isEnabled}
 				value={isEnabled && dayDetails?.endTime ? formatTime(dayDetails.endTime) : ""}
 				onChange={(e) => handleTimeChange("endTime", e.target.value)}
+				min={isEnabled && dayDetails?.startTime ? formatTime(dayDetails.startTime) : ""}
 			/>
 		</div>
 	)
