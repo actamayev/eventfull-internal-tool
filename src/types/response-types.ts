@@ -26,11 +26,11 @@ declare global {
 	type PersonalInfoResponse = { personalInfo: PersonalInfoLoginSuccess }
 
 	// Events:
-	type SingleEventResponse = { event: EventFromDB }
+	type SingleEventResponse = { newEvent: EventFromDB }
 	type EventsResponse = { events: EventFromDB[] }
 
 	interface EventFromDB extends TimestampsInterface {
-		_id: string
+		_id: string // This is actually Types.ObjectId, but I don't want to import it here
 		address: string
 		attendees: string[]
 		canInvitedUsersInviteOthers: boolean

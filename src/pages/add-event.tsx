@@ -3,13 +3,12 @@ import { useLoadScript } from "@react-google-maps/api"
 import Button from "../components/button"
 import FormGroup from "../components/form-group"
 import useAddEvent from "../hooks/events/add-event"
-import isEventDisabled from "../utils/events/is-add-event-disabled"
 import AddressInput from "../components/add-event/address-input"
+import isEventDisabled from "../utils/events/is-add-event-disabled"
+import DayTimeSelector from "../components/add-event/day-time-selector"
 import AddEventTemplate from "../components/add-event/add-event-template"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
-import formatDateToDateTimeLocal from "../utils/events/format-date-to-date-time-local"
-import DayTimeSelector from "../components/add-event/day-time-selector"
-import EventDurationSelector from "../components/add-event/event-duration-selector"
+import ChooseOneTimeEvent from "../components/add-event/choose-one-time-event"
 
 const libraries: ("places")[] = ["places"]
 
@@ -20,7 +19,7 @@ enum DayOfWeekEnum {
 	Wednesday = "Wednesday",
 	Thursday = "Thursday",
 	Friday = "Friday",
-	Saturday = "Saturday",
+	Saturday = "Saturday"
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -28,19 +27,26 @@ export default function AddEvent() {
 	useRedirectUnknownUser()
 	const [eventDetails, setEventDetails] = useState<CreatingEvent>({
 		eventName: "",
+		eventPrice: 2,
+		eventType: "Entertainment",
+		isVirtual: false,
+		isActive: true,
+		eventPublic: true,
+		eventReviewable: true,
+		canInvitedUsersInviteOthers: true,
+
 		eventFrequency: "",
 		address: "",
-		eventDuration: {
-			hours: 0,
-			minutes: 0,
-		},
 		eventDescription: "Test description",
 		eventURL: "google.com",
-		eventPrice: 0,
 
-		ongoingEventTimes: [],
-		dates: [],
-		eventTime: null,
+		invitees: [],
+		coHosts: [],
+		eventCapacity: 10,
+
+		singularEventTime: null,
+		customEventDates: [],
+		ongoingEventTimes: []
 	})
 	const addEvent = useAddEvent()
 
@@ -48,16 +54,6 @@ export default function AddEvent() {
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
 		libraries,
 	})
-
-	const handleDurationChange = (hours: number, minutes: number) => {
-		setEventDetails({
-			...eventDetails,
-			eventDuration: {
-				hours: hours,
-				minutes: minutes
-			}
-		})
-	}
 
 	return (
 		<AddEventTemplate>
@@ -77,7 +73,6 @@ export default function AddEvent() {
 						setEventDetails={setEventDetails}
 					/>
 				)}
-				<EventDurationSelector onDurationChange={handleDurationChange} />
 				<div className="mt-1 mb-4">
 
 					<select
@@ -87,21 +82,16 @@ export default function AddEvent() {
 							rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					>
 						<option value="">Select Event Frequency</option>
-						<option value="ongoing">Ongoing</option>
 						<option value="one-time">One-time</option>
-						<option value="repeated">Non-standard Repeated</option>
-						<option value="regularly-repeated">Regularly Repeated</option>
+						<option value="ongoing">Ongoing</option>
+						<option value="custom">Custom</option>
 					</select>
 
 				</div>
 				{eventDetails.eventFrequency === "one-time" && (
-					<FormGroup
-						id="event-date-time"
-						label="Event Date and Time"
-						type="datetime-local"
-						onChange={(e) => setEventDetails({...eventDetails, eventTime: e.target.value ? new Date(e.target.value) : null})}
-						required
-						value={eventDetails.eventTime instanceof Date ? formatDateToDateTimeLocal(eventDetails.eventTime) : ""}
+					<ChooseOneTimeEvent
+						eventDetails={eventDetails}
+						setEventDetails={setEventDetails}
 					/>
 				)}
 				{eventDetails.eventFrequency === "ongoing" && (
@@ -115,6 +105,7 @@ export default function AddEvent() {
 						/>
 					))
 				)}
+				{/* TODO: Add custom event dates. literally just selecting date times from a calendar */}
 				<div className="mt-2">
 					<Button
 						title= {`Add ${eventDetails.eventName || "Event"}`}

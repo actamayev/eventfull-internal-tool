@@ -1,3 +1,6 @@
+import calculateEventDuration from "../../utils/events/calculate-event-duration"
+import dayjs from "dayjs"
+
 interface Props {
 	day: DayOfWeek
 	index: number
@@ -17,10 +20,21 @@ export default function DayTimeSelector (props: Props) {
 		const checked = event.target.checked
 		let updatedEventTimes
 		if (checked) {
-			// Add the day with default start and end times
-			updatedEventTimes = [...(eventDetails.ongoingEventTimes || []), { dayOfWeek: day, startTime: "09:00", endTime: "17:00" }]
+			// Assuming default eventDuration calculation
+			const defaultStartTime = new Date()
+			const defaultEndTime = new Date()
+			defaultEndTime.setHours(defaultStartTime.getHours() + 8) // example default duration of 8 hours
+
+			updatedEventTimes = [
+				...(eventDetails.ongoingEventTimes || []),
+				{
+					dayOfWeek: day,
+					startTime: defaultStartTime,
+					endTime: defaultEndTime,
+					eventDuration: calculateEventDuration(defaultStartTime, defaultEndTime),
+				},
+			]
 		} else {
-			// Remove the day from the array
 			updatedEventTimes = eventDetails.ongoingEventTimes?.filter(d => d.dayOfWeek !== day) || []
 		}
 
@@ -28,23 +42,37 @@ export default function DayTimeSelector (props: Props) {
 	}
 
 	const handleTimeChange = (type: "startTime" | "endTime", value: string) => {
-		// Fallback object for when dayDetails is undefined
-		const fallbackDayDetails = { dayOfWeek: day, startTime: "09:00", endTime: "17:00" }
+		// Ensure currentTimes has the correct structure
+		const currentTimes: OngoingEvents = {
+			...dayDetails,
+			dayOfWeek: day,
+			startTime: dayDetails?.startTime || new Date("09:00"),
+			endTime: dayDetails?.endTime || new Date("17:00"),
+			eventDuration: dayDetails?.eventDuration || { hours: 0, minutes: 0 },
+		}
 
-		// Use dayDetails if it exists, otherwise use the fallback object
-		const currentTimes = dayDetails || fallbackDayDetails
+		const dateValue = value ? new Date(value) : null
+		currentTimes[type] = dateValue
 
-		// Update the times with the new value
-		const updatedTimes = { ...currentTimes, [type]: value }
+		// Calculate the updated duration
+		const updatedDuration = calculateEventDuration(currentTimes.startTime, currentTimes.endTime)
+		currentTimes.eventDuration = updatedDuration
 
 		// Update the ongoingEventTimes array
 		const updatedEventTimes = eventDetails.ongoingEventTimes?.map(d =>
-			d.dayOfWeek === day ? updatedTimes : d
+			d.dayOfWeek === day ? currentTimes : d
 		) || []
 
 		setEventDetails({ ...eventDetails, ongoingEventTimes: updatedEventTimes })
 	}
 
+	function formatTime(date: Date) {
+		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+		if (!date) return ""
+		return dayjs(date).format("HH:mm")
+	}
+
+	// TODO: Make sure that the startTime is before the endTime
 	return (
 		<div className={`grid grid-cols-[auto_minmax(120px,_1fr)_auto_minmax(120px,_1fr)] gap-2 items-center mb-2 p-2 ${bgColor}`}>
 			<label className="flex items-center cursor-pointer col-span-1">
@@ -59,7 +87,7 @@ export default function DayTimeSelector (props: Props) {
 				type="time"
 				className="col-span-1"
 				disabled={!isEnabled}
-				value={isEnabled && dayDetails ? dayDetails.startTime : ""}
+				value={isEnabled && dayDetails?.startTime ? formatTime(dayDetails.startTime) : ""}
 				onChange={(e) => handleTimeChange("startTime", e.target.value)}
 			/>
 			<span className="col-span-1 text-center">to</span>
@@ -67,7 +95,7 @@ export default function DayTimeSelector (props: Props) {
 				type="time"
 				className="col-span-1"
 				disabled={!isEnabled}
-				value={isEnabled && dayDetails ? dayDetails.endTime : ""}
+				value={isEnabled && dayDetails?.endTime ? formatTime(dayDetails.endTime) : ""}
 				onChange={(e) => handleTimeChange("endTime", e.target.value)}
 			/>
 		</div>

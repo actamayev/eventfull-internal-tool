@@ -3,6 +3,11 @@ declare global {
 		createdAt: Date
 		updatedAt: Date
 	}
+
+	interface SocialData {
+		userId: Types.ObjectId
+		username: string
+	}
 }
 
 export {}

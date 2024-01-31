@@ -26,7 +26,7 @@ export default function useAddEvent(): (
 			}
 
 			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
-			appContext.eventsData.addEvent(response.data.event)
+			appContext.eventsData.addEvent(response.data.newEvent)
 			navigate("/dashboard")
 		} catch (error) {
 			console.error(error)

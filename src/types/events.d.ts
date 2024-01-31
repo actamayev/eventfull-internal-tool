@@ -6,41 +6,54 @@ declare global {
 		isActive: boolean
 	}
 
-	type EventFrequency = "one-time" | "repeated" | "regularly-repeated" | "ongoing"
+	// One-time events are self-explanatory.
+	// Ongoing is something that can be attended at any time (ie rock climbing)
+	// Custom events are things like broadway shows, which are repeated but not regularly
+	type EventFrequency = "one-time" | "custom" | "ongoing"
 
 	type DayOfWeek = "Sunday" | "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday"
 
-	interface DateTimes {
-		startDateTime: Date
-		endDateTime: Date
-	}
-
-	interface OngoingEvents {
-		dayOfWeek: DayOfWeek
-		startTime: string
-		endTime: string
-	}
-
-	interface CreatingEvent {
-		eventName: string
-		eventFrequency: EventFrequency | ""
-		address: string
+	interface BaseEventTime {
+		startTime: Date | null
+		endTime: Date | null
 		eventDuration: {
 			hours: number
 			minutes: number
 		}
-		eventDescription: string
+	}
+
+	interface OngoingEvents extends BaseEventTime {
+		dayOfWeek: DayOfWeek
+	}
+
+	interface CreatingEvent {
+		eventName: string
 		eventPrice: number
+		eventType: string
+		isVirtual: boolean
+		isActive: boolean
+		eventPublic: boolean
+		eventReviewable: boolean
+		canInvitedUsersInviteOthers: boolean
+		eventFrequency: EventFrequency | ""
+		address: string
+		eventDescription: string
 
 		eventURL?: string
+		extraEventCategories?: string[]
+		eventImageURL?: string
+
+		// For one time events:
+		singularEventTime?: BaseEventTime | null
+
+		// For custom events:
+		customEventDates?: BaseEventTime[]
 
 		// For ongoing events:
 		ongoingEventTimes?: OngoingEvents[]
-
-		// For repeated events:
-		dates?: DateTimes[]
-		// For one time events:
-		eventTime?: Date | null
+		invitees: SocialData[]
+		coHosts: SocialData[]
+		eventCapacity: number
 	}
 
 	interface GridRowData {
