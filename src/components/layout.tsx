@@ -23,7 +23,7 @@ export default function Layout (props: Props) {
 			if (!_.isEqual(response.status, 200) || isErrorResponse(response.data)) {
 				throw new Error("Failed to logout")
 			}
-			appContext.logout() // will automatically navigate to home page after logout
+			appContext.logout() // Automatically navigates to home page after logout (via the redirect unknown user hook)
 		} catch (error) {
 			console.error(error)
 		} finally {

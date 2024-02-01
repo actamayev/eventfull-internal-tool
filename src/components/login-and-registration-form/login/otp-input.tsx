@@ -1,8 +1,8 @@
 import FormGroup from "../../form-group"
 
 interface Props {
-	credentials: OTPCredentials,
-	setCredentials: (credentials: OTPCredentials) => void,
+	credentials: OTPCredentials
+	setCredentials: (credentials: OTPCredentials) => void
 }
 
 export default function OTPInput (props: Props) {

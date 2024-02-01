@@ -6,8 +6,8 @@ import AuthTemplate from "../components/login-and-registration-form/auth-templat
 import ErrorMessage from "../components/login-and-registration-form/error-message"
 import useSecondaryAdminInfoSubmit from "../hooks/auth/secondary-admin-info-submit"
 import PasswordInput from "../components/login-and-registration-form/password-input"
-import UsernameInput from "../components/login-and-registration-form/register/username-input"
-import ConfirmPassword from "../components/login-and-registration-form/register/confirm-password"
+import UsernameInput from "../components/login-and-registration-form/new-admin/username-input"
+import ConfirmPassword from "../components/login-and-registration-form/new-admin/confirm-password"
 import ShowOrHidePasswordButton from "../components/login-and-registration-form/show-or-hide-password-button"
 
 function FinishAdminRegistration() {

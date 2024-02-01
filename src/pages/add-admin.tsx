@@ -5,9 +5,9 @@ import useAddAdminSubmit from "../hooks/auth/add-admin-submit"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 import AuthTemplate from "../components/login-and-registration-form/auth-template"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
-import EmailInput from "../components/login-and-registration-form/register/email-input"
-import LastNameInput from "../components/login-and-registration-form/register/last-name-input"
-import FirstNameInput from "../components/login-and-registration-form/register/first-name-input"
+import EmailInput from "../components/login-and-registration-form/new-admin/email-input"
+import LastNameInput from "../components/login-and-registration-form/new-admin/last-name-input"
+import FirstNameInput from "../components/login-and-registration-form/new-admin/first-name-input"
 import SuccessMessage from "../components/login-and-registration-form/success-message"
 
 // eslint-disable-next-line max-lines-per-function
