@@ -9,10 +9,10 @@ export default function confirmAddAdminFields(credentials: InitialAdminRegisterI
 		setError("Please enter your first name")
 		return false
 	} else if (_.isEmpty(credentials.lastName)) {
-		setError("Please enter your first name")
+		setError("Please enter your last name")
 		return false
 	} else if (validator.isEmail(credentials.email) === false) {
-		setError("Please enter a valid email")
+		setError("Please enter a valid Email")
 		return false
 	} else {
 		setError("")

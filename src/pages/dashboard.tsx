@@ -1,9 +1,9 @@
 import { observer } from "mobx-react"
 import { useNavigate } from "react-router-dom"
-import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 import Button from "../components/button"
-import useRetrieveEvents from "../hooks/events/retrieve-events"
 import EventsGrid from "../components/events-grid"
+import useRetrieveEvents from "../hooks/events/retrieve-events"
+import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 
 function Dashboard() {
 	const navigate = useNavigate()

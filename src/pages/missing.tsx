@@ -1,3 +1,4 @@
+import _ from "lodash"
 import { observer } from "mobx-react"
 import { useContext } from "react"
 import { Link } from "react-router-dom"
@@ -7,10 +8,10 @@ export default function Missing () {
 	const appContext = useContext(AppContext)
 
 	const LinkToHome = observer(() => {
-		if (appContext.authClass.accessToken) {
+		if (!_.isNull(appContext.authClass.accessToken)) {
 			return <Link to = "/dashboard" className="hover:underline">Back to Dashboard</Link>
 		} else {
-			return <Link to = "/" className="font-bold hover:underline">Visit Our Homepage</Link>
+			return <Link to = "/" className="font-bold hover:underline">Login</Link>
 		}
 	})
 

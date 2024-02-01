@@ -10,7 +10,6 @@ import LastNameInput from "../components/login-and-registration-form/new-admin/l
 import FirstNameInput from "../components/login-and-registration-form/new-admin/first-name-input"
 import SuccessMessage from "../components/login-and-registration-form/success-message"
 
-// eslint-disable-next-line max-lines-per-function
 function AddAdmin() {
 	useRedirectUnknownUser()
 	const [registerInformation, setRegisterInformation] =

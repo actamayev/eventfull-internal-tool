@@ -1,11 +1,4 @@
 declare global {
-	interface EventfullEvent extends TimestampsInterface {
-		eventId: string
-		eventName: string
-		eventFrequency: EventFrequency
-		isActive: boolean
-	}
-
 	// One-time events are self-explanatory.
 	// Ongoing is something that can be attended at any time (ie rock climbing)
 	// Custom events are things like broadway shows, which are repeated but not regularly
@@ -83,6 +76,7 @@ declare global {
 		invitedBy: SocialDataWithTimestamp
 	}
 
+	// These are from DB:
 	interface EventfullBaseEventTime {
 		startTime: Date
 		endTime: Date

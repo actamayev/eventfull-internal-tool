@@ -64,7 +64,7 @@ declare global {
 		isActive: boolean
 		isVirtual: boolean
 		ongoingEventTimes: EventfullOngoingEventTime[]
-		singularEventTime: EventfullBaseEventTime | null
+		singularEventTime?: EventfullBaseEventTime
 		organizer?: SocialData
 	}
 }

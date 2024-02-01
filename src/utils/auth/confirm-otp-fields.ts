@@ -6,7 +6,7 @@ export default function confirmOTPLoginFields(credentials: OTPCredentials, setEr
 		setError("Please enter an Email")
 		return false
 	} else if (credentials.otp.length !== 6)  {
-		setError("Please enter your first name")
+		setError("Please enter a valid (6-digit) OTP")
 		return false
 	} else if (validator.isEmail(credentials.email) === false) {
 		setError("Please enter a valid email")

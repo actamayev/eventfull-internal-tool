@@ -59,7 +59,7 @@ export default class EventClass {
 	public isActive: boolean
 	public isVirtual: boolean
 	public ongoingEventTimes: EventfullOngoingEventTime[]
-	public singularEventTime: EventfullBaseEventTime | null
+	public singularEventTime?: EventfullBaseEventTime
 	public organizer?: SocialData
 
 	public createdAt: Date
