@@ -1,11 +1,13 @@
+import _ from "lodash"
+
 interface Props {
-	message: string, // Renamed prop for clarity
+	message: string
   }
 
 export default function SuccessMessage(props: Props) {
 	const { message } = props
 
-	if (!message) return null
+	if (_.isEmpty(message)) return null
 
 	return (
 		<div
