@@ -62,6 +62,37 @@ declare global {
 		address: string
 		createdByUsername: string
 	}
+
+	interface EventfullInvitee {
+		user: SocialData
+		attendingStatus: "Not Attending" | "Not Responded"
+		invitedBy: SocialDataWithTimestamp
+	}
+
+	interface EventfullAttendee {
+		user: SocialData
+		invitedBy?: SocialDataWithTimestamp
+		reviewRating?: number
+		reviewText?: string
+	}
+
+	interface EventfullCoHost {
+		user: SocialData
+		invitedBy: SocialDataWithTimestamp
+	}
+
+	interface EventfullBaseEventTime {
+		startTime: Date
+		endTime: Date
+		eventDuration: {
+			hours: number
+			minutes: number
+		}
+	}
+
+	interface EventfullOngoingEventTime extends EventfullBaseEventTime {
+		dayOfWeek: DayOfWeek
+	}
 }
 
 export {}

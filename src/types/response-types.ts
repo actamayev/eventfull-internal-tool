@@ -39,33 +39,33 @@ declare global {
 	interface EventFromDB extends TimestampsInterface {
 		_id: string // This is actually Types.ObjectId, but I don't want to import it here
 		address: string
-		attendees: string[]
+		attendees: EventfullAttendee[]
 		canInvitedUsersInviteOthers: boolean
-		coHosts: string[]
+		coHosts: EventfullCoHost[]
 		createdBy: {
 			createdAt: Date
 			isCreatedByAdmin: boolean
 			userId: string
 			username: string
 		}
+		customEventDates: EventfullBaseEventTime[]
 		eventCapacity: number | null
 		eventDescription: string
-		eventDuration: {
-			hours: number
-			minutes: number
-		}
-		eventEndTime: Date
+		eventFrequency: EventFrequency
+		eventImageURL?: string
 		eventName: string
 		eventPrice: number
 		eventPublic: boolean
 		eventReviewable: boolean
-		eventStartTime: Date
 		eventType: string
-		eventURL: string | null
+		eventURL?: string
 		extraEventCategories: string[]
-		invitees: string[]
+		invitees: EventfullInvitee[]
 		isActive: boolean
 		isVirtual: boolean
+		ongoingEventTimes: EventfullOngoingEventTime[]
+		singularEventTime: EventfullBaseEventTime | null
+		organizer?: SocialData
 	}
 }
 

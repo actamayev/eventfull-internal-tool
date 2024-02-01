@@ -5,8 +5,12 @@ declare global {
 	}
 
 	interface SocialData {
-		userId: Types.ObjectId
+		userId: string
 		username: string
+	}
+
+	interface SocialDataWithTimestamp extends SocialData {
+		createdAt: Date
 	}
 }
 
