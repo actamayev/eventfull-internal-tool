@@ -7,9 +7,12 @@ export default function useRetrievePersonalInfo(): void {
 	const appContext = useContext(AppContext)
 
 	useEffect(() => {
-		if (_.isNull(appContext.eventfullApiClient.httpClient.accessToken)) return
+		if (
+			_.isNull(appContext.eventfullApiClient.httpClient.accessToken) ||
+			_.isNil(appContext.personalData?.username)
+		) return
 		void retrievePersonalData()
-	}, [appContext.eventfullApiClient.httpClient.accessToken])
+	}, [appContext.eventfullApiClient.httpClient.accessToken, appContext.personalData?.username])
 
 	const retrievePersonalData = async (): Promise<void> => {
 		try {

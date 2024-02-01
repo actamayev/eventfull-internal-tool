@@ -46,6 +46,7 @@ export class EventfullITContext {
 		if (_.isNull(this.authClass.accessToken)) return
 		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
 		if (_.isNull(this.eventsData)) this.eventsData = new EventsClass()
+		this.personalData.getUsernameFromStorage()
 	}
 
 	public getAuthDataFromStorage(): void {
@@ -66,6 +67,7 @@ export class EventfullITContext {
 	public setUsername(username: string): void {
 		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
 		this.personalData.username = username
+		sessionStorage.setItem("username", username)
 	}
 
 	public setAllPersonalData(userInfo: PersonalInfo): void {
@@ -84,8 +86,9 @@ export class EventfullITContext {
 	}
 
 	public logout(): void {
-		localStorage.clear()
 		runInAction(() => {
+			localStorage.clear()
+			sessionStorage.clear()
 			this.authClass = new AuthClass()
 			this.personalData = null
 			this.eventsData = null

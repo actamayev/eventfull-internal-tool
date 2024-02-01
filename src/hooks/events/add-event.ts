@@ -18,7 +18,6 @@ export default function useAddEvent(): (
 	): Promise<void> => {
 		e.preventDefault()
 		try {
-			console.log(eventDetails)
 			const response = await appContext.eventfullApiClient.eventsDataService.addEvent(eventDetails)
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {

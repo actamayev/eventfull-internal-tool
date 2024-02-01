@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { observer } from "mobx-react"
 import { useLoadScript } from "@react-google-maps/api"
 import Button from "../components/button"
 import FormGroup from "../components/form-group"
@@ -12,7 +13,7 @@ import SelectEventFrequency from "../components/add-event/select-event-frequency
 
 const libraries: ("places")[] = ["places"]
 
-export default function AddEvent() {
+function AddEvent() {
 	useRedirectUnknownUser()
 	const [eventDetails, setEventDetails] = useState<CreatingEvent>({
 		eventName: "",
@@ -83,3 +84,5 @@ export default function AddEvent() {
 		</AddEventTemplate>
 	)
 }
+
+export default observer(AddEvent)

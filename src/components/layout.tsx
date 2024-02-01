@@ -1,7 +1,6 @@
 import _ from "lodash"
 import { observer } from "mobx-react"
 import { useContext, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import AppContext from "../contexts/eventfull-it-context"
 import { isErrorResponse } from "../utils/type-checks"
 import VerticalNavBar from "./vertical-nav"
@@ -11,21 +10,20 @@ interface Props {
 	children: React.ReactNode
 }
 
-function Layout (props: Props) {
+export default function Layout (props: Props) {
 	const { children } = props
 	const appContext = useContext(AppContext)
-	const navigate = useNavigate()
 	const [logoutDisabled, setLogoutDisabled] = useState(false)
 
-	const handleLogout = async (): Promise<void> => {
+	const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>): Promise<void> => {
 		try {
+			e.preventDefault()
 			setLogoutDisabled(true)
 			const response = await appContext.eventfullApiClient.authDataService.logout()
 			if (!_.isEqual(response.status, 200) || isErrorResponse(response.data)) {
 				throw new Error("Failed to logout")
 			}
-			appContext.logout()
-			navigate("/")
+			appContext.logout() // will automatically navigate to home page after logout
 		} catch (error) {
 			console.error(error)
 		} finally {
@@ -33,7 +31,7 @@ function Layout (props: Props) {
 		}
 	}
 
-	function LinkToHome() {
+	const LinkToHome = observer(() => {
 		return (
 			<CustomLink
 				href={!_.isNull(appContext.authClass.accessToken) ? "/dashboard" : "/"}
@@ -41,9 +39,9 @@ function Layout (props: Props) {
 				css = "text-gray-200 hover:text-white font-bold text-xl"
 			/>
 		)
-	}
+	})
 
-	function LoginLogout () {
+	const LoginLogout = observer(() => {
 		if (_.isNull(appContext.authClass.accessToken)) {
 			return <TopNavLink href = "/" title = "Login"/>
 		}
@@ -55,12 +53,15 @@ function Layout (props: Props) {
 				disabled = {logoutDisabled}
 			/>
 		)
-	}
+	})
 
-	function ShowVerticalNavBar () {
-		if (_.isNull(appContext.authClass.accessToken)) return null
+	const ShowVerticalNavBar = observer(() => {
+		if (
+			_.isNull(appContext.authClass.accessToken) ||
+			_.isNil(appContext.personalData?.username)
+		) return null
 		return <VerticalNavBar />
-	}
+	})
 
 	return (
 		<div>
@@ -83,5 +84,3 @@ function Layout (props: Props) {
 		</div>
 	)
 }
-
-export default observer(Layout)

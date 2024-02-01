@@ -10,6 +10,10 @@ export default function useRedirectUnknownUser (): void {
 	useEffect(() => {
 		if (_.isNil(appContext.authClass.accessToken)) {
 			navigate("/")
+			return
+		} else if (_.isNil(appContext.personalData?.username)) {
+			navigate("/finish-admin-registration")
+			return
 		}
-	}, [])
+	}, [appContext.authClass.accessToken, appContext.personalData?.username])
 }

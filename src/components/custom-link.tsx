@@ -1,12 +1,13 @@
-import { Link } from "react-router-dom"
 import classNames from "classnames" // This is a utility for conditionally joining classNames together
+import { Link } from "react-router-dom"
 
 interface Props {
 	href: string
 	title: string
 	css?: string
 	disabled?: boolean
-	onClick?: () => void
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	onClick?: (e: any) => void
 }
 
 export default function CustomLink(props: Props) {
@@ -17,7 +18,7 @@ export default function CustomLink(props: Props) {
 			e.preventDefault() // Prevent navigation if disabled
 			return
 		}
-		onClick?.() // Call onClick if not disabled
+		onClick?.(e) // Call onClick if not disabled
 	}
 
 	const linkClasses = classNames(css, {

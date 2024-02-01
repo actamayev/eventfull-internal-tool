@@ -3,16 +3,16 @@ import { useContext } from "react"
 import { Link } from "react-router-dom"
 import AppContext from "../contexts/eventfull-it-context"
 
-function Missing () {
+export default function Missing () {
 	const appContext = useContext(AppContext)
 
-	function LinkToHome () {
+	const LinkToHome = observer(() => {
 		if (appContext.authClass.accessToken) {
 			return <Link to = "/dashboard" className="hover:underline">Back to Dashboard</Link>
 		} else {
 			return <Link to = "/" className="font-bold hover:underline">Visit Our Homepage</Link>
 		}
-	}
+	})
 
 	return (
 		<article style = {{ padding: "100px" }}>
@@ -22,5 +22,3 @@ function Missing () {
 		</article>
 	)
 }
-
-export default observer(Missing)

@@ -1,16 +1,16 @@
 import { useState } from "react"
-import AuthTemplate from "../components/login-and-registration-form/auth-template"
-import PasswordInput from "../components/login-and-registration-form/password-input"
-import ConfirmPassword from "../components/login-and-registration-form/register/confirm-password"
-import UsernameInput from "../components/login-and-registration-form/register/username-input"
-import SubRegisterInformation from "../components/login-and-registration-form/register/sub-register-information"
-import ErrorMessage from "../components/login-and-registration-form/error-message"
+import { observer } from "mobx-react"
 import Button from "../components/button"
-import ShowOrHidePasswordButton from "../components/login-and-registration-form/show-or-hide-password-button"
-import useSecondaryAdminInfoSubmit from "../hooks/auth/secondary-admin-info-submit"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
+import AuthTemplate from "../components/login-and-registration-form/auth-template"
+import ErrorMessage from "../components/login-and-registration-form/error-message"
+import useSecondaryAdminInfoSubmit from "../hooks/auth/secondary-admin-info-submit"
+import PasswordInput from "../components/login-and-registration-form/password-input"
+import UsernameInput from "../components/login-and-registration-form/register/username-input"
+import ConfirmPassword from "../components/login-and-registration-form/register/confirm-password"
+import ShowOrHidePasswordButton from "../components/login-and-registration-form/show-or-hide-password-button"
 
-export default function FinishAdminRegistration() {
+function FinishAdminRegistration() {
 	useRedirectUnknownUser()
 	const [registerInformation, setRegisterInformation] =
 		useState<SecondaryAdminRegisterInformation>({
@@ -81,13 +81,13 @@ export default function FinishAdminRegistration() {
 					colorClass = "bg-green-600"
 					hoverClass = "hover:bg-green-700"
 					disabled = {loading}
-					title = "Sign up"
+					title = "Register"
 					textColor = "text-white"
 				/>
 			</form>
 
-			<SubRegisterInformation />
-
 		</AuthTemplate>
 	)
 }
+
+export default observer(FinishAdminRegistration)

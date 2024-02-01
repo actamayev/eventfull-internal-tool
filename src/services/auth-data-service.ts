@@ -16,7 +16,6 @@ export default class AuthDataService {
 	async addAdmin(
 		initialAdminRegisterInformation: InitialAdminRegisterInformation
 	): Promise<AxiosResponse<AllCommonResponses>> {
-		console.log("initialAdminRegisterInformation", initialAdminRegisterInformation)
 		return await this.httpClient.http.post<AllCommonResponses>("/auth/add-admin", { initialAdminRegisterInformation })
 	}
 

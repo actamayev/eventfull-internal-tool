@@ -13,7 +13,7 @@ export default function OTPInput (props: Props) {
 			id = "otp"
 			label = "One Time Passcode"
 			type = "text"
-			placeholder = "abc@123.com"
+			placeholder = "314159"
 			onChange = {(event) => setCredentials({...credentials, otp: event.target.value})}
 			required
 			value = {credentials.otp || ""}

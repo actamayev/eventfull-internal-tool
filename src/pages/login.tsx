@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { observer } from "mobx-react"
+import Button from "../components/button"
 import useLoginSubmit from "../hooks/auth/login-submit"
 import useRedirectKnownUser from "../hooks/redirects/redirect-known-user"
 import AuthTemplate from "../components/login-and-registration-form/auth-template"
-import ContactInput from "../components/login-and-registration-form/login/contact-input"
-import PasswordInput from "../components/login-and-registration-form/password-input"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
-import Button from "../components/button"
+import PasswordInput from "../components/login-and-registration-form/password-input"
+import ContactInput from "../components/login-and-registration-form/login/contact-input"
 import ShowOrHidePasswordButton from "../components/login-and-registration-form/show-or-hide-password-button"
 
 function Login() {

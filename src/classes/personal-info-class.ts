@@ -46,7 +46,10 @@ export default class PersonalInfoClass {
 	public savePersonalData(personalData: PersonalInfo): void {
 		if (!_.isUndefined(personalData.firstName)) this.firstName = personalData.firstName
 		if (!_.isUndefined(personalData.lastName)) this.lastName = personalData.lastName
-		if (!_.isUndefined(personalData.username)) this.username = personalData.username
+		if (!_.isUndefined(personalData.username)) {
+			this.username = personalData.username
+			sessionStorage.setItem("username", personalData.username)
+		}
 		if (!_.isUndefined(personalData.email)) this.email = personalData.email
 	}
 
@@ -54,5 +57,10 @@ export default class PersonalInfoClass {
 		if (!_.isUndefined(personalData.firstName)) this.firstName = personalData.firstName
 		if (!_.isUndefined(personalData.lastName)) this.lastName = personalData.lastName
 		if (!_.isUndefined(personalData.email)) this.email = personalData.email
+	}
+
+	public getUsernameFromStorage(): void {
+		const username = sessionStorage.getItem("username")
+		if (!_.isNull(username)) this.username = username
 	}
 }

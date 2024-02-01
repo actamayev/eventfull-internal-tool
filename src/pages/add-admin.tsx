@@ -1,15 +1,16 @@
 import { useState } from "react"
-import AuthTemplate from "../components/login-and-registration-form/auth-template"
-import EmailInput from "../components/login-and-registration-form/register/email-input"
-import FirstNameInput from "../components/login-and-registration-form/register/first-name-input"
-import LastNameInput from "../components/login-and-registration-form/register/last-name-input"
-import ErrorMessage from "../components/login-and-registration-form/error-message"
+import { observer } from "mobx-react"
 import Button from "../components/button"
 import useAddAdminSubmit from "../hooks/auth/add-admin-submit"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
+import AuthTemplate from "../components/login-and-registration-form/auth-template"
+import ErrorMessage from "../components/login-and-registration-form/error-message"
+import EmailInput from "../components/login-and-registration-form/register/email-input"
+import LastNameInput from "../components/login-and-registration-form/register/last-name-input"
+import FirstNameInput from "../components/login-and-registration-form/register/first-name-input"
 
 // eslint-disable-next-line max-lines-per-function
-export default function AddAdmin() {
+function AddAdmin() {
 	useRedirectUnknownUser()
 	const [registerInformation, setRegisterInformation] =
 		useState<InitialAdminRegisterInformation>({
@@ -76,3 +77,5 @@ export default function AddAdmin() {
 		</AuthTemplate>
 	)
 }
+
+export default observer(AddAdmin)
