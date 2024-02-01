@@ -1,7 +1,7 @@
 import { useState } from "react"
-import calculateEventDuration from "../../utils/events/calculate-event-duration"
 import Button from "../button"
 import FormGroup from "../form-group"
+import calculateEventDuration from "../../utils/events/calculate-event-duration"
 
 interface Props {
 	onConfirm: (newEventDate: BaseEventTime) => void

@@ -1,6 +1,6 @@
+import FormGroup from "../form-group"
 import calculateEventDuration from "../../utils/events/calculate-event-duration"
 import formatDateToDateTimeLocal from "../../utils/events/format-date-to-date-time-local"
-import FormGroup from "../form-group"
 
 interface Props {
 	eventDetails: CreatingEvent
@@ -10,7 +10,6 @@ interface Props {
 export default function ChooseOneTimeEvent(props: Props) {
 	const { eventDetails, setEventDetails } = props
 
-	if (eventDetails.eventFrequency !== "one-time") return null
 	const currentDateTime = new Date().toISOString().slice(0, 16)
 
 	const handleEndTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +27,7 @@ export default function ChooseOneTimeEvent(props: Props) {
 					startTime: startTime, // startTime is now guaranteed to be Date or null
 					endTime: newEndTime,
 					eventDuration: calculateEventDuration(startTime, newEndTime)
-				},
+				}
 			})
 		} else {
 			// Invalid end time, show an error or revert to a valid value

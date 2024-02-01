@@ -1,6 +1,6 @@
+import DayTimeSelector from "./day-time-selector"
 import ChooseOneTimeEvent from "./choose-one-time-event"
 import CustomEventDateSelector from "./custom-event-date-selector"
-import DayTimeSelector from "./day-time-selector"
 
 interface Props {
 	eventDetails: CreatingEvent
@@ -65,10 +65,10 @@ export default function SelectTimes(props: Props) {
 							onClick={() => deleteCustomEventDate(index)}
 							type="button"
 						>
-									Delete
+							Delete
 						</button>
-								Start: {date.startTime ? new Date(date.startTime).toISOString() : "Not set"},
-								End: {date.endTime ? new Date(date.endTime).toISOString() : "Not set"}
+							Start: {date.startTime ? new Date(date.startTime).toISOString() : "Not set"},
+							End: {date.endTime ? new Date(date.endTime).toISOString() : "Not set"}
 					</div>
 				))}
 				<CustomEventDateSelector onConfirm={addCustomEventDate} />

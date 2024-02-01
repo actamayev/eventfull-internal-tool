@@ -1,5 +1,5 @@
-import calculateEventDuration from "../../utils/events/calculate-event-duration"
 import dayjs from "dayjs"
+import calculateEventDuration from "../../utils/events/calculate-event-duration"
 
 interface Props {
 	day: DayOfWeek
@@ -19,7 +19,9 @@ export default function DayTimeSelector (props: Props) {
 	const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const checked = event.target.checked
 		let updatedEventTimes
-		if (checked) {
+		if (checked === false) {
+			updatedEventTimes = eventDetails.ongoingEventTimes?.filter(d => d.dayOfWeek !== day) || []
+		} else {
 			// Assuming default eventDuration calculation
 			const defaultStartTime = new Date()
 			const defaultEndTime = new Date()
@@ -31,13 +33,10 @@ export default function DayTimeSelector (props: Props) {
 					dayOfWeek: day,
 					startTime: defaultStartTime,
 					endTime: defaultEndTime,
-					eventDuration: calculateEventDuration(defaultStartTime, defaultEndTime),
-				},
+					eventDuration: calculateEventDuration(defaultStartTime, defaultEndTime)
+				}
 			]
-		} else {
-			updatedEventTimes = eventDetails.ongoingEventTimes?.filter(d => d.dayOfWeek !== day) || []
 		}
-
 		setEventDetails({ ...eventDetails, ongoingEventTimes: updatedEventTimes })
 	}
 

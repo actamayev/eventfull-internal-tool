@@ -3,11 +3,11 @@ import { Autocomplete } from "@react-google-maps/api"
 import FormGroup from "../form-group"
 
 interface Props {
-	eventDetails: CreatingEvent,
-	setEventDetails: React.Dispatch<React.SetStateAction<CreatingEvent>>,
+	eventDetails: CreatingEvent
+	setEventDetails: React.Dispatch<React.SetStateAction<CreatingEvent>>
 }
 
-function AddressInput(props: Props) {
+export default function AddressInput(props: Props) {
 	const { eventDetails, setEventDetails } = props
 	const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null)
 
@@ -46,5 +46,3 @@ function AddressInput(props: Props) {
 		</Autocomplete>
 	)
 }
-
-export default AddressInput
