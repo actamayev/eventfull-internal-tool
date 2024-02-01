@@ -1,7 +1,7 @@
 import _ from "lodash"
 import { useContext, useEffect } from "react"
-import AppContext from "../contexts/eventfull-it-context"
 import { isErrorResponse } from "../utils/type-checks"
+import AppContext from "../contexts/eventfull-it-context"
 
 export default function useRetrievePersonalInfo(): void {
 	const appContext = useContext(AppContext)
