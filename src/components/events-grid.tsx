@@ -32,10 +32,13 @@ function EventsGrid () {
 	}, [appContext.eventsData?.eventsMap])
 
 	return (
-		<div className="ag-theme-alpine" style={{ height: 400, width: "100%" }}>
+		<div className="ag-theme-alpine" style={{ height: 900, width: "100%" }}>
 			<AgGridReact
 				columnDefs={columns}
 				rowData={rowData}
+				pagination={true}
+				paginationPageSize={25}
+				rowHeight={30}
 			/>
 		</div>
 	)
