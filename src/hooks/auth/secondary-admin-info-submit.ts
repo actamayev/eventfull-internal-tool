@@ -2,46 +2,47 @@ import _ from "lodash"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { isNonSuccessResponse } from "src/utils/type-checks"
-import AppContext from "../../contexts/eventfull-it"
+import AppContext from "../../contexts/eventfull-it-context"
+import confirmRegisterFields from "../../utils/auth/confirm-secondary-register-fields"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
-import registerFieldsErrorParser from "../../utils/auth/register-fields-error-parser"
 
-export default function useRegisterSubmit (): (
+export default function useSecondaryAdminInfoSubmit (): (
 	e: React.FormEvent<HTMLFormElement>,
-	registerInformationObject: RegisterCredentials,
+	secondaryRegisterInformation: SecondaryAdminRegisterInformation,
 	setError: (error: string) => void,
 	setLoading: (loading: boolean) => void,
 ) => Promise<void> {
 	const appContext = useContext(AppContext)
 	const navigate = useNavigate()
 
-	const registerSubmit = async (
+	const secondaryAdminInfoSubmit = async (
 		e: React.FormEvent<HTMLFormElement>,
-		registerInformationObject: RegisterCredentials,
+		secondaryRegisterInformation: SecondaryAdminRegisterInformation,
 		setError: (error: string) => void,
 		setLoading: (loading: boolean) => void,
 	): Promise<void> => {
 		e.preventDefault()
 		setError("")
 		try {
-			const areCredentialsValid = registerFieldsErrorParser(registerInformationObject, setError)
+			const areCredentialsValid = confirmRegisterFields(secondaryRegisterInformation, setError)
 			if (areCredentialsValid === false) return
 
 			setLoading(true)
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			const { passwordConfirmation, ...registerInfo } = registerInformationObject
-			const response = await appContext.eventfullApiClient.authDataService.register(registerInfo)
+			const { passwordConfirmation, ...registerInfo } = secondaryRegisterInformation
+			const response = await appContext.eventfullApiClient.authDataService.finishAdminRegistration(registerInfo)
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
 				setError("Unable to register. Please reload and try again.")
 				return
 			}
-			appContext.setDataAfterRegister(response.data.accessToken, registerInfo)
+			appContext.setUsername(secondaryRegisterInformation.username)
 			navigate("/dashboard")
 		} catch (error: unknown) {
 			setErrorAxiosResponse(error, setError, "Unable to register")
+		} finally {
+			setLoading(false)
 		}
-		setLoading(false)
 	}
 
-	return registerSubmit
+	return secondaryAdminInfoSubmit
 }

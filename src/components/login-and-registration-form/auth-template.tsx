@@ -1,19 +1,20 @@
 interface Props {
-	loginOrSignUp: "Login" | "Sign up",
-	children: React.ReactNode,
+	title: string
+	children: React.ReactNode
+	width?: string
 }
 
 export default function AuthTemplate(props: Props) {
-	const { loginOrSignUp, children } = props
+	const { title, children, width } = props
 
 	return (
 		<div className = "flex justify-center">
-			<div className = "mt-5 bg-white border shadow rounded-lg p-6 w-7/12 mx-auto">
+			<div className = {`mt-5 bg-white border shadow rounded-lg p-6 w-4/12 mx-auto ${width}`}>
 				<h1
 					className = "flex mx-auto mb-4 text-5xl font-extrabold \
 						leading-none tracking-tight text-gray-900"
 				>
-					{loginOrSignUp}
+					{title}
 				</h1>
 				{children}
 			</div>

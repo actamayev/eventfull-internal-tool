@@ -2,12 +2,14 @@ import _ from "lodash"
 import { createContext } from "react"
 import { makeAutoObservable, runInAction } from "mobx"
 import AuthClass from "../classes/auth-class"
-import EventfullITApiClient from "../classes/eventfull-it-api-client"
+import EventsClass from "../classes/events/events-class"
 import PersonalInfoClass from "../classes/personal-info-class"
+import EventfullITApiClient from "../classes/eventfull-it-api-client"
 
 export class EventfullITContext {
 	private _authClass = new AuthClass()
 	private _personalData: PersonalInfoClass | null = null
+	private _eventsData: EventsClass | null = null
 	public eventfullApiClient = new EventfullITApiClient()
 
 	constructor() {
@@ -31,10 +33,20 @@ export class EventfullITContext {
 		this._personalData = personalData
 	}
 
+	get eventsData(): EventsClass | null {
+		return this._eventsData
+	}
+
+	set eventsData(eventsData: EventsClass | null) {
+		this._eventsData = eventsData
+	}
+
 	private getAllDataFromStorage(): void {
 		this.getAuthDataFromStorage()
 		if (_.isNull(this.authClass.accessToken)) return
 		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
+		if (_.isNull(this.eventsData)) this.eventsData = new EventsClass()
+		this.personalData.getUsernameFromStorage()
 	}
 
 	public getAuthDataFromStorage(): void {
@@ -42,19 +54,30 @@ export class EventfullITContext {
 		this.eventfullApiClient.httpClient.accessToken = this.authClass.accessToken
 	}
 
-	public setDataAfterLogin(accessToken: string, userInfo: PersonalInfoLoginSuccess): void {
+	public setDataAfterLogin(accessToken: string, userInfo: PersonalInfo): void {
 		this.setAccessToken(accessToken)
-		this.setPersonalData(userInfo)
+		this.setAllPersonalData(userInfo)
 	}
 
-	public setDataAfterRegister(accessToken: string, userInfo: PersonalInfoLoginSuccess): void {
-		this.setAccessToken(accessToken)
-		this.setPersonalData(userInfo)
+	public setDataAfterOTPLogin(userInfo: OTPLoginPersonalInfo): void {
+		this.setAccessToken(userInfo.accessToken)
+		this.setPersonalDataAfterOTPLogin(userInfo)
 	}
 
-	public setPersonalData(userInfo: PersonalInfoLoginSuccess): void {
+	public setUsername(username: string): void {
+		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
+		this.personalData.username = username
+		sessionStorage.setItem("username", username)
+	}
+
+	public setAllPersonalData(userInfo: PersonalInfo): void {
 		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
 		this.personalData.savePersonalData(userInfo)
+	}
+
+	private setPersonalDataAfterOTPLogin(userInfo: OTPLoginPersonalInfo): void {
+		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
+		this.personalData.savePersonalDataAfterOTPLogin(userInfo)
 	}
 
 	private setAccessToken(accessToken: string): void {
@@ -63,10 +86,12 @@ export class EventfullITContext {
 	}
 
 	public logout(): void {
-		localStorage.clear()
 		runInAction(() => {
+			localStorage.clear()
+			sessionStorage.clear()
 			this.authClass = new AuthClass()
 			this.personalData = null
+			this.eventsData = null
 			this.eventfullApiClient = new EventfullITApiClient()
 		})
 	}

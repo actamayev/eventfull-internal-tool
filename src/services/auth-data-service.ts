@@ -9,13 +9,23 @@ export default class AuthDataService {
 		return await this.httpClient.http.post<LoginSuccess | NonSuccessResponse>("/auth/login", { loginInformation })
 	}
 
-	async register(
-		registerInformation: RegisterCredentialsWithoutConfirmation
-	): Promise<AxiosResponse<AccesTokenResponse | NonSuccessResponse>> {
-		return await this.httpClient.http.post<AccesTokenResponse | NonSuccessResponse>("/auth/register", { registerInformation })
+	async loginWithOTP(email: string, otp: string): Promise<AxiosResponse<OTPLoginPersonalInfo | NonSuccessResponse>> {
+		return await this.httpClient.http.post<OTPLoginPersonalInfo | NonSuccessResponse>("/auth/otp-login", { email, otp })
 	}
 
-	async logout(): Promise<AxiosResponse<ErrorResponse>> {
-		return await this.httpClient.http.post<ErrorResponse>("/auth/logout")
+	async addAdmin(
+		initialAdminRegisterInformation: InitialAdminRegisterInformation
+	): Promise<AxiosResponse<AllCommonResponses>> {
+		return await this.httpClient.http.post<AllCommonResponses>("/auth/add-admin", { initialAdminRegisterInformation })
+	}
+
+	async finishAdminRegistration(
+		secondaryAdminRegisterInformation: SecondaryAdminRegisterInformationWithoutConfirmation
+	): Promise<AxiosResponse<AllCommonResponses>> {
+		return await this.httpClient.http.post<AllCommonResponses>("/auth/finish-admin-registration", { secondaryAdminRegisterInformation })
+	}
+
+	async logout(): Promise<AxiosResponse<SuccessResponse | ErrorResponse>> {
+		return await this.httpClient.http.post<SuccessResponse | ErrorResponse>("/auth/logout")
 	}
 }

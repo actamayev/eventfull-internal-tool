@@ -2,9 +2,10 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { disableReactDevTools } from "@fvilers/disable-react-devtools"
-import "./styles/index.css"
 import App from "./App"
-import TopLevelComponent from "./top-level-component"
+import "./styles/index.css"
+import Layout from "./components/layout"
+import StateManager from "./state-manager"
 
 if (process.env.NODE_ENV === "production") disableReactDevTools()
 
@@ -15,13 +16,15 @@ const root = ReactDOM.createRoot(
 root.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<TopLevelComponent>
+			<StateManager>
+				<Layout>
 
-				<Routes>
-					<Route path = "/*" element = {<App/>} />
-				</Routes>
+					<Routes>
+						<Route path = "/*" element = {<App/>} />
+					</Routes>
+				</Layout>
 
-			</TopLevelComponent>
+			</StateManager>
 		</BrowserRouter>
 	</React.StrictMode>
 )

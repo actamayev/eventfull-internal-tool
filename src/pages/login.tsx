@@ -1,13 +1,12 @@
 import { useState } from "react"
 import { observer } from "mobx-react"
+import Button from "../components/button"
 import useLoginSubmit from "../hooks/auth/login-submit"
 import useRedirectKnownUser from "../hooks/redirects/redirect-known-user"
 import AuthTemplate from "../components/login-and-registration-form/auth-template"
-import ContactInput from "../components/login-and-registration-form/login/contact-input"
-import PasswordInput from "../components/login-and-registration-form/password-input"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
-import Button from "../components/button"
-import NeedNewAccountLink from "../components/login-and-registration-form/login/need-new-account-link"
+import PasswordInput from "../components/login-and-registration-form/password-input"
+import ContactInput from "../components/login-and-registration-form/login/contact-input"
 import ShowOrHidePasswordButton from "../components/login-and-registration-form/show-or-hide-password-button"
 
 function Login() {
@@ -19,7 +18,7 @@ function Login() {
 		})
 	const [error, setError] = useState("")
 	const [loading, setLoading] = useState(false)
-	const [showPassword, setShowPassword] = useState(true)
+	const [showPassword, setShowPassword] = useState(false)
 
 	const isShowPassword = () => {
 		if (showPassword) return "text"
@@ -38,7 +37,7 @@ function Login() {
 	}
 
 	return (
-		<AuthTemplate loginOrSignUp="Login">
+		<AuthTemplate title="Login">
 			<form onSubmit={handleFormSubmit}>
 				<ContactInput
 					credentials={loginInformation}
@@ -67,7 +66,6 @@ function Login() {
 					textColor = "text-white"
 				/>
 			</form>
-			<NeedNewAccountLink />
 		</AuthTemplate>
 	)
 }

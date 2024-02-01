@@ -4,20 +4,20 @@ import { useNavigate } from "react-router-dom"
 import { isNonSuccessResponse } from "src/utils/type-checks"
 import AppContext from "../../contexts/eventfull-it-context"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
-import confirmLoginFields from "../../utils/auth/confirm-login-fields"
+import confirmOTPLoginFields from "../../utils/auth/confirm-otp-fields"
 
-export default function useLoginSubmit (): (
+export default function useOTPLoginSubmit (): (
 	e: React.FormEvent<HTMLFormElement>,
-	loginInformation: LoginCredentials,
+	loginInformation: OTPCredentials,
 	setError: (error: string) => void,
 	setLoading: (loading: boolean) => void,
 ) => Promise<void> {
 	const appContext = useContext(AppContext)
 	const navigate = useNavigate()
 
-	const loginSubmit = async (
+	const otpLoginSubmit = async (
 		e: React.FormEvent<HTMLFormElement>,
-		loginInformation: LoginCredentials,
+		loginInformation: OTPCredentials,
 		setError: (error: string) => void,
 		setLoading: (loading: boolean) => void,
 	): Promise<void> => {
@@ -25,17 +25,17 @@ export default function useLoginSubmit (): (
 		e.preventDefault()
 
 		try {
-			const areCredentialsValid = confirmLoginFields(loginInformation, setError)
+			const areCredentialsValid = confirmOTPLoginFields(loginInformation, setError)
 			if (areCredentialsValid === false) return
 
 			setLoading(true)
-			const response = await appContext.eventfullApiClient.authDataService.login(loginInformation)
+			const response = await appContext.eventfullApiClient.authDataService.loginWithOTP(loginInformation.email, loginInformation.otp)
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
 				setError("Unable to login. Please reload and try again.")
 				return
 			}
-			appContext.setDataAfterLogin(response.data.accessToken, response.data)
-			navigate("/dashboard")
+			appContext.setDataAfterOTPLogin(response.data)
+			navigate("/finish-admin-registration")
 		} catch (error: unknown) {
 			setErrorAxiosResponse(error, setError, "Unable to login")
 		} finally {
@@ -43,5 +43,5 @@ export default function useLoginSubmit (): (
 		}
 	}
 
-	return loginSubmit
+	return otpLoginSubmit
 }

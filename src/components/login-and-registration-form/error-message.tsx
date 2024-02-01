@@ -1,11 +1,13 @@
+import _ from "lodash"
+
 interface Props {
-	error: string,
+	error: string
 }
 
 export default function ErrorMessage (props: Props) {
 	const { error } = props
 
-	if (!error) return null
+	if (_.isEmpty(error)) return null
 
 	return (
 		<div
