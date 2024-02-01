@@ -61,6 +61,8 @@ declare global {
 		eventDescription: string
 		address: string
 		createdByUsername: string
+		createdAt: string
+		updatedAt: string
 	}
 
 	interface EventfullInvitee {

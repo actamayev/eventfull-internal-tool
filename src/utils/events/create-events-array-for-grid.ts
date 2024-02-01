@@ -1,3 +1,4 @@
+import dayjs from "dayjs"
 import EventClass from "../../classes/events/event-class"
 
 export default function createEventsArrayForGrid(eventsData: Map<string, EventClass>): GridRowData[] {
@@ -9,7 +10,12 @@ export default function createEventsArrayForGrid(eventsData: Map<string, EventCl
 		eventName: event.eventName,
 		eventDescription: event.eventDescription,
 		address: event.address,
-		createdByUsername: event.createdBy.username
+		createdByUsername: event.createdBy.username,
+		createdAt: formatReadableDate(event.createdAt),
+		updatedAt: formatReadableDate(event.updatedAt)
 	}))
 }
 
+function formatReadableDate(date: Date): string {
+	return dayjs(date).format("MMMM D, YYYY, [at] h:mmA")
+}
