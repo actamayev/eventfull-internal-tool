@@ -1,6 +1,9 @@
-import { useState } from "react"
+import _ from "lodash"
 import { observer } from "mobx-react"
+import { useNavigate } from "react-router-dom"
+import { useContext, useState, useEffect } from "react"
 import Button from "../components/button"
+import AppContext from "../contexts/eventfull-it-context"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 import AuthTemplate from "../components/login-and-registration-form/auth-template"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
@@ -12,15 +15,23 @@ import ShowOrHidePasswordButton from "../components/login-and-registration-form/
 
 function FinishAdminRegistration() {
 	useRedirectUnknownUser()
-	const [registerInformation, setRegisterInformation] =
-		useState<SecondaryAdminRegisterInformation>({
-			username: "",
-			password: "",
-			passwordConfirmation: "",
-		})
+	const appContext = useContext(AppContext)
+	const navigate = useNavigate()
+
+	const [registerInformation, setRegisterInformation] = useState<SecondaryAdminRegisterInformation>({
+		username: "",
+		password: "",
+		passwordConfirmation: "",
+	})
 	const [error, setError] = useState("")
 	const [loading, setLoading] = useState(false)
 	const [showPassword, setShowPassword] = useState(true)
+
+	useEffect(() => {
+		if (!_.isNil(appContext.personalData?.username)) {
+			navigate("/dashboard")
+		}
+	}, [])
 
 	const isShowPassword = () => {
 		if (showPassword) return "text"
