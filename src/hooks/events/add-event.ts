@@ -4,24 +4,27 @@ import { useNavigate } from "react-router-dom"
 import EventsClass from "../../classes/events/events-class"
 import AppContext from "../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
+import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
 
 export default function useAddEvent(): (
 	e: React.FormEvent<HTMLFormElement>,
-	eventDetails: CreatingEvent
+	eventDetails: CreatingEvent,
+	setError: React.Dispatch<React.SetStateAction<string>>
 ) => Promise<void> {
 	const appContext = useContext(AppContext)
 	const navigate = useNavigate()
 
 	const addEventSubmit = async (
 		e: React.FormEvent<HTMLFormElement>,
-		eventDetails: CreatingEvent
+		eventDetails: CreatingEvent,
+		setError: React.Dispatch<React.SetStateAction<string>>
 	): Promise<void> => {
 		e.preventDefault()
 		try {
 			const response = await appContext.eventfullApiClient.eventsDataService.addEvent(eventDetails)
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
-				console.error(response)
+				setError("Unable to add event. Please reload and try again.")
 				return
 			}
 
@@ -29,7 +32,7 @@ export default function useAddEvent(): (
 			appContext.eventsData.addEvent(response.data.newEvent)
 			navigate("/dashboard")
 		} catch (error) {
-			console.error(error)
+			setErrorAxiosResponse(error, setError, "Unable to add event")
 		}
 	}
 

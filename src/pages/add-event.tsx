@@ -10,6 +10,7 @@ import isEventDisabled from "../utils/events/is-add-event-disabled"
 import AddEventTemplate from "../components/add-event/add-event-template"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 import SelectEventFrequency from "../components/add-event/select-event-frequency"
+import ErrorMessage from "../components/login-and-registration-form/error-message"
 
 const libraries: ("places")[] = ["places"]
 
@@ -38,6 +39,7 @@ function AddEvent() {
 		customEventDates: [],
 		ongoingEventTimes: []
 	})
+	const [error, setError] = useState("")
 	const addEvent = useAddEvent()
 
 	const { isLoaded } = useLoadScript({
@@ -47,7 +49,7 @@ function AddEvent() {
 
 	return (
 		<AddEventTemplate>
-			<form onSubmit={(e) => addEvent(e, eventDetails)}>
+			<form onSubmit={(e) => addEvent(e, eventDetails, setError)}>
 				<FormGroup
 					id="event-name"
 					label="Event Name"
@@ -71,6 +73,8 @@ function AddEvent() {
 					eventDetails={eventDetails}
 					setEventDetails={setEventDetails}
 				/>
+
+				<ErrorMessage error={error} />
 
 				<div className="mt-2">
 					<Button
