@@ -8,6 +8,7 @@ import ErrorMessage from "../components/login-and-registration-form/error-messag
 import EmailInput from "../components/login-and-registration-form/register/email-input"
 import LastNameInput from "../components/login-and-registration-form/register/last-name-input"
 import FirstNameInput from "../components/login-and-registration-form/register/first-name-input"
+import SuccessMessage from "../components/login-and-registration-form/success-message"
 
 // eslint-disable-next-line max-lines-per-function
 function AddAdmin() {
@@ -19,6 +20,7 @@ function AddAdmin() {
 			lastName: "",
 		})
 	const [error, setError] = useState("")
+	const [success, setSuccess] = useState("")
 	const [loading, setLoading] = useState(false)
 
 	const addAdminSubmit = useAddAdminSubmit()
@@ -29,7 +31,7 @@ function AddAdmin() {
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
-		await addAdminSubmit(e, registerInformation, setError, setLoading, setRegisterInformation)
+		await addAdminSubmit(e, registerInformation, setError, setLoading, setRegisterInformation, setSuccess)
 	}
 
 	// TODO: make sure the email is not taken (make a request to the server while the user is typing).
@@ -61,8 +63,9 @@ function AddAdmin() {
 					</div>
 				</div>
 
-
 				<ErrorMessage error = {error} />
+
+				<SuccessMessage message = {success} />
 
 				<Button
 					className = "mt-3 w-full font-bold text-lg"

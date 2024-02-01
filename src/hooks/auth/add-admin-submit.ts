@@ -10,7 +10,8 @@ export default function useAddAdminSubmit (): (
 	initialAdminRegisterInformation: InitialAdminRegisterInformation,
 	setError: (error: string) => void,
 	setLoading: (loading: boolean) => void,
-	setRegisterInformation: React.Dispatch<React.SetStateAction<InitialAdminRegisterInformation>>
+	setRegisterInformation: React.Dispatch<React.SetStateAction<InitialAdminRegisterInformation>>,
+	setSuccess: React.Dispatch<React.SetStateAction<string>>
 ) => Promise<void> {
 	const appContext = useContext(AppContext)
 
@@ -19,10 +20,12 @@ export default function useAddAdminSubmit (): (
 		initialAdminRegisterInformation: InitialAdminRegisterInformation,
 		setError: (error: string) => void,
 		setLoading: (loading: boolean) => void,
-		setRegisterInformation: React.Dispatch<React.SetStateAction<InitialAdminRegisterInformation>>
+		setRegisterInformation: React.Dispatch<React.SetStateAction<InitialAdminRegisterInformation>>,
+		setSuccess: React.Dispatch<React.SetStateAction<string>>
 	): Promise<void> => {
 		e.preventDefault()
 		setError("")
+		setSuccess("")
 		try {
 			const areCredentialsValid = confirmAddAdminFields(initialAdminRegisterInformation, setError)
 			if (areCredentialsValid === false) return
@@ -33,7 +36,7 @@ export default function useAddAdminSubmit (): (
 				setError("Unable to add admin. Please reload and try again.")
 				return
 			}
-			setError("Admin added successfully")
+			setSuccess("Admin added successfully")
 			setRegisterInformation({
 				email: "",
 				firstName: "",
