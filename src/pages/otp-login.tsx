@@ -1,13 +1,14 @@
 import { useState } from "react"
-import useRedirectKnownUser from "../hooks/redirects/redirect-known-user"
-import AuthTemplate from "../components/login-and-registration-form/auth-template"
-import ErrorMessage from "../components/login-and-registration-form/error-message"
+import { observer } from "mobx-react"
 import Button from "../components/button"
-import OTPInput from "../components/login-and-registration-form/login/otp-input"
 import useOTPLoginSubmit from "../hooks/auth/otp-login-submit"
+import useRedirectKnownUser from "../hooks/redirects/redirect-known-user"
+import OTPInput from "../components/login-and-registration-form/login/otp-input"
+import ErrorMessage from "../components/login-and-registration-form/error-message"
+import AuthTemplate from "../components/login-and-registration-form/auth-template"
 import EmailInput from "../components/login-and-registration-form/register/email-input"
 
-export default function OTPLogin() {
+function OTPLogin() {
 	useRedirectKnownUser()
 	const [loginInformation, setLoginInformation] =
 		useState<OTPCredentials>({
@@ -55,3 +56,5 @@ export default function OTPLogin() {
 		</AuthTemplate>
 	)
 }
+
+export default observer(OTPLogin)

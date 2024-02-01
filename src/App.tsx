@@ -5,7 +5,6 @@ import AddAdmin from "./pages/add-admin"
 import OTPLogin from "./pages/otp-login"
 import AddEvent from "./pages/add-event"
 import Dashboard from "./pages/dashboard"
-import UnverifiedUser from "./pages/unverified-user"
 import FinishAdminRegistration from "./pages/finish-admin-registration"
 
 import useRetrievePersonalInfo from "./hooks/retrieve-personal-info"
@@ -22,7 +21,6 @@ export default function App() {
 
 			<Route path = "/dashboard" element = {<Dashboard />} />
 			<Route path = "/add-event" element = {<AddEvent />} />
-			<Route path = "/unverified-user" element = {<UnverifiedUser />} />
 
 			<Route path = "*" element = {<Missing />} />
 		</Routes>
