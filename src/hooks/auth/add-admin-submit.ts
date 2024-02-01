@@ -44,8 +44,9 @@ export default function useAddAdminSubmit (): (
 			})
 		} catch (error: unknown) {
 			setErrorAxiosResponse(error, setError, "Unable to add admin")
+		} finally {
+			setLoading(false)
 		}
-		setLoading(false)
 	}
 
 	return addAdmin

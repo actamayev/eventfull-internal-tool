@@ -38,8 +38,9 @@ export default function useOTPLoginSubmit (): (
 			navigate("/finish-admin-registration")
 		} catch (error: unknown) {
 			setErrorAxiosResponse(error, setError, "Unable to login")
+		} finally {
+			setLoading(false)
 		}
-		setLoading(false)
 	}
 
 	return otpLoginSubmit

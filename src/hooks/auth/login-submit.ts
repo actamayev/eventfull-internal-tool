@@ -38,8 +38,9 @@ export default function useLoginSubmit (): (
 			navigate("/dashboard")
 		} catch (error: unknown) {
 			setErrorAxiosResponse(error, setError, "Unable to login")
+		} finally {
+			setLoading(false)
 		}
-		setLoading(false)
 	}
 
 	return loginSubmit

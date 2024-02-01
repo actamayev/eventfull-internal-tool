@@ -39,8 +39,9 @@ export default function useSecondaryAdminInfoSubmit (): (
 			navigate("/dashboard")
 		} catch (error: unknown) {
 			setErrorAxiosResponse(error, setError, "Unable to register")
+		} finally {
+			setLoading(false)
 		}
-		setLoading(false)
 	}
 
 	return secondaryAdminInfoSubmit
