@@ -49,7 +49,6 @@ function FinishAdminRegistration() {
 		await secondaryAdminSubmit(e, registerInformation, setError, setLoading)
 	}
 
-	// TODO: make sure the username is not taken (make a request to the server while the user is typing).
 	return (
 		<AuthTemplate title="Finish Admin Registration">
 			<form onSubmit={handleFormSubmit}>

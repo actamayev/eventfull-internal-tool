@@ -53,7 +53,6 @@ function AddEvent() {
 		})
 	}
 
-	console.log(eventDetails)
 	return (
 		<EventTemplate title="Add">
 			<form onSubmit={(e) => addEvent(e, eventDetails, setError)}>

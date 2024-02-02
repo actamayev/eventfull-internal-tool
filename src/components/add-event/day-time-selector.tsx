@@ -8,6 +8,7 @@ interface Props {
 	setEventDetails: (newEventDetails: Partial<CreatingEvent | EventFromDB>) => void
 }
 
+// eslint-disable-next-line max-lines-per-function
 export default function DayTimeSelector (props: Props) {
 	const { day, eventDetails, setEventDetails, index } = props
 
@@ -49,7 +50,6 @@ export default function DayTimeSelector (props: Props) {
 	}
 
 	// change to this day picker: https://retool.com/blog/how-to-create-a-time-picker-in-react
-	// TODO: Show an alert if the start time is after the end time
 	const handleTimeChange = (type: "startTime" | "endTime", value: string) => {
 		// Ensure currentTimes has the correct structure
 		const defaultStartTime = new Date()

@@ -29,7 +29,7 @@ export default function useEditEvent(): (
 			}
 
 			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
-			appContext.eventsData.editEvent(response.data.newEvent)
+			appContext.eventsData.editEvent(response.data.updatedEvent)
 			navigate("/dashboard")
 		} catch (error) {
 			setErrorAxiosResponse(error, setError, "Unable to edit event")

@@ -1,7 +1,7 @@
 import _ from "lodash"
 import { observer } from "mobx-react"
 import { useParams } from "react-router-dom"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { useLoadScript } from "@react-google-maps/api"
 import Button from "../components/button"
 import FormGroup from "../components/form-group"
@@ -14,6 +14,7 @@ import EventTemplate from "../components/event-template"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 import SelectEventFrequency from "../components/add-event/select-event-frequency"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
+import useSetSingleEvent from "../hooks/events/set-single-event"
 
 const libraries: ("places")[] = ["places"]
 
@@ -63,23 +64,9 @@ function EditEvent() {
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	})
-	const [eventExists, setEventExists] = useState(false)
 	const [error, setError] = useState("")
+	useSetSingleEvent(eventId, setError, setEventDetails)
 	const editEvent = useEditEvent()
-
-	useEffect(() => {
-		if (
-			_.isNull(appContext.authClass.accessToken) ||
-			_.isNil(appContext.personalData?.username)
-		) return
-		if (_.isNull(appContext.eventsData)) return
-		if (_.isUndefined(eventId)) return
-
-		const event = appContext.eventsData.contextForEvent(eventId)
-		if (_.isUndefined(event)) return
-		setEventExists(true)
-		setEventDetails(event)
-	}, [])
 
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
@@ -91,7 +78,7 @@ function EditEvent() {
 		_.isNil(appContext.personalData?.username)
 	) return null
 
-	if (eventExists === false) {
+	if (_.isEmpty(eventDetails._id)) {
 		return (
 			<>
 				This event does not exist
