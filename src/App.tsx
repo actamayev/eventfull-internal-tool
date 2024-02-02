@@ -8,6 +8,7 @@ import Dashboard from "./pages/dashboard"
 import FinishAdminRegistration from "./pages/finish-admin-registration"
 
 import useRetrievePersonalInfo from "./hooks/retrieve-personal-info"
+import EditEvent from "./pages/edit-event"
 
 export default function App() {
 	useRetrievePersonalInfo()
@@ -21,6 +22,8 @@ export default function App() {
 
 			<Route path = "/dashboard" element = {<Dashboard />} />
 			<Route path = "/add-event" element = {<AddEvent />} />
+			<Route path = "/edit-event/:eventId" element = {<EditEvent />} />
+
 
 			<Route path = "*" element = {<Missing />} />
 		</Routes>

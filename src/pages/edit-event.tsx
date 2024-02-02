@@ -1,9 +1,12 @@
-import { useState } from "react"
+import _ from "lodash"
 import { observer } from "mobx-react"
+import { useParams } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
 import { useLoadScript } from "@react-google-maps/api"
 import Button from "../components/button"
 import FormGroup from "../components/form-group"
-import useAddEvent from "../hooks/events/add-event"
+import useEditEvent from "../hooks/events/edit-event"
+import AppContext from "../contexts/eventfull-it-context"
 import SelectTimes from "../components/add-event/select-times"
 import AddressInput from "../components/add-event/address-input"
 import isEventDisabled from "../utils/events/is-add-event-disabled"
@@ -14,9 +17,14 @@ import ErrorMessage from "../components/login-and-registration-form/error-messag
 
 const libraries: ("places")[] = ["places"]
 
-function AddEvent() {
+// eslint-disable-next-line max-lines-per-function
+function EditEvent() {
 	useRedirectUnknownUser()
-	const [eventDetails, setEventDetails] = useState<CreatingEvent>({
+	const appContext = useContext(AppContext)
+	const { eventId } = useParams<{ eventId: string }>()
+
+	const [eventDetails, setEventDetails] = useState<EventFromDB>({
+		_id: "",
 		eventName: "",
 		eventPrice: 2,
 		eventType: "Entertainment",
@@ -26,37 +34,80 @@ function AddEvent() {
 		eventReviewable: true,
 		canInvitedUsersInviteOthers: true,
 
-		eventFrequency: "",
+		eventFrequency: "one-time",
 		address: "",
 		eventDescription: "Test description",
 		eventURL: "google.com",
 
 		invitees: [],
 		coHosts: [],
+		attendees: [],
 		eventCapacity: 10,
-
-		singularEventTime: null,
+		createdBy: {
+			username: "",
+			userId: "",
+			createdAt: new Date(),
+			isCreatedByAdmin: false,
+		},
 		customEventDates: [],
-		ongoingEventTimes: []
+		ongoingEventTimes: [],
+		singularEventTime: {
+			startTime: new Date(),
+			endTime: new Date(),
+			eventDuration: {
+				hours: 0,
+				minutes: 0,
+			}
+		},
+		extraEventCategories: [],
+		createdAt: new Date(),
+		updatedAt: new Date(),
 	})
+	const [eventExists, setEventExists] = useState(false)
 	const [error, setError] = useState("")
-	const addEvent = useAddEvent()
+	const editEvent = useEditEvent()
+
+	useEffect(() => {
+		if (
+			_.isNull(appContext.authClass.accessToken) ||
+			_.isNil(appContext.personalData?.username)
+		) return
+		if (_.isNull(appContext.eventsData)) return
+		if (_.isUndefined(eventId)) return
+
+		const event = appContext.eventsData.contextForEvent(eventId)
+		if (_.isUndefined(event)) return
+		setEventExists(true)
+		setEventDetails(event)
+	}, [])
 
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
 		libraries,
 	})
 
+	if (
+		_.isNull(appContext.authClass.accessToken) ||
+		_.isNil(appContext.personalData?.username)
+	) return null
+
+	if (eventExists === false) {
+		return (
+			<>
+				This event does not exist
+			</>
+		)
+	}
+
 	const setEventDetailsGeneric = (newEventDetails: Partial<CreatingEvent | EventFromDB>) => {
 		setEventDetails(prev => {
-			return { ...prev, ...newEventDetails as Partial<CreatingEvent> }
+			return { ...prev, ...newEventDetails as Partial<EventFromDB> }
 		})
 	}
 
-	console.log(eventDetails)
 	return (
-		<EventTemplate title="Add">
-			<form onSubmit={(e) => addEvent(e, eventDetails, setError)}>
+		<EventTemplate title="Edit">
+			<form onSubmit={(e) => editEvent(e, eventDetails, setError)}>
 				<FormGroup
 					id="event-name"
 					label="Event Name"
@@ -85,7 +136,7 @@ function AddEvent() {
 
 				<div className="mt-2">
 					<Button
-						title= {`Add ${eventDetails.eventName || "Event"}`}
+						title= {`Edit ${eventDetails.eventName}`}
 						disabled={isEventDisabled(eventDetails)}
 						colorClass="bg-green-500"
 						hoverClass="hover:bg-green-700"
@@ -96,4 +147,4 @@ function AddEvent() {
 	)
 }
 
-export default observer(AddEvent)
+export default observer(EditEvent)

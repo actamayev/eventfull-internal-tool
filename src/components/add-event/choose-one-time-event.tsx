@@ -3,8 +3,8 @@ import calculateEventDuration from "../../utils/events/calculate-event-duration"
 import formatDateToDateTimeLocal from "../../utils/events/format-date-to-date-time-local"
 
 interface Props {
-	eventDetails: CreatingEvent
-	setEventDetails: React.Dispatch<React.SetStateAction<CreatingEvent>>
+	eventDetails: CreatingEvent | EventFromDB
+	setEventDetails: (newEventDetails: Partial<CreatingEvent | EventFromDB>) => void
 }
 
 export default function ChooseOneTimeEvent(props: Props) {
@@ -44,12 +44,12 @@ export default function ChooseOneTimeEvent(props: Props) {
 				label="Event Start Time"
 				type="datetime-local"
 				onChange={(e) => {
-					const newStartTime = e.target.value ? new Date(e.target.value) : null
+					const newStartTime = new Date(e.target.value)
 
 					// Ensure endTime is either a Date or null, but not undefined
 					const endTime = eventDetails.singularEventTime?.endTime !== undefined
 						? eventDetails.singularEventTime.endTime
-						: null
+						: new Date()
 
 					setEventDetails({
 						...eventDetails,

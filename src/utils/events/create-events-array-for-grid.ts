@@ -7,7 +7,7 @@ export default function createEventsArrayForGrid(eventsData: Map<string, EventCl
 		: eventsData
 
 	return eventsArray.map(event => ({
-		eventId: event.eventId,
+		eventId: event._id,
 		eventName: event.eventName,
 		eventDescription: event.eventDescription,
 		address: event.address,

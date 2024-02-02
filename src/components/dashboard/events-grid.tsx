@@ -78,14 +78,14 @@ function EventsGrid () {
 					/>
 				</div>
 			</div>
-			<div className="ag-theme-alpine" style={{ height: 900, width: "100%" }}>
+			<div className="ag-theme-alpine" style={{ height: 1500, width: "100%" }}>
 				<AgGridReact
 					ref={gridRef}
 					columnDefs={dashboardColumns}
 					rowData={rowData}
 					onGridReady={onGridReady}
 					pagination={true}
-					paginationPageSize={25}
+					paginationPageSize={50}
 					rowHeight={40}
 					autoSizeStrategy={autoSizeStrategy}
 					components={{

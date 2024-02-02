@@ -9,6 +9,10 @@ export default class EventsDataService {
 		return await this.httpClient.http.post<SingleEventResponse | NonSuccessResponse>("/events/add-event", { eventfullEventData })
 	}
 
+	async editEvent(eventfullEventData: EventFromDB): Promise<AxiosResponse<SingleEventResponse | NonSuccessResponse>> {
+		return await this.httpClient.http.post<SingleEventResponse | NonSuccessResponse>("/events/edit-event", { eventfullEventData })
+	}
+
 	async getEvents(): Promise<AxiosResponse<EventsResponse | ErrorResponse>> {
 		return await this.httpClient.http.get<EventsResponse | ErrorResponse>("/events/get-events")
 	}

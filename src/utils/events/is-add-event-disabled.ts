@@ -1,6 +1,6 @@
 import _ from "lodash"
 
-export default function isEventDisabled(eventDetails: CreatingEvent): boolean {
+export default function isEventDisabled(eventDetails: Partial<CreatingEvent | EventFromDB>): boolean {
 	if (_.isEmpty(eventDetails.eventName)) {
 		return true
 	} else if (_.isEmpty(eventDetails.eventFrequency)) {
@@ -11,7 +11,7 @@ export default function isEventDisabled(eventDetails: CreatingEvent): boolean {
 	return frequencyCheck(eventDetails)
 }
 
-function frequencyCheck (eventDetails: CreatingEvent): boolean {
+export function frequencyCheck (eventDetails: Partial<CreatingEvent | EventFromDB>): boolean {
 	if (eventDetails.eventFrequency === "one-time") {
 		return _.isNull(eventDetails.singularEventTime)
 	} else if (eventDetails.eventFrequency === "custom") {

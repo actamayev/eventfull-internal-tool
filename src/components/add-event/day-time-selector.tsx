@@ -4,8 +4,8 @@ import calculateEventDuration from "../../utils/events/calculate-event-duration"
 interface Props {
 	day: DayOfWeek
 	index: number
-	eventDetails: CreatingEvent
-	setEventDetails: React.Dispatch<React.SetStateAction<CreatingEvent>>
+	eventDetails: CreatingEvent | EventFromDB
+	setEventDetails: (newEventDetails: Partial<CreatingEvent | EventFromDB>) => void
 }
 
 export default function DayTimeSelector (props: Props) {
@@ -22,10 +22,17 @@ export default function DayTimeSelector (props: Props) {
 		if (checked === false) {
 			updatedEventTimes = eventDetails.ongoingEventTimes?.filter(d => d.dayOfWeek !== day) || []
 		} else {
-			// Assuming default eventDuration calculation
 			const defaultStartTime = new Date()
-			const defaultEndTime = new Date()
-			defaultEndTime.setHours(defaultStartTime.getHours() + 8) // example default duration of 8 hours
+			defaultStartTime.setMinutes(0, 0, 0) // Reset minutes, seconds, and milliseconds
+
+			// Default end time is 8 hours from the start time, but not past midnight
+			const defaultEndTime = new Date(defaultStartTime.getTime() + (8 * 60 * 60 * 1000)) // Add 8 hours in milliseconds
+
+			// Check if default end time crosses to the next day
+			if (defaultEndTime.getDate() !== defaultStartTime.getDate()) {
+				defaultEndTime.setHours(23, 59, 59, 999) // Set to the end of the start day
+				defaultEndTime.setDate(defaultStartTime.getDate()) // Ensure it's the same day
+			}
 
 			updatedEventTimes = [
 				...(eventDetails.ongoingEventTimes || []),
@@ -37,33 +44,56 @@ export default function DayTimeSelector (props: Props) {
 				}
 			]
 		}
+
 		setEventDetails({ ...eventDetails, ongoingEventTimes: updatedEventTimes })
 	}
 
+	// change to this day picker: https://retool.com/blog/how-to-create-a-time-picker-in-react
 	// TODO: Show an alert if the start time is after the end time
 	const handleTimeChange = (type: "startTime" | "endTime", value: string) => {
 		// Ensure currentTimes has the correct structure
+		const defaultStartTime = new Date()
+		defaultStartTime.setHours(9, 0, 0, 0) // Set time to 09:00 AM
+
+		const defaultEndTime = new Date()
+		defaultEndTime.setHours(17, 0, 0, 0) // Set time to 05:00 PM
+
 		const currentTimes: OngoingEvents = {
 			...dayDetails,
 			dayOfWeek: day,
-			startTime: dayDetails?.startTime || new Date("09:00"),
-			endTime: dayDetails?.endTime || new Date("17:00"),
+			startTime: dayDetails?.startTime || defaultStartTime,
+			endTime: dayDetails?.endTime || defaultEndTime,
 			eventDuration: dayDetails?.eventDuration || { hours: 0, minutes: 0 },
 		}
 
-		const dateValue = value ? new Date(value) : null
-		currentTimes[type] = dateValue
+		const timeValue = new Date(currentTimes[type])
+		timeValue.setHours(parseInt(value.split(":")[0]), parseInt(value.split(":")[1]))
 
-		// Calculate the updated duration
+		// Temporarily update the current time to check if it's valid
+		currentTimes[type] = timeValue
+
+		// Check if the start time is after the end time
+		if (currentTimes.startTime > currentTimes.endTime) {
+			alert("Start time cannot be after end time.")
+			return // Exit the function without updating the state
+		}
+
+		// Check if the end time is before the start time
+		if (currentTimes.endTime < currentTimes.startTime) {
+			alert("End time cannot be before start time.")
+			return // Exit the function without updating the state
+		}
+
+		// If times are valid, calculate the updated duration and update the state
 		const updatedDuration = calculateEventDuration(currentTimes.startTime, currentTimes.endTime)
 		currentTimes.eventDuration = updatedDuration
 
-		// Update the ongoingEventTimes array
 		const updatedEventTimes = eventDetails.ongoingEventTimes?.map(d =>
 			d.dayOfWeek === day ? currentTimes : d
 		) || []
 
 		setEventDetails({ ...eventDetails, ongoingEventTimes: updatedEventTimes })
+
 	}
 
 	function formatTime(date: Date) {

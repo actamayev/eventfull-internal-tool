@@ -48,7 +48,7 @@ declare global {
 			userId: string
 			username: string
 		}
-		customEventDates: EventfullBaseEventTime[]
+		customEventDates: BaseEventTime[]
 		eventCapacity: number | null
 		eventDescription: string
 		eventFrequency: EventFrequency
@@ -63,8 +63,8 @@ declare global {
 		invitees: EventfullInvitee[]
 		isActive: boolean
 		isVirtual: boolean
-		ongoingEventTimes: EventfullOngoingEventTime[]
-		singularEventTime?: EventfullBaseEventTime
+		ongoingEventTimes: OngoingEvents[]
+		singularEventTime?: BaseEventTime
 		organizer?: SocialData
 	}
 }
