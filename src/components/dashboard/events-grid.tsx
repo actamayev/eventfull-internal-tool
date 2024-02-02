@@ -7,10 +7,11 @@ import { useNavigate } from "react-router-dom"
 import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
 import { GridApi, GridReadyEvent, SizeColumnsToContentStrategy  } from "ag-grid-community"
-import Button from "./button"
-import AppContext from "../contexts/eventfull-it-context"
-import dashboardColumns from "../utils/events/dashboard-colums"
-import createEventsArrayForGrid from "../utils/events/create-events-array-for-grid"
+import Button from "../button"
+import AppContext from "../../contexts/eventfull-it-context"
+import dashboardColumns from "../../utils/events/dashboard-colums"
+import createEventsArrayForGrid from "../../utils/events/create-events-array-for-grid"
+import EditButtonRenderer from "./edit-event-button"
 
 function EventsGrid () {
 	const appContext = useContext(AppContext)
@@ -85,8 +86,11 @@ function EventsGrid () {
 					onGridReady={onGridReady}
 					pagination={true}
 					paginationPageSize={25}
-					rowHeight={30}
+					rowHeight={40}
 					autoSizeStrategy={autoSizeStrategy}
+					components={{
+						editButtonRenderer: EditButtonRenderer,
+					}}
 				/>
 			</div>
 		</div>

@@ -50,6 +50,7 @@ declare global {
 	}
 
 	interface GridRowData {
+		eventId: string
 		eventName: string
 		eventDescription: string
 		address: string
