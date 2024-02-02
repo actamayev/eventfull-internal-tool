@@ -11,7 +11,6 @@ import Button from "../button"
 import AppContext from "../../contexts/eventfull-it-context"
 import dashboardColumns from "../../utils/events/dashboard-colums"
 import createEventsArrayForGrid from "../../utils/events/create-events-array-for-grid"
-import EditButtonRenderer from "./edit-event-button"
 
 function EventsGrid () {
 	const appContext = useContext(AppContext)
@@ -88,9 +87,6 @@ function EventsGrid () {
 					paginationPageSize={50}
 					rowHeight={40}
 					autoSizeStrategy={autoSizeStrategy}
-					components={{
-						editButtonRenderer: EditButtonRenderer,
-					}}
 				/>
 			</div>
 		</div>

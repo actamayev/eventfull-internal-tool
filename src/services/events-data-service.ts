@@ -20,4 +20,8 @@ export default class EventsDataService {
 	async getEventById(eventId: string): Promise<AxiosResponse<SingleEventResponse | ErrorResponses>> {
 		return await this.httpClient.http.get<SingleEventResponse | ErrorResponses>(`/events/get-event/${eventId}`)
 	}
+
+	async deleteEvent(eventId: string): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
+		return await this.httpClient.http.delete<SuccessResponse | ErrorResponses>(`/events/delete-event/${eventId}`)
+	}
 }

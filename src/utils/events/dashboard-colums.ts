@@ -4,6 +4,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat"
 dayjs.extend(customParseFormat)
 import { ColDef } from "ag-grid-community"
 import EditButtonRenderer from "../../components/dashboard/edit-event-button"
+import DeleteButtonRenderer from "../../components/dashboard/delete-event-button"
 
 const dateComparator = (valueA: string, valueB: string): number => {
 	// Parse the date strings using the custom format
@@ -30,7 +31,9 @@ const dashboardColumns: ColDef[] = [
 	{ headerName: "Created By", field: "createdByUsername", comparator: caseInsensitiveComparator },
 	{ headerName: "Created At", field: "createdAt", comparator: dateComparator },
 	{ headerName: "Last Updated At", field: "updatedAt", comparator: dateComparator },
-	{ headerName: "Edit", field: "edit", cellRenderer: EditButtonRenderer }
+	{ headerName: "Edit", field: "edit", cellRenderer: EditButtonRenderer },
+	{ headerName: "Delete", field: "delete", cellRenderer: DeleteButtonRenderer }
+
 ]
 
 export default dashboardColumns
