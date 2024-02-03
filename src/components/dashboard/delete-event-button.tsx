@@ -16,11 +16,9 @@ export default function DeleteButtonRenderer(props: CustomCellRendererProps) {
 		adjustColumnWidth(newWidth)
 	}, [confirmDelete, adjustColumnWidth])
 
-	// TODO: When this is clicked, it should widen the grid to show the delete button
 	const handleDeleteClick = () => setConfirmDelete(true)
 	const handleCancelClick = () => setConfirmDelete(false)
 
-	// TODO: The grid shouldn't shrink back to its original size after the delete button is clicked
 	const handleConfirmDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		try {
 			e.preventDefault()
