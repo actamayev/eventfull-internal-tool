@@ -25,15 +25,14 @@ const caseInsensitiveComparator = (valueA: string | null, valueB: string | null)
 }
 
 const dashboardColumns: ColDef[] = [
-	{ headerName: "Event Name", field: "eventName", comparator: caseInsensitiveComparator },
-	{ headerName: "Description", field: "eventDescription", comparator: caseInsensitiveComparator },
-	{ headerName: "Location", field: "address", comparator: caseInsensitiveComparator },
-	{ headerName: "Created By", field: "createdByUsername", comparator: caseInsensitiveComparator },
-	{ headerName: "Created At", field: "createdAt", comparator: dateComparator },
-	{ headerName: "Last Updated At", field: "updatedAt", comparator: dateComparator },
-	{ headerName: "Edit", field: "edit", cellRenderer: EditButtonRenderer },
-	{ headerName: "Delete", field: "delete", cellRenderer: DeleteButtonRenderer }
-
+	{ headerName: "Event Name", field: "eventName", comparator: caseInsensitiveComparator, width: 175 },
+	{ headerName: "Description", field: "eventDescription", comparator: caseInsensitiveComparator, width: 300 },
+	{ headerName: "Location", field: "address", comparator: caseInsensitiveComparator, width: 150 },
+	{ headerName: "Created By", field: "createdByUsername", comparator: caseInsensitiveComparator, width: 150 },
+	{ headerName: "Created At", field: "createdAt", comparator: dateComparator, width: 40 },
+	{ headerName: "Last Updated At", field: "updatedAt", comparator: dateComparator, width: 40 },
+	{ headerName: "Edit", field: "edit", cellRenderer: EditButtonRenderer, width: 100 },
+	{ headerName: "Delete", field: "delete", cellRenderer: DeleteButtonRenderer, width: 100 }
 ]
 
 export default dashboardColumns

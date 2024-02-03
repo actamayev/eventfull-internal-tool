@@ -77,7 +77,7 @@ export default function Layout (props: Props) {
 			</nav>
 			<div className="flex flex-row">
 				<ShowVerticalNavBar />
-				<div className="flex-1 w-full bg-white overflow-y-auto px-20 py-14">
+				<div className="flex-1 w-full bg-white overflow-y-auto px-10 py-8">
 					{children}
 				</div>
 			</div>

@@ -20,5 +20,5 @@ export default function createEventsArrayForGrid(eventsData: Map<string, EventCl
 }
 
 function formatReadableDate(date: Date): string {
-	return dayjs(date).format("MMMM D, YYYY, [at] h:mmA")
+	return dayjs(date).format("M/D/YY [at] h:mmA")
 }
