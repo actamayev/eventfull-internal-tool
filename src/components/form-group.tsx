@@ -1,20 +1,22 @@
 interface Props {
-	as?: React.ElementType,
-	className?: string,
-	id?: string,
-	label?: string,
-	max?: string,
-	minDate?: string,
-	maxLength?: number,
-	name?: string,
-	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
-	pattern?: string,
-	placeholder?: string,
-	required?: boolean,
-	rows?: number,
-	type?: string,
-	value?: string,
-	children?: React.ReactNode,
+	as?: React.ElementType
+	className?: string
+	id?: string
+	label?: string
+	max?: string
+	minDate?: string
+	minValue?: number
+	maxLength?: number
+	name?: string
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+	pattern?: string
+	placeholder?: string
+	required?: boolean
+	rows?: number
+	type?: string
+	step?: number
+	value?: string
+	children?: React.ReactNode
 }
 
 export default function FormGroup(props: Props) {
@@ -25,6 +27,7 @@ export default function FormGroup(props: Props) {
 		label,
 		max,
 		minDate,
+		minValue,
 		maxLength,
 		name,
 		onChange,
@@ -33,6 +36,7 @@ export default function FormGroup(props: Props) {
 		required,
 		rows,
 		type,
+		step,
 		value,
 		children,
 	} = props
@@ -46,7 +50,8 @@ export default function FormGroup(props: Props) {
 				className ="mt-1 p-2 w-full border rounded-md text-gray-900"
 				id = {id}
 				max={max}
-				min = {minDate}
+				min = {minValue}
+				mindate = {minDate}
 				maxLength = {maxLength}
 				name = {name}
 				onChange = {onChange}
@@ -55,6 +60,7 @@ export default function FormGroup(props: Props) {
 				required = {required}
 				rows = {rows}
 				type = {type || "text"}
+				step = {step}
 				value = {value}
 			>
 				{children}

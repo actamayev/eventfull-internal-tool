@@ -7,6 +7,8 @@ export default function isEventDisabled(eventDetails: Partial<CreatingEvent | Ev
 		return true
 	} else if (_.isEmpty(eventDetails.address)) {
 		return true
+	} else if (_.isEmpty(eventDetails.eventType)) {
+		return true
 	}
 	return frequencyCheck(eventDetails)
 }

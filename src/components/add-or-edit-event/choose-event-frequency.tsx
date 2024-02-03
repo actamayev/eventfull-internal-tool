@@ -3,7 +3,7 @@ interface Props {
 	setEventDetails: (newEventDetails: Partial<CreatingEvent | EventFromDB>) => void
 }
 
-export default function SelectEventFrequency(props: Props) {
+export default function ChooseEventFrequency(props: Props) {
 	const { eventDetails, setEventDetails } = props
 
 	return (

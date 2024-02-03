@@ -27,6 +27,10 @@ export default function AddressInput(props: Props) {
 		}
 	}, [setEventDetails, eventDetails])  // Add dependencies here
 
+	const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setEventDetails({...eventDetails, address: e.target.value})
+	}
+
 	return (
 		<Autocomplete
 			onLoad={(autocomplete) => {
@@ -35,13 +39,12 @@ export default function AddressInput(props: Props) {
 		>
 			<FormGroup
 				id="address"
-				label="Address"
+				label="Address *"
 				type="text"
 				placeholder="Bowser's Castle"
 				value={eventDetails.address}
-				onChange={(e) => setEventDetails({...eventDetails, address: e.target.value})}
+				onChange={handleAddressChange}
 				required
-
 			/>
 		</Autocomplete>
 	)

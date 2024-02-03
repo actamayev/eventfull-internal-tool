@@ -13,7 +13,7 @@ import AddressInput from "../components/add-or-edit-event/address-input"
 import useSetSingleEvent from "../hooks/events/set-single-event"
 import isEventDisabled from "../utils/events/is-add-event-disabled"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
-import SelectEventFrequency from "../components/add-or-edit-event/select-event-frequency"
+import ChooseEventFrequency from "../components/add-or-edit-event/choose-event-frequency"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
 
 const libraries: ("places")[] = ["places"]
@@ -106,7 +106,7 @@ function EditEvent() {
 						setEventDetails={setEventDetailsGeneric}
 					/>
 				)}
-				<SelectEventFrequency
+				<ChooseEventFrequency
 					eventDetails={eventDetails}
 					setEventDetails={setEventDetailsGeneric}
 				/>
