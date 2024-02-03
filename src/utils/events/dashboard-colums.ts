@@ -15,7 +15,7 @@ const dateComparator = (valueA: string, valueB: string): number => {
 	return dateA.diff(dateB)
 }
 
-const caseInsensitiveComparator = (valueA: string | null, valueB: string | null) => {
+const caseInsensitiveComparator = (valueA: string | null, valueB: string | null): number => {
 	if (_.isNull(valueA) && _.isNull(valueB)) {
 		return 0
 	}
