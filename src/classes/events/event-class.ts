@@ -3,7 +3,7 @@ import { action, makeAutoObservable } from "mobx"
 export default class EventClass {
 	constructor(eventData: EventFromDB) {
 		makeAutoObservable(this)
-		this.eventId = eventData._id
+		this._id = eventData._id
 		this.address = eventData.address
 		this.attendees = eventData.attendees
 		this.canInvitedUsersInviteOthers = eventData.canInvitedUsersInviteOthers
@@ -32,7 +32,7 @@ export default class EventClass {
 		this.updatedAt = eventData.updatedAt
 	}
 
-	public eventId: string
+	public _id: string
 	public address: string
 	public attendees: EventfullAttendee[]
 	public canInvitedUsersInviteOthers: boolean
@@ -43,7 +43,7 @@ export default class EventClass {
 		userId: string
 		username: string
 	}
-	public customEventDates: EventfullBaseEventTime[]
+	public customEventDates: BaseEventTime[]
 	public eventCapacity: number | null
 	public eventDescription: string
 	public eventFrequency: EventFrequency
@@ -58,8 +58,8 @@ export default class EventClass {
 	public invitees: EventfullInvitee[]
 	public isActive: boolean
 	public isVirtual: boolean
-	public ongoingEventTimes: EventfullOngoingEventTime[]
-	public singularEventTime?: EventfullBaseEventTime
+	public ongoingEventTimes: OngoingEvents[]
+	public singularEventTime?: BaseEventTime
 	public organizer?: SocialData
 
 	public createdAt: Date

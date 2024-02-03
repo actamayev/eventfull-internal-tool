@@ -1,9 +1,10 @@
 interface Props {
-	children: React.ReactNode,
+	title: string
+	children: React.ReactNode
 }
 
-export default function AddEventTemplate(props: Props) {
-	const { children } = props
+export default function EventTemplate(props: Props) {
+	const { title, children } = props
 
 	return (
 		<div className = "flex justify-center">
@@ -12,7 +13,7 @@ export default function AddEventTemplate(props: Props) {
 					className = "flex mx-auto mb-4 text-5xl font-extrabold \
 						leading-none tracking-tight text-gray-900"
 				>
-					Add Event
+					{title} Event
 				</h1>
 				{children}
 			</div>

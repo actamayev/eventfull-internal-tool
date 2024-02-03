@@ -1,6 +1,6 @@
 interface Props {
-	eventDetails: CreatingEvent
-	setEventDetails: React.Dispatch<React.SetStateAction<CreatingEvent>>
+	eventDetails: CreatingEvent | EventFromDB
+	setEventDetails: (newEventDetails: Partial<CreatingEvent | EventFromDB>) => void
 }
 
 export default function SelectEventFrequency(props: Props) {

@@ -1,7 +1,6 @@
 export default function formatDateToDateTimeLocal(date: Date): string {
 	if (!(date instanceof Date)) {
-		console.error("formatDateToDateTimeLocal expects a Date object")
-		return ""
+		date = new Date(date)
 	}
 	// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 	const ten = (i: number) => (i < 10 ? "0" : "") + i

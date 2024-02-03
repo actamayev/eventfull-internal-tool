@@ -7,8 +7,8 @@ declare global {
 	type DayOfWeek = "Sunday" | "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday"
 
 	interface BaseEventTime {
-		startTime: Date | null
-		endTime: Date | null
+		startTime: Date
+		endTime: Date
 		eventDuration: {
 			hours: number
 			minutes: number
@@ -50,6 +50,7 @@ declare global {
 	}
 
 	interface GridRowData {
+		eventId: string
 		eventName: string
 		eventDescription: string
 		address: string
@@ -74,20 +75,6 @@ declare global {
 	interface EventfullCoHost {
 		user: SocialData
 		invitedBy: SocialDataWithTimestamp
-	}
-
-	// These are from DB:
-	interface EventfullBaseEventTime {
-		startTime: Date
-		endTime: Date
-		eventDuration: {
-			hours: number
-			minutes: number
-		}
-	}
-
-	interface EventfullOngoingEventTime extends EventfullBaseEventTime {
-		dayOfWeek: DayOfWeek
 	}
 }
 

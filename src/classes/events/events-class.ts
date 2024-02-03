@@ -22,6 +22,12 @@ export default class EventsClass {
 		this.eventsMap.set(event._id, newEvent)
 	})
 
+	public editEvent = action((event: EventFromDB): void => {
+		if (this.eventsMap.has(event._id) === false) return
+		const newEvent = new EventClass(event)
+		this.eventsMap.set(event._id, newEvent)
+	})
+
 	public removeEvent = action((eventId: string): void => {
 		const event = this.eventsMap.get(eventId)
 		if (_.isUndefined(event)) return

@@ -33,7 +33,6 @@ function AddAdmin() {
 		await addAdminSubmit(e, registerInformation, setError, setLoading, setRegisterInformation, setSuccess)
 	}
 
-	// TODO: make sure the email is not taken (make a request to the server while the user is typing).
 	return (
 		<AuthTemplate title="Add Admin" width="w-5/12">
 			<form onSubmit={handleFormSubmit}>

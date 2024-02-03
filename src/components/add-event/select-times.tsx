@@ -1,38 +1,36 @@
 import DayTimeSelector from "./day-time-selector"
 import ChooseOneTimeEvent from "./choose-one-time-event"
 import CustomEventDateSelector from "./custom-event-date-selector"
+import DayOfWeekEnum from "../../types/day-of-week-enum"
 
 interface Props {
-	eventDetails: CreatingEvent
-	setEventDetails: React.Dispatch<React.SetStateAction<CreatingEvent>>
-}
-
-enum DayOfWeekEnum {
-	Sunday = "Sunday",
-	Monday = "Monday",
-	Tuesday = "Tuesday",
-	Wednesday = "Wednesday",
-	Thursday = "Thursday",
-	Friday = "Friday",
-	Saturday = "Saturday"
+	eventDetails: CreatingEvent | EventFromDB
+	setEventDetails: (newEventDetails: Partial<CreatingEvent | EventFromDB>) => void
 }
 
 export default function SelectTimes(props: Props) {
 	const { eventDetails, setEventDetails } = props
 
-	const addCustomEventDate = (newEventDate: BaseEventTime) => {
-		setEventDetails(prevDetails => ({
-			...prevDetails,
-			customEventDates: [...(prevDetails.customEventDates || []), newEventDate]
-		}))
+	const deleteCustomEventDate = (indexToDelete: number) => {
+		const updatedCustomEventDates = eventDetails.customEventDates
+			? [...eventDetails.customEventDates]
+			: []
+
+		if (updatedCustomEventDates.length > 0) {
+			updatedCustomEventDates.splice(indexToDelete, 1) // Remove the event date at the specified index
+			setEventDetails({ customEventDates: updatedCustomEventDates })
+		}
 	}
 
-	const deleteCustomEventDate = (indexToDelete: number) => {
-		setEventDetails((prevDetails) => {
-			const updatedCustomEventDates = [...prevDetails.customEventDates || []]
-			updatedCustomEventDates.splice(indexToDelete, 1) // Remove the event date at the specified index
-			return { ...prevDetails, customEventDates: updatedCustomEventDates }
-		})
+	const addCustomEventDate = (newEventDate: BaseEventTime) => {
+		// Directly creating the new state object
+		const updatedCustomEventDates = [
+			...(eventDetails.customEventDates || []),
+			newEventDate
+		]
+
+		// Pass the new state object to setEventDetails
+		setEventDetails({ customEventDates: updatedCustomEventDates })
 	}
 
 	if (eventDetails.eventFrequency === "one-time") {
@@ -67,8 +65,8 @@ export default function SelectTimes(props: Props) {
 						>
 							Delete
 						</button>
-							Start: {date.startTime ? new Date(date.startTime).toISOString() : "Not set"},
-							End: {date.endTime ? new Date(date.endTime).toISOString() : "Not set"}
+							Start: {new Date(date.startTime).toISOString()},
+							End: {new Date(date.endTime).toISOString()}
 					</div>
 				))}
 				<CustomEventDateSelector onConfirm={addCustomEventDate} />
