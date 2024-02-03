@@ -5,9 +5,7 @@ import Button from "../button"
 export default function EditButtonRenderer (props: CustomCellRendererProps) {
 	const navigate = useNavigate()
 
-	const handleClick = () => {
-		navigate(`/edit-event/${props.data.eventId}`)
-	}
+	const handleClick = () => navigate(`/edit-event/${props.data.eventId}`)
 
 	return (
 		<Button
