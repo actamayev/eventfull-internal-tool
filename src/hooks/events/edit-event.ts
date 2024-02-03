@@ -6,20 +6,22 @@ import AppContext from "../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
 
-export default function useEditEvent(): (
-	e: React.FormEvent<HTMLFormElement>,
+export default function useEditEvent(
+	previousEventDetails: EventFromDB | undefined,
 	eventDetails: EventFromDB,
 	setError: React.Dispatch<React.SetStateAction<string>>
+): (
+	e: React.FormEvent<HTMLFormElement>
 ) => Promise<void> {
 	const appContext = useContext(AppContext)
 	const navigate = useNavigate()
 
-	const editEvent = async (
-		e: React.FormEvent<HTMLFormElement>,
-		eventDetails: EventFromDB,
-		setError: React.Dispatch<React.SetStateAction<string>>
-	): Promise<void> => {
+	const editEvent = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
+		if (previousEventDetails === eventDetails) {
+			navigate("/dashboard")
+			return
+		}
 		try {
 			const response = await appContext.eventfullApiClient.eventsDataService.editEvent(eventDetails)
 

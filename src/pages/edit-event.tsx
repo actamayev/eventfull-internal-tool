@@ -65,8 +65,8 @@ function EditEvent() {
 		updatedAt: new Date(),
 	})
 	const [error, setError] = useState("")
-	useSetSingleEvent(eventId, setError, setEventDetails)
-	const editEvent = useEditEvent()
+	const retrievedEvent = useSetSingleEvent(eventId, setError, setEventDetails)
+	const editEvent = useEditEvent(retrievedEvent, eventDetails, setError)
 
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
@@ -90,7 +90,7 @@ function EditEvent() {
 
 	return (
 		<EventTemplate title="Edit">
-			<form onSubmit={(e) => editEvent(e, eventDetails, setError)}>
+			<form onSubmit={editEvent}>
 				<FormGroup
 					id="event-name"
 					label="Event Name"
