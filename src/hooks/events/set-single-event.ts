@@ -1,7 +1,7 @@
 import _ from "lodash"
 import { useContext, useEffect } from "react"
 import AppContext from "../../contexts/eventfull-it-context"
-import { isErrorResponses } from "../../utils/type-checks"
+import { isNonSuccessResponse } from "../../utils/type-checks"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
 
 export default function useSetSingleEvent(
@@ -31,11 +31,9 @@ export default function useSetSingleEvent(
 		try {
 			if (_.isUndefined(eventId)) return
 			const response = await appContext.eventfullApiClient.eventsDataService.getEventById(eventId)
-			if (!_.isEqual(response.status, 200) || isErrorResponses(response.data)) {
+			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
 				throw new Error("Failed to retrieve event")
 			}
-
-			if (_.isNull(response.data.event)) return
 			setEventDetails(response.data.event)
 		} catch (err) {
 			setErrorAxiosResponse(err, setError, "Failed to retrieve event")
