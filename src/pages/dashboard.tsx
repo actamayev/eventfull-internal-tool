@@ -1,8 +1,8 @@
 import _ from "lodash"
 import { useContext } from "react"
 import { observer } from "mobx-react"
-import EventsGrid from "../components/dashboard/events-grid"
 import AppContext from "../contexts/eventfull-it-context"
+import EventsGrid from "../components/dashboard/events-grid"
 import useRetrieveEvents from "../hooks/events/retrieve-events"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 

@@ -34,6 +34,8 @@ export default function useSetSingleEvent(
 			if (!_.isEqual(response.status, 200) || isErrorResponses(response.data)) {
 				throw new Error("Failed to retrieve event")
 			}
+
+			if (_.isNull(response.data.event)) return
 			setEventDetails(response.data.event)
 		} catch (err) {
 			setErrorAxiosResponse(err, setError, "Failed to retrieve event")

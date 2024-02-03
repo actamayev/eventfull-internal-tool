@@ -36,7 +36,7 @@ declare global {
 	type NewEventResponse = { newEvent: EventFromDB }
 	type UpdatedEventResponse = { updatedEvent: EventFromDB }
 	type EventsResponse = { events: EventFromDB[] }
-	type SingleEventResponse = { event: EventFromDB }
+	type SingleEventResponse = { event: EventFromDB | null }
 
 	interface EventFromDB extends TimestampsInterface {
 		_id: string // This is actually Types.ObjectId, but I don't want to import it here

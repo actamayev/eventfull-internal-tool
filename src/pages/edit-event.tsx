@@ -6,15 +6,15 @@ import { useLoadScript } from "@react-google-maps/api"
 import Button from "../components/button"
 import FormGroup from "../components/form-group"
 import useEditEvent from "../hooks/events/edit-event"
+import EventTemplate from "../components/event-template"
 import AppContext from "../contexts/eventfull-it-context"
 import SelectTimes from "../components/add-event/select-times"
 import AddressInput from "../components/add-event/address-input"
+import useSetSingleEvent from "../hooks/events/set-single-event"
 import isEventDisabled from "../utils/events/is-add-event-disabled"
-import EventTemplate from "../components/event-template"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 import SelectEventFrequency from "../components/add-event/select-event-frequency"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
-import useSetSingleEvent from "../hooks/events/set-single-event"
 
 const libraries: ("places")[] = ["places"]
 
@@ -78,12 +78,8 @@ function EditEvent() {
 		_.isNil(appContext.personalData?.username)
 	) return null
 
-	if (_.isEmpty(eventDetails._id)) {
-		return (
-			<>
-				This event does not exist
-			</>
-		)
+	if (_.isNil(eventDetails._id) || _.isEmpty(eventDetails._id)) {
+		return <>This event does not exist</>
 	}
 
 	const setEventDetailsGeneric = (newEventDetails: Partial<CreatingEvent | EventFromDB>) => {
