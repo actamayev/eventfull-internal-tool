@@ -25,7 +25,7 @@ function FinishAdminRegistration() {
 	})
 	const [error, setError] = useState("")
 	const [loading, setLoading] = useState(false)
-	const [showPassword, setShowPassword] = useState(true)
+	const [showPassword, setShowPassword] = useState(false)
 
 	useEffect(() => {
 		if (!_.isNil(appContext.personalData?.username)) {
