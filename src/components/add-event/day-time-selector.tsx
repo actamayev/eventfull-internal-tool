@@ -49,7 +49,7 @@ export default function DayTimeSelector (props: Props) {
 		setEventDetails({ ...eventDetails, ongoingEventTimes: updatedEventTimes })
 	}
 
-	// change to this day picker: https://retool.com/blog/how-to-create-a-time-picker-in-react
+	// TODO: change to this day picker: https://retool.com/blog/how-to-create-a-time-picker-in-react
 	const handleTimeChange = (type: "startTime" | "endTime", value: string) => {
 		// Ensure currentTimes has the correct structure
 		const defaultStartTime = new Date()

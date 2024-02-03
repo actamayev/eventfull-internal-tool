@@ -5,10 +5,10 @@ import AddAdmin from "./pages/add-admin"
 import OTPLogin from "./pages/otp-login"
 import AddEvent from "./pages/add-event"
 import Dashboard from "./pages/dashboard"
+import EditEvent from "./pages/edit-event"
 import FinishAdminRegistration from "./pages/finish-admin-registration"
 
 import useRetrievePersonalInfo from "./hooks/retrieve-personal-info"
-import EditEvent from "./pages/edit-event"
 
 export default function App() {
 	useRetrievePersonalInfo()

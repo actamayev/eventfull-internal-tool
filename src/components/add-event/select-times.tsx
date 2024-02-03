@@ -1,20 +1,11 @@
 import DayTimeSelector from "./day-time-selector"
 import ChooseOneTimeEvent from "./choose-one-time-event"
 import CustomEventDateSelector from "./custom-event-date-selector"
+import DayOfWeekEnum from "../../types/day-of-week-enum"
 
 interface Props {
 	eventDetails: CreatingEvent | EventFromDB
 	setEventDetails: (newEventDetails: Partial<CreatingEvent | EventFromDB>) => void
-}
-
-enum DayOfWeekEnum {
-	Sunday = "Sunday",
-	Monday = "Monday",
-	Tuesday = "Tuesday",
-	Wednesday = "Wednesday",
-	Thursday = "Thursday",
-	Friday = "Friday",
-	Saturday = "Saturday"
 }
 
 export default function SelectTimes(props: Props) {
@@ -41,7 +32,6 @@ export default function SelectTimes(props: Props) {
 		// Pass the new state object to setEventDetails
 		setEventDetails({ customEventDates: updatedCustomEventDates })
 	}
-
 
 	if (eventDetails.eventFrequency === "one-time") {
 		return (
