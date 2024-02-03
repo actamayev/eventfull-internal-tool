@@ -13,6 +13,7 @@ export default function DeleteButtonRenderer(props: CustomCellRendererProps) {
 	const handleDeleteClick = () => setConfirmDelete(true)
 	const handleCancelClick = () => setConfirmDelete(false)
 
+	// TODO: The grid shouldn't shrink back to its original size after the delete button is clicked
 	const handleConfirmDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		try {
 			e.preventDefault()
