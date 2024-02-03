@@ -53,6 +53,9 @@ function AddEvent() {
 		})
 	}
 
+	// TODO: Finish adding the rest of the event fields
+	// TODO: Add a button that auto-fills the form with the previous event's details
+
 	return (
 		<EventTemplate title="Add">
 			<form onSubmit={(e) => addEvent(e, eventDetails, setError)}>
