@@ -12,7 +12,6 @@ export default class EventClass {
 		this.customEventDates = eventData.customEventDates
 		this.eventCapacity = eventData.eventCapacity
 		this.eventDescription = eventData.eventDescription
-		this.eventImageURL = eventData.eventImageURL
 		this.eventFrequency = eventData.eventFrequency
 		this.eventName = eventData.eventName
 		this.eventPrice = eventData.eventPrice
@@ -48,7 +47,6 @@ export default class EventClass {
 	public eventCapacity: number | null
 	public eventDescription: string
 	public eventFrequency: EventFrequency
-	public eventImageURL?: string
 	public eventName: string
 	public eventPrice: number
 	public eventPublic: boolean

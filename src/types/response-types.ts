@@ -57,7 +57,6 @@ declare global {
 		eventImages: ImageURLs[]
 
 		eventFrequency: EventFrequency
-		eventImageURL?: string
 		eventName: string
 		eventPrice: number
 		eventPublic: boolean
