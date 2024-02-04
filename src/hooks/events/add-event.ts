@@ -10,7 +10,8 @@ import uploadFileToS3 from "../../utils/upload-file-to-aws"
 export default function useAddEvent(
 	eventDetails: CreatingEvent,
 	selectedFiles: File[],
-	setError: React.Dispatch<React.SetStateAction<string>>
+	setError: React.Dispatch<React.SetStateAction<string>>,
+	setLoading: React.Dispatch<React.SetStateAction<boolean>>,
 ): (
 	e: React.FormEvent<HTMLFormElement>,
 ) => Promise<void> {
@@ -20,6 +21,7 @@ export default function useAddEvent(
 	const addEventSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
 		try {
+			setLoading(true)
 			const response = await appContext.eventfullApiClient.eventsDataService.addEvent(eventDetails, _.size(selectedFiles))
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
@@ -40,16 +42,17 @@ export default function useAddEvent(
 				const index = imageURLs.findIndex(item => item.imageId === imageId)
 				if (index !== -1) imageURLs[index].imageURL = uploadedImageUrl
 			}
-			console.log("imageURLs",imageURLs)
 
 			response.data.newEvent.eventImages = imageURLs
-			// todo: send the imageURLs back to the server
+			await appContext.eventfullApiClient.eventsDataService.addEventImages(response.data.newEvent._id, imageURLs)
 
 			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
 			appContext.eventsData.addEvent(response.data.newEvent)
 			navigate("/dashboard")
 		} catch (error) {
 			setErrorAxiosResponse(error, setError, "Unable to add event")
+		} finally {
+			setLoading(false)
 		}
 	}
 

@@ -29,4 +29,8 @@ export default class EventsDataService {
 	async deleteEvent(eventId: string): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
 		return await this.httpClient.http.delete<SuccessResponse | ErrorResponses>(`/events/delete-event/${eventId}`)
 	}
+
+	async addEventImages(eventfullEventId: string, imageURLs: ImageURLs[]): Promise<AxiosResponse<AllCommonResponses>> {
+		return await this.httpClient.http.post<AllCommonResponses>("/events/add-image-urls/", { imageURLs, eventfullEventId })
+	}
 }

@@ -49,7 +49,8 @@ function AddEvent() {
 	})
 	const [selectedFiles, setSelctedFiles] = useState<File[]>([])
 	const [error, setError] = useState("")
-	const addEvent = useAddEvent(eventDetails, selectedFiles, setError)
+	const [isSubmitting, setIsSubmitting] = useState(false)
+	const addEvent = useAddEvent(eventDetails, selectedFiles, setError, setIsSubmitting)
 
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
@@ -118,7 +119,7 @@ function AddEvent() {
 				<div className="mt-2">
 					<Button
 						title= {`Add ${eventDetails.eventName || "Event"}`}
-						disabled={isEventDisabled(eventDetails)}
+						disabled={isEventDisabled(eventDetails) || isSubmitting}
 						colorClass="bg-green-500"
 						hoverClass="hover:bg-green-700"
 					/>
