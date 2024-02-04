@@ -27,6 +27,7 @@ export default class EventClass {
 		this.ongoingEventTimes = eventData.ongoingEventTimes
 		this.singularEventTime = eventData.singularEventTime
 		this.organizer = eventData.organizer
+		this.eventImages = eventData.eventImages
 
 		this.createdAt = eventData.createdAt
 		this.updatedAt = eventData.updatedAt
@@ -61,6 +62,7 @@ export default class EventClass {
 	public ongoingEventTimes: OngoingEvents[]
 	public singularEventTime?: BaseEventTime
 	public organizer?: SocialData
+	public eventImages: ImageURLs[] = []
 
 	public createdAt: Date
 	public updatedAt: Date

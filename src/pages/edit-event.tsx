@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom"
 import { useContext, useState } from "react"
 import { useLoadScript } from "@react-google-maps/api"
 import Button from "../components/button"
-import FormGroup from "../components/form-group"
 import useEditEvent from "../hooks/events/edit-event"
 import EventTemplate from "../components/event-template"
 import AppContext from "../contexts/eventfull-it-context"
@@ -15,6 +14,13 @@ import isEventDisabled from "../utils/events/is-add-event-disabled"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 import ChooseEventFrequency from "../components/add-or-edit-event/choose-event-frequency"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
+import EventNameInput from "../components/add-or-edit-event/event-name-input"
+import DescriptionInput from "../components/add-or-edit-event/description-input"
+import EventPriceInput from "../components/add-or-edit-event/event-price-input"
+import ChooseEventType from "../components/add-or-edit-event/choose-event-type"
+import ToggleVirtualEvent from "../components/add-or-edit-event/is-event-virtual"
+import TogglePublicEvent from "../components/add-or-edit-event/is-event-public"
+import EventURLInput from "../components/add-or-edit-event/event-url-input"
 
 const libraries: ("places")[] = ["places"]
 
@@ -27,8 +33,8 @@ function EditEvent() {
 	const [eventDetails, setEventDetails] = useState<EventFromDB>({
 		_id: "",
 		eventName: "",
-		eventPrice: 2,
-		eventType: "Entertainment",
+		eventPrice: 0,
+		eventType: "",
 		isVirtual: false,
 		isActive: true,
 		eventPublic: true,
@@ -37,8 +43,9 @@ function EditEvent() {
 
 		eventFrequency: "one-time",
 		address: "",
-		eventDescription: "Test description",
-		eventURL: "google.com",
+		eventDescription: "",
+		eventImages: [],
+		eventURL: "",
 
 		invitees: [],
 		coHosts: [],
@@ -91,14 +98,9 @@ function EditEvent() {
 	return (
 		<EventTemplate title="Edit">
 			<form onSubmit={editEvent}>
-				<FormGroup
-					id="event-name"
-					label="Event Name"
-					type="text"
-					placeholder="Save Princess Peach"
-					onChange={(e) => setEventDetails({...eventDetails, eventName: e.target.value})}
-					required
-					value={eventDetails.eventName}
+				<EventNameInput
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
 				/>
 				{isLoaded && (
 					<AddressInput
@@ -106,6 +108,31 @@ function EditEvent() {
 						setEventDetails={setEventDetailsGeneric}
 					/>
 				)}
+				<DescriptionInput
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
+				/>
+
+				<EventPriceInput
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
+				/>
+				<ChooseEventType
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
+				/>
+				<ToggleVirtualEvent
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
+				/>
+				<TogglePublicEvent
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
+				/>
+				<EventURLInput
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
+				/>
 				<ChooseEventFrequency
 					eventDetails={eventDetails}
 					setEventDetails={setEventDetailsGeneric}

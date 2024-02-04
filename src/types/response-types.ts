@@ -33,7 +33,8 @@ declare global {
 	type PersonalInfoResponse = { personalInfo: PersonalInfo }
 
 	// Events:
-	type NewEventResponse = { newEvent: EventFromDB }
+	type ImageURLsResponse = { imageId: string, presignedUrl: string }
+	type NewEventResponse = { newEvent: EventFromDB, imagesURLsData: ImageURLsResponse[] }
 	type UpdatedEventResponse = { updatedEvent: EventFromDB }
 	type EventsResponse = { events: EventFromDB[] }
 	type SingleEventResponse = { event: EventFromDB }
@@ -53,6 +54,8 @@ declare global {
 		customEventDates: BaseEventTime[]
 		eventCapacity: number | null
 		eventDescription: string
+		eventImages: ImageURLs[]
+
 		eventFrequency: EventFrequency
 		eventImageURL?: string
 		eventName: string

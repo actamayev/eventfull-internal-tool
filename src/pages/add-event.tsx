@@ -17,9 +17,11 @@ import ChooseEventType from "../components/add-or-edit-event/choose-event-type"
 import ToggleVirtualEvent from "../components/add-or-edit-event/is-event-virtual"
 import TogglePublicEvent from "../components/add-or-edit-event/is-event-public"
 import EventURLInput from "../components/add-or-edit-event/event-url-input"
+import ImageUploader from "../components/image-uploader"
 
 const libraries: ("places")[] = ["places"]
 
+// eslint-disable-next-line max-lines-per-function
 function AddEvent() {
 	useRedirectUnknownUser()
 	const [eventDetails, setEventDetails] = useState<CreatingEvent>({
@@ -45,8 +47,9 @@ function AddEvent() {
 		customEventDates: [],
 		ongoingEventTimes: []
 	})
+	const [selectedFiles, setSelctedFiles] = useState<File[]>([])
 	const [error, setError] = useState("")
-	const addEvent = useAddEvent()
+	const addEvent = useAddEvent(eventDetails, selectedFiles, setError)
 
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
@@ -61,7 +64,7 @@ function AddEvent() {
 
 	return (
 		<EventTemplate title="Add">
-			<form onSubmit={(e) => addEvent(e, eventDetails, setError)}>
+			<form onSubmit={addEvent}>
 				<EventNameInput
 					eventDetails={eventDetails}
 					setEventDetails={setEventDetailsGeneric}
@@ -98,6 +101,9 @@ function AddEvent() {
 					eventDetails={eventDetails}
 					setEventDetails={setEventDetailsGeneric}
 				/>
+
+				<ImageUploader setSelectedFiles={setSelctedFiles}/>
+
 				<ChooseEventFrequency
 					eventDetails={eventDetails}
 					setEventDetails={setEventDetailsGeneric}

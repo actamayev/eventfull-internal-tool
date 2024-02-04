@@ -34,7 +34,6 @@ declare global {
 
 		eventURL?: string
 		extraEventCategories?: string[]
-		eventImageURL?: string
 
 		// For one time events:
 		singularEventTime?: BaseEventTime | null
@@ -47,6 +46,11 @@ declare global {
 		invitees: SocialData[]
 		coHosts: SocialData[]
 		eventCapacity: number
+	}
+
+	interface ImageURLs {
+		imageId: string
+		imageURL?: string
 	}
 
 	interface GridRowData {

@@ -5,28 +5,45 @@ import EventsClass from "../../classes/events/events-class"
 import AppContext from "../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
+import uploadFileToS3 from "../../utils/upload-file-to-aws"
 
-export default function useAddEvent(): (
-	e: React.FormEvent<HTMLFormElement>,
+export default function useAddEvent(
 	eventDetails: CreatingEvent,
+	selectedFiles: File[],
 	setError: React.Dispatch<React.SetStateAction<string>>
+): (
+	e: React.FormEvent<HTMLFormElement>,
 ) => Promise<void> {
 	const appContext = useContext(AppContext)
 	const navigate = useNavigate()
 
-	const addEventSubmit = async (
-		e: React.FormEvent<HTMLFormElement>,
-		eventDetails: CreatingEvent,
-		setError: React.Dispatch<React.SetStateAction<string>>
-	): Promise<void> => {
+	const addEventSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
 		try {
-			const response = await appContext.eventfullApiClient.eventsDataService.addEvent(eventDetails)
+			const response = await appContext.eventfullApiClient.eventsDataService.addEvent(eventDetails, _.size(selectedFiles))
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
 				setError("Unable to add event. Please reload and try again.")
 				return
 			}
+			const imageURLs: ImageURLs[] = response.data.imagesURLsData.map((imageURLData) => ({
+				imageId: imageURLData.imageId, imageURL: ""
+			}))
+
+			for (let i = 0; i < _.size(selectedFiles); i++) {
+				const file = selectedFiles[i]
+				const imageId = response.data.imagesURLsData[i].imageId
+				const presignedUrl = response.data.imagesURLsData[i].presignedUrl
+				const uploadedImageUrl = await uploadFileToS3(file, presignedUrl)
+
+				// Find the corresponding object in imageURLs array and update its imageURL
+				const index = imageURLs.findIndex(item => item.imageId === imageId)
+				if (index !== -1) imageURLs[index].imageURL = uploadedImageUrl
+			}
+			console.log("imageURLs",imageURLs)
+
+			response.data.newEvent.eventImages = imageURLs
+			// todo: send the imageURLs back to the server
 
 			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
 			appContext.eventsData.addEvent(response.data.newEvent)
