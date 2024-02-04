@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback,  useState } from "react"
 import { observer } from "mobx-react"
 import { useLoadScript } from "@react-google-maps/api"
 import Button from "../components/button"
@@ -18,6 +18,7 @@ import ToggleVirtualEvent from "../components/add-or-edit-event/is-event-virtual
 import TogglePublicEvent from "../components/add-or-edit-event/is-event-public"
 import EventURLInput from "../components/add-or-edit-event/event-url-input"
 import ImageUploader from "../components/image-uploader"
+import FillInPreviousEventButton from "../components/add-or-edit-event/fill-in-previous-event-button"
 
 const libraries: ("places")[] = ["places"]
 
@@ -61,10 +62,9 @@ function AddEvent() {
 		setEventDetails(prev => ({ ...prev, ...newEventDetails as Partial<CreatingEvent> }))
 	}, [setEventDetails])
 
-	// TODO: Add a button that auto-fills the form with the previous event's details
-
 	return (
 		<EventTemplate title="Add">
+			<FillInPreviousEventButton setEventDetails={setEventDetails} />
 			<form onSubmit={addEvent}>
 				<EventNameInput
 					eventDetails={eventDetails}
