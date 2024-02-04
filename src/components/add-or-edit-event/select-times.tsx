@@ -2,6 +2,8 @@ import DayTimeSelector from "./day-time-selector"
 import ChooseOneTimeEvent from "./choose-one-time-event"
 import DayOfWeekEnum from "../../types/day-of-week-enum"
 import CustomEventDateSelector from "./custom-event-date-selector"
+import { formatReadableDate } from "../../utils/events/create-events-array-for-grid"
+import Button from "../button"
 
 interface Props {
 	eventDetails: CreatingEvent | EventFromDB
@@ -59,14 +61,14 @@ export default function SelectTimes(props: Props) {
 			<>
 				{eventDetails.customEventDates && eventDetails.customEventDates.map((date, index) => (
 					<div key={index}>
-						<button
+						Start: {formatReadableDate(date.startTime)},
+						End: {formatReadableDate(date.endTime)}
+						<Button
+							title="Delete"
 							onClick={() => deleteCustomEventDate(index)}
-							type="button"
-						>
-							Delete
-						</button>
-							Start: {new Date(date.startTime).toISOString()},
-							End: {new Date(date.endTime).toISOString()}
+							colorClass="bg-red-300"
+							hoverClass="hover:bg-red-400"
+						/>
 					</div>
 				))}
 				<CustomEventDateSelector onConfirm={addCustomEventDate} />

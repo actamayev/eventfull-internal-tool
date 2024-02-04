@@ -1,5 +1,7 @@
-import dayjs from "dayjs"
 import calculateEventDuration from "../../utils/events/calculate-event-duration"
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3"
+import { LocalizationProvider } from "@mui/x-date-pickers"
+import { TimePicker }  from "@mui/x-date-pickers/TimePicker"
 
 interface Props {
 	day: DayOfWeek
@@ -49,8 +51,9 @@ export default function DayTimeSelector (props: Props) {
 		setEventDetails({ ...eventDetails, ongoingEventTimes: updatedEventTimes })
 	}
 
-	// TODO: change to this day picker: https://retool.com/blog/how-to-create-a-time-picker-in-react
-	const handleTimeChange = (type: "startTime" | "endTime", value: string) => {
+	const handleTimeChange = (type: "startTime" | "endTime", value: Date | null) => {
+		if (!value) return // Exit if value is null
+
 		// Ensure currentTimes has the correct structure
 		const defaultStartTime = new Date()
 		defaultStartTime.setHours(9, 0, 0, 0) // Set time to 09:00 AM
@@ -67,7 +70,7 @@ export default function DayTimeSelector (props: Props) {
 		}
 
 		const timeValue = new Date(currentTimes[type])
-		timeValue.setHours(parseInt(value.split(":")[0]), parseInt(value.split(":")[1]))
+		timeValue.setHours(value.getHours(), value.getMinutes())
 
 		// Temporarily update the current time to check if it's valid
 		currentTimes[type] = timeValue
@@ -93,13 +96,6 @@ export default function DayTimeSelector (props: Props) {
 		) || []
 
 		setEventDetails({ ...eventDetails, ongoingEventTimes: updatedEventTimes })
-
-	}
-
-	function formatTime(date: Date) {
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-		if (!date) return ""
-		return dayjs(date).format("HH:mm")
 	}
 
 	return (
@@ -112,22 +108,21 @@ export default function DayTimeSelector (props: Props) {
 				/>
 				<span className="ml-2">{day}</span>
 			</label>
-			<input
-				type="time"
-				className="col-span-1"
-				disabled={!isEnabled}
-				value={isEnabled && dayDetails?.startTime ? formatTime(dayDetails.startTime) : ""}
-				onChange={(e) => handleTimeChange("startTime", e.target.value)}
-			/>
-			<span className="col-span-1 text-center">to</span>
-			<input
-				type="time"
-				className="col-span-1"
-				disabled={!isEnabled}
-				value={isEnabled && dayDetails?.endTime ? formatTime(dayDetails.endTime) : ""}
-				onChange={(e) => handleTimeChange("endTime", e.target.value)}
-				min={isEnabled && dayDetails?.startTime ? formatTime(dayDetails.startTime) : ""}
-			/>
+			<LocalizationProvider dateAdapter={AdapterDateFns}>
+				<TimePicker
+					label="Start Time"
+					value={dayDetails?.startTime}
+					disabled={!isEnabled}
+					onChange={(e) => handleTimeChange("startTime", e)}
+				/>
+				<TimePicker
+					label="End Time"
+					value={dayDetails?.endTime}
+					disabled={!isEnabled}
+					onChange={(e) => handleTimeChange("endTime", e)}
+					minTime={dayDetails?.startTime}
+				/>
+			</LocalizationProvider>
 		</div>
 	)
 }

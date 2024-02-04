@@ -5,6 +5,7 @@
   "dependencies": {
     "@ag-grid-community/styles": "^31.0.3",
     "@fvilers/disable-react-devtools": "^1.3.0",
+    "@mui/x-date-pickers": "^6.19.3",
     "@react-google-maps/api": "^2.19.2",
     "ag-grid-community": "^31.0.3",
     "ag-grid-react": "^31.0.3",
