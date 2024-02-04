@@ -66,11 +66,11 @@ export default function Layout (props: Props) {
 	return (
 		<div>
 			<nav className="bg-gray-900">
-				<div className="mx-auto px-4 flex justify-between h-16">
-					<div className="flex items-center">
+				<div className="flex justify-between h-16">
+					<div className="flex items-center ml-4">
 						<LinkToHome />
 					</div>
-					<div className="flex items-center space-x-4">
+					<div className="flex items-center mr-4">
 						<LoginLogout />
 					</div>
 				</div>

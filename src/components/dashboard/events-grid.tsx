@@ -6,7 +6,7 @@ import "ag-grid-community/styles/ag-grid.css"
 import { useNavigate } from "react-router-dom"
 import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
-import { GridApi, SizeColumnsToContentStrategy  } from "ag-grid-community"
+import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy  } from "ag-grid-community"
 import Button from "../button"
 import AppContext from "../../contexts/eventfull-it-context"
 import dashboardColumns from "../../utils/events/dashboard-colums"
@@ -58,9 +58,13 @@ function EventsGrid () {
 		gridApi.setColumnWidth("delete", newWidth)
 	}
 
+	const handleRowDoubleClicked = (event: RowDoubleClickedEvent) => {
+		navigate(`/edit-event/${event.data.eventId}`)
+	}
+
 	return (
 		<div className="flex-grow">
-			<div className="flex justify-between mb-4">
+			<div className="flex justify-between mb-2">
 				<div className="flex-grow">
 					<input
 						type="text"
@@ -74,9 +78,9 @@ function EventsGrid () {
 					<Button
 						title="+ Add event"
 						onClick={() => navigate("/add-event")}
-						colorClass="bg-blue-400"
-						hoverClass="hover:bg-blue-500"
-						className="p-2 rounded-md font-bold"
+						colorClass="bg-blue-600"
+						hoverClass="hover:bg-blue-700"
+						className="rounded-md font-bold text-white p-2 border-2 border-blue-600 hover:border-blue-700"
 					/>
 				</div>
 			</div>
@@ -92,7 +96,7 @@ function EventsGrid () {
 					rowHeight={40}
 					autoSizeStrategy={autoSizeStrategy}
 					context={{ adjustDeleteColumnWidth }}
-
+					onRowDoubleClicked={handleRowDoubleClicked}
 				/>
 			</div>
 		</div>
