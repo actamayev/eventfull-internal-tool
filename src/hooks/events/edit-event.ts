@@ -9,7 +9,8 @@ import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-re
 export default function useEditEvent(
 	previousEventDetails: EventFromDB | undefined,
 	eventDetails: EventFromDB,
-	setError: React.Dispatch<React.SetStateAction<string>>
+	setError: React.Dispatch<React.SetStateAction<string>>,
+	setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ): (
 	e: React.FormEvent<HTMLFormElement>
 ) => Promise<void> {
@@ -22,6 +23,7 @@ export default function useEditEvent(
 			navigate("/dashboard")
 			return
 		}
+		setLoading(true)
 		try {
 			const response = await appContext.eventfullApiClient.eventsDataService.editEvent(eventDetails)
 
@@ -35,6 +37,8 @@ export default function useEditEvent(
 			navigate("/dashboard")
 		} catch (error) {
 			setErrorAxiosResponse(error, setError, "Unable to edit event")
+		} finally {
+			setLoading(false)
 		}
 	}
 

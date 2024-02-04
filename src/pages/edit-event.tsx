@@ -72,8 +72,9 @@ function EditEvent() {
 		updatedAt: new Date(),
 	})
 	const [error, setError] = useState("")
+	const [isSubmitting, setIsSubmitting] = useState(false)
 	const retrievedEvent = useSetSingleEvent(eventId, setError, setEventDetails)
-	const editEvent = useEditEvent(retrievedEvent, eventDetails, setError)
+	const editEvent = useEditEvent(retrievedEvent, eventDetails, setError, setIsSubmitting)
 
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
@@ -147,7 +148,7 @@ function EditEvent() {
 				<div className="mt-2">
 					<Button
 						title= {`Edit ${eventDetails.eventName}`}
-						disabled={isEventDisabled(eventDetails)}
+						disabled={isEventDisabled(eventDetails) || isSubmitting}
 						colorClass="bg-green-500"
 						hoverClass="hover:bg-green-700"
 					/>

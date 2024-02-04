@@ -18,20 +18,15 @@ function OTPLogin() {
 	const [error, setError] = useState("")
 	const [loading, setLoading] = useState(false)
 
-	const otpLoginSubmit = useOTPLoginSubmit()
+	const otpLoginSubmit = useOTPLoginSubmit(loginInformation, setError, setLoading)
 
 	const setLoginInformationGeneric = (newCredentials: Partial<OTPCredentials>) => {
 		setLoginInformation(prev => ({ ...prev, ...newCredentials }))
 	}
 
-	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-		e.preventDefault()
-		await otpLoginSubmit(e, loginInformation, setError, setLoading)
-	}
-
 	return (
 		<AuthTemplate title="Login with One-Time Passcode">
-			<form onSubmit={handleFormSubmit}>
+			<form onSubmit={otpLoginSubmit}>
 				<EmailInput
 					credentials={loginInformation}
 					setCredentials={setLoginInformationGeneric}

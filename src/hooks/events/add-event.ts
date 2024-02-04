@@ -20,8 +20,8 @@ export default function useAddEvent(
 
 	const addEventSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
+		setLoading(true)
 		try {
-			setLoading(true)
 			const response = await appContext.eventfullApiClient.eventsDataService.addEvent(eventDetails, _.size(selectedFiles))
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {

@@ -6,21 +6,17 @@ import AppContext from "../../contexts/eventfull-it-context"
 import confirmRegisterFields from "../../utils/auth/confirm-secondary-register-fields"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
 
-export default function useSecondaryAdminInfoSubmit (): (
-	e: React.FormEvent<HTMLFormElement>,
+export default function useSecondaryAdminInfoSubmit (
 	secondaryRegisterInformation: SecondaryAdminRegisterInformation,
 	setError: (error: string) => void,
 	setLoading: (loading: boolean) => void,
+): (
+	e: React.FormEvent<HTMLFormElement>
 ) => Promise<void> {
 	const appContext = useContext(AppContext)
 	const navigate = useNavigate()
 
-	const secondaryAdminInfoSubmit = async (
-		e: React.FormEvent<HTMLFormElement>,
-		secondaryRegisterInformation: SecondaryAdminRegisterInformation,
-		setError: (error: string) => void,
-		setLoading: (loading: boolean) => void,
-	): Promise<void> => {
+	const secondaryAdminInfoSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
 		setError("")
 		try {

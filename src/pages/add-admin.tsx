@@ -22,20 +22,15 @@ function AddAdmin() {
 	const [success, setSuccess] = useState("")
 	const [loading, setLoading] = useState(false)
 
-	const addAdminSubmit = useAddAdminSubmit()
+	const addAdminSubmit = useAddAdminSubmit(registerInformation, setError, setLoading, setRegisterInformation, setSuccess)
 
 	const setRegisterInformationGeneric = (newCredentials: Partial<InitialAdminRegisterInformation>) => {
 		setRegisterInformation(prev => ({ ...prev, ...newCredentials }))
 	}
 
-	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-		e.preventDefault()
-		await addAdminSubmit(e, registerInformation, setError, setLoading, setRegisterInformation, setSuccess)
-	}
-
 	return (
 		<AuthTemplate title="Add Admin" width="w-5/12">
-			<form onSubmit={handleFormSubmit}>
+			<form onSubmit={addAdminSubmit}>
 				<div className="flex">
 					<div className="w-1/3 ml-2">
 						<EmailInput
