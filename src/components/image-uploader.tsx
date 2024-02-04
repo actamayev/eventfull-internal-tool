@@ -1,11 +1,12 @@
 import { useState, ChangeEvent } from "react"
 
 interface Props {
+	selectedFiles: File[]
 	setSelectedFiles: (files: File[]) => void
 }
 
 export default function ImageUploader (props: Props) {
-	const { setSelectedFiles } = props
+	const { selectedFiles, setSelectedFiles } = props
 	const [previewUrls, setPreviewUrls] = useState<string[]>([])
 
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +20,7 @@ export default function ImageUploader (props: Props) {
 	}
 
 	return (
-		<div>
+		<div className="mb-2">
 			<input
 				type="file"
 				onChange={handleImageChange}

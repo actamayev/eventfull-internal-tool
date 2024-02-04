@@ -9,6 +9,7 @@ import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-re
 export default function useEditEvent(
 	previousEventDetails: EventFromDB | undefined,
 	eventDetails: EventFromDB,
+	selectedFiles: File[],
 	setError: React.Dispatch<React.SetStateAction<string>>,
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ): (

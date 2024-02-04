@@ -103,7 +103,10 @@ function AddEvent() {
 					setEventDetails={setEventDetailsGeneric}
 				/>
 
-				<ImageUploader setSelectedFiles={setSelctedFiles}/>
+				<ImageUploader
+					selectedFiles={selectedFiles}
+					setSelectedFiles={setSelctedFiles}
+				/>
 
 				<ChooseEventFrequency
 					eventDetails={eventDetails}
@@ -121,7 +124,7 @@ function AddEvent() {
 						title= {`Add ${eventDetails.eventName || "Event"}`}
 						disabled={isEventDisabled(eventDetails) || isSubmitting}
 						colorClass="bg-green-500"
-						hoverClass="hover:bg-green-700"
+						hoverClass="hover:bg-green-600"
 					/>
 				</div>
 			</form>

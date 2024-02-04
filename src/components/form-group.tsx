@@ -43,6 +43,8 @@ export default function FormGroup(props: Props) {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
 	const Component = as || "input"
 
+	const minAttribute = type === "datetime-local" ? minDate : minValue
+
 	return (
 		<div id = {id} className= {`mb-4 ${className}`}>
 			{label && <label htmlFor = {id} className = "block text-sm font-medium text-gray-600">{label}</label>}
@@ -50,8 +52,7 @@ export default function FormGroup(props: Props) {
 				className ="mt-1 p-2 w-full border rounded-md text-gray-900"
 				id = {id}
 				max={max}
-				min = {minValue}
-				mindate = {minDate}
+				min = {minAttribute}
 				maxLength = {maxLength}
 				name = {name}
 				onChange = {onChange}

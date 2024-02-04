@@ -10,7 +10,35 @@ interface Props {
 export default function ChooseOneTimeEvent(props: Props) {
 	const { eventDetails, setEventDetails } = props
 
-	const currentDateTime = new Date().toISOString().slice(0, 16)
+	const currentDateTime = formatDateToDateTimeLocal(new Date())
+
+	const handleStartTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const newStartTime = new Date(e.target.value)
+
+		let endTime
+		if (eventDetails.singularEventTime?.endTime) {
+			endTime = new Date(eventDetails.singularEventTime.endTime)
+		} else {
+			// Set endTime to 3 hours after newStartTime
+			endTime = new Date(newStartTime.getTime() + 3 * 60 * 60 * 1000) // 3 hours in milliseconds
+		}
+
+		if (newStartTime > endTime) {
+			alert("Start time must be after End time.")
+			// eslint-disable-next-line max-len
+			e.target.value = eventDetails.singularEventTime?.startTime ? formatDateToDateTimeLocal(eventDetails.singularEventTime.startTime) : ""
+		} else {
+			setEventDetails({
+				...eventDetails,
+				singularEventTime: {
+					...eventDetails.singularEventTime,
+					startTime: newStartTime,
+					endTime: endTime,  // Use the ensured endTime
+					eventDuration: calculateEventDuration(newStartTime, endTime),
+				},
+			})
+		}
+	}
 
 	const handleEndTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const newEndTime = e.target.value ? new Date(e.target.value) : null
@@ -43,24 +71,7 @@ export default function ChooseOneTimeEvent(props: Props) {
 				id="event-start-time"
 				label="Event Start Time"
 				type="datetime-local"
-				onChange={(e) => {
-					const newStartTime = new Date(e.target.value)
-
-					// Ensure endTime is either a Date or null, but not undefined
-					const endTime = eventDetails.singularEventTime?.endTime !== undefined
-						? eventDetails.singularEventTime.endTime
-						: new Date()
-
-					setEventDetails({
-						...eventDetails,
-						singularEventTime: {
-							...eventDetails.singularEventTime,
-							startTime: newStartTime,
-							endTime: endTime,  // Use the ensured endTime
-							eventDuration: calculateEventDuration(newStartTime, endTime),
-						},
-					})
-				}}
+				onChange={handleStartTimeChange}
 				required
 				value={eventDetails.singularEventTime?.startTime ? formatDateToDateTimeLocal(eventDetails.singularEventTime.startTime) : ""}
 				minDate={currentDateTime}
@@ -70,12 +81,13 @@ export default function ChooseOneTimeEvent(props: Props) {
 				id="event-end-time"
 				label="Event End Time"
 				type="datetime-local"
-				minDate={
-					eventDetails.singularEventTime?.startTime ? formatDateToDateTimeLocal(eventDetails.singularEventTime.startTime) : ""
-				}
 				onChange={handleEndTimeChange}
 				required
 				value={eventDetails.singularEventTime?.endTime ? formatDateToDateTimeLocal(eventDetails.singularEventTime.endTime) : ""}
+				minDate={
+					eventDetails.singularEventTime?.startTime ? formatDateToDateTimeLocal(eventDetails.singularEventTime.startTime) :
+						currentDateTime
+				}
 			/>
 		</>
 	)

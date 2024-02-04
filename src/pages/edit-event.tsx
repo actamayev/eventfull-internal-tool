@@ -21,6 +21,7 @@ import ChooseEventType from "../components/add-or-edit-event/choose-event-type"
 import ToggleVirtualEvent from "../components/add-or-edit-event/is-event-virtual"
 import TogglePublicEvent from "../components/add-or-edit-event/is-event-public"
 import EventURLInput from "../components/add-or-edit-event/event-url-input"
+import ImageUploader from "../components/image-uploader"
 
 const libraries: ("places")[] = ["places"]
 
@@ -71,10 +72,11 @@ function EditEvent() {
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	})
+	const [selectedFiles, setSelctedFiles] = useState<File[]>([])
 	const [error, setError] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const retrievedEvent = useSetSingleEvent(eventId, setError, setEventDetails)
-	const editEvent = useEditEvent(retrievedEvent, eventDetails, setError, setIsSubmitting)
+	const editEvent = useEditEvent(retrievedEvent, eventDetails, selectedFiles, setError, setIsSubmitting)
 
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
@@ -134,6 +136,12 @@ function EditEvent() {
 					eventDetails={eventDetails}
 					setEventDetails={setEventDetailsGeneric}
 				/>
+
+				<ImageUploader
+					selectedFiles={selectedFiles}
+					setSelectedFiles={setSelctedFiles}
+				/>
+
 				<ChooseEventFrequency
 					eventDetails={eventDetails}
 					setEventDetails={setEventDetailsGeneric}
@@ -150,7 +158,7 @@ function EditEvent() {
 						title= {`Edit ${eventDetails.eventName}`}
 						disabled={isEventDisabled(eventDetails) || isSubmitting}
 						colorClass="bg-green-500"
-						hoverClass="hover:bg-green-700"
+						hoverClass="hover:bg-green-600"
 					/>
 				</div>
 			</form>
