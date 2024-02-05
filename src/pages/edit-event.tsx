@@ -22,6 +22,7 @@ import DescriptionInput from "../components/add-or-edit-event/description-input"
 import ToggleVirtualEvent from "../components/add-or-edit-event/is-event-virtual"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
 import ChooseEventFrequency from "../components/add-or-edit-event/choose-event-frequency"
+import ShowPictures from "../components/add-or-edit-event/show-pictures"
 
 const libraries: ("places")[] = ["places"]
 
@@ -142,6 +143,8 @@ function EditEvent() {
 					selectedFiles={selectedFiles}
 					setSelectedFiles={setSelctedFiles}
 				/>
+
+				<ShowPictures eventDetails={eventDetails} />
 
 				<ChooseEventFrequency
 					eventDetails={eventDetails}
