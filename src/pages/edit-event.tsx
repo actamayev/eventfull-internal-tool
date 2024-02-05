@@ -101,8 +101,10 @@ function EditEvent() {
 	}
 
 	function ChangesMade () {
-		// TODO: Make this react to when images are uploaded
-		if (!_.isEqual(eventDetails, retrievedEvent)) return null
+		if (
+			!_.isEqual(eventDetails, retrievedEvent) ||
+			!_.isEmpty(selectedImages)
+		) return null
 		return <>(No Changes made)</>
 	}
 

@@ -2,10 +2,10 @@ import _ from "lodash"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import EventsClass from "../../classes/events/events-class"
+import uploadFileToS3 from "../../utils/upload-file-to-aws"
 import AppContext from "../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
-import uploadFileToS3 from "../../utils/upload-file-to-aws"
 import { calculateEventDurationForNewEvents } from "../../utils/events/calculate-event-duration"
 
 export default function useAddEvent(
@@ -32,23 +32,27 @@ export default function useAddEvent(
 				setError("Unable to add event. Please reload and try again.")
 				return
 			}
-			const imageURLs: ImageURLs[] = response.data.imagesURLsData.map((imageURLData) => ({
-				imageId: imageURLData.imageId, imageURL: "", isActive: true
-			}))
+			if (!_.isEmpty(response.data.imagesURLsData)) {
 
-			for (let i = 0; i < _.size(selectedFiles); i++) {
-				const file = selectedFiles[i]
-				const imageId = response.data.imagesURLsData[i].imageId
-				const presignedUrl = response.data.imagesURLsData[i].presignedUrl
-				const uploadedImageUrl = await uploadFileToS3(file, presignedUrl)
+				const imageURLs: ImageURLs[] = response.data.imagesURLsData.map((imageURLData) => ({
+					imageId: imageURLData.imageId, imageURL: "", isActive: true
+				}))
 
-				// Find the corresponding object in imageURLs array and update its imageURL
-				const index = imageURLs.findIndex(item => item.imageId === imageId)
-				if (index !== -1) imageURLs[index].imageURL = uploadedImageUrl
+				for (let i = 0; i < _.size(selectedFiles); i++) {
+					const file = selectedFiles[i]
+					const imageId = response.data.imagesURLsData[i].imageId
+					const presignedUrl = response.data.imagesURLsData[i].presignedUrl
+					const uploadedImageUrl = await uploadFileToS3(file, presignedUrl)
+
+					// Find the corresponding object in imageURLs array and update its imageURL
+					const index = imageURLs.findIndex(item => item.imageId === imageId)
+					// eslint-disable-next-line max-depth
+					if (index !== -1) imageURLs[index].imageURL = uploadedImageUrl
+				}
+
+				response.data.newEvent.eventImages = imageURLs
+				await appContext.eventfullApiClient.eventsDataService.addEventImages(response.data.newEvent._id, imageURLs)
 			}
-
-			response.data.newEvent.eventImages = imageURLs
-			await appContext.eventfullApiClient.eventsDataService.addEventImages(response.data.newEvent._id, imageURLs)
 
 			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
 			appContext.eventsData.addEvent(response.data.newEvent)
