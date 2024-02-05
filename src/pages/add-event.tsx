@@ -48,10 +48,10 @@ function AddEvent() {
 		customEventDates: [],
 		ongoingEventTimes: []
 	})
-	const [selectedFiles, setSelctedFiles] = useState<File[]>([])
+	const [selectedImages, setSelectedImages] = useState<File[]>([])
 	const [error, setError] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
-	const addEvent = useAddEvent(eventDetails, selectedFiles, setError, setIsSubmitting)
+	const addEvent = useAddEvent(eventDetails, selectedImages, setError, setIsSubmitting)
 
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
@@ -104,8 +104,9 @@ function AddEvent() {
 				/>
 
 				<ImageUploader
-					selectedFiles={selectedFiles}
-					setSelectedFiles={setSelctedFiles}
+					eventDetailsPicturesLength={0}
+					selectedImages={selectedImages}
+					setSelectedImages={setSelectedImages}
 				/>
 
 				<ChooseEventFrequency
@@ -121,10 +122,11 @@ function AddEvent() {
 
 				<div className="mt-2">
 					<Button
-						title= {`Add ${eventDetails.eventName || "Event"}`}
+						title= {`Add${eventDetails.eventName ? (": " + eventDetails.eventName) : ""}`}
 						disabled={isAddOrSaveEventDisabled(eventDetails) || isSubmitting}
-						colorClass="bg-green-500"
-						hoverClass="hover:bg-green-600"
+						colorClass="bg-emerald-600"
+						hoverClass="hover:bg-emerald-700"
+						className="text-white font-semibold"
 					/>
 				</div>
 			</form>

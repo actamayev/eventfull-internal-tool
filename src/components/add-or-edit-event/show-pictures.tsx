@@ -1,20 +1,26 @@
+import EventPicture from "./event-picture"
+
 interface Props {
 	eventDetails: EventFromDB
+	setEventDetails: React.Dispatch<React.SetStateAction<EventFromDB>>
 }
 
 export default function ShowPictures(props: Props) {
-	const { eventDetails } = props
+	const { eventDetails, setEventDetails } = props
+
+	const removeImage = (imageId: string) => {
+		const updatedImages = eventDetails.eventImages.map(image =>
+			image.imageId === imageId ? { ...image, isActive: false } : image
+		)
+		setEventDetails({ ...eventDetails, eventImages: updatedImages })
+	}
 
 	return (
 		<>
 			{eventDetails.eventImages.map((image) => (
-				image.imageURL ?
+				image.imageURL && image.isActive === true ?
 					<div key={image.imageId}>
-						<img
-							src={image.imageURL}
-							alt={`Event Image ${image.imageId}`}
-							style={{ maxWidth: "35%", height: "auto" }}
-						/>
+						<EventPicture image={image} removeImage={removeImage} />
 					</div> : null
 			))}
 		</>

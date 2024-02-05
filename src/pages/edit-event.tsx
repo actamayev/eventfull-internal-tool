@@ -74,11 +74,11 @@ function EditEvent() {
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	})
-	const [selectedFiles, setSelctedFiles] = useState<File[]>([])
+	const [selectedImages, setSelectedImages] = useState<File[]>([]) // to be used for uploading images
 	const [error, setError] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const retrievedEvent = useSetSingleEvent(eventId, setError, setEventDetails)
-	const editEvent = useEditEvent(retrievedEvent, eventDetails, selectedFiles, setError, setIsSubmitting)
+	const editEvent = useEditEvent(retrievedEvent, eventDetails, selectedImages, setError, setIsSubmitting)
 
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
@@ -99,6 +99,16 @@ function EditEvent() {
 			return { ...prev, ...newEventDetails as Partial<EventFromDB> }
 		})
 	}
+
+	function ChangesMade () {
+		if (
+			!_.isEqual(eventDetails, retrievedEvent) ||
+			!_.isEmpty(selectedImages)
+		) return null
+		return <>(No Changes made)</>
+	}
+
+	const activeImagesCount = eventDetails.eventImages.reduce((count, image) => image.isActive ? count + 1 : count, 0)
 
 	return (
 		<EventTemplate title="Edit">
@@ -140,11 +150,15 @@ function EditEvent() {
 				/>
 
 				<ImageUploader
-					selectedFiles={selectedFiles}
-					setSelectedFiles={setSelctedFiles}
+					eventDetailsPicturesLength={activeImagesCount}
+					selectedImages={selectedImages}
+					setSelectedImages={setSelectedImages}
 				/>
 
-				<ShowPictures eventDetails={eventDetails} />
+				<ShowPictures
+					eventDetails={eventDetails}
+					setEventDetails = {setEventDetails}
+				/>
 
 				<ChooseEventFrequency
 					eventDetails={eventDetails}
@@ -157,13 +171,15 @@ function EditEvent() {
 
 				<ErrorMessage error={error} />
 
-				<div className="mt-2">
+				<div className="flex flex-row mt-2">
 					<Button
 						title= {`Edit ${eventDetails.eventName}`}
 						disabled={isAddOrSaveEventDisabled(eventDetails) || isSubmitting}
-						colorClass="bg-green-500"
-						hoverClass="hover:bg-green-600"
+						colorClass="bg-orange-500"
+						hoverClass="hover:bg-orange-600"
+						className="text-white font-bold"
 					/>
+					<ChangesMade />
 				</div>
 			</form>
 		</EventTemplate>

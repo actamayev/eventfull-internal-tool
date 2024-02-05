@@ -33,26 +33,31 @@ export default function CustomEventDateSelector(props: Props) {
 	return (
 		<div className="flex">
 			<LocalizationProvider dateAdapter={AdapterDateFns}>
-				<DateTimePicker
-					label="Start Time & Date"
-					value={startTime}
-					onChange={setStartTime}
-					minDate={currentDateTime}
-				/>
-				<DateTimePicker
-					label="End Time & Date"
-					value={endTime}
-					onChange={setEndTime}
-					minDate={startTime || currentDateTime}
-				/>
+				<div className="flex flex-row">
+					<DateTimePicker
+						label="Start Time & Date"
+						value={startTime}
+						onChange={setStartTime}
+						minDate={currentDateTime}
+					/>
+					<div className="mx-2">
+						<DateTimePicker
+							label="End Time & Date"
+							value={endTime}
+							onChange={setEndTime}
+							minDate={startTime || currentDateTime}
+						/>
+					</div>
+				</div>
 			</LocalizationProvider>
 			<div className="mt-2">
 				<Button
 					title="Confirm"
 					onClick={handleConfirm}
 					disabled={!startTime || !endTime}
-					colorClass="bg-blue-300"
-					hoverClass="hover:bg-blue-400"
+					colorClass="bg-blue-500"
+					hoverClass="hover:bg-blue-600"
+					className="text-white font-semibold"
 				/>
 			</div>
 		</div>

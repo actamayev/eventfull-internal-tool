@@ -14,8 +14,13 @@ export default class EventsDataService {
 		)
 	}
 
-	async editEvent(eventfullEventData: EventFromDB): Promise<AxiosResponse<UpdatedEventResponse | NonSuccessResponse>> {
-		return await this.httpClient.http.post<UpdatedEventResponse | NonSuccessResponse>("/events/update-event", { eventfullEventData })
+	async editEvent(
+		eventfullEventData: EventFromDB,
+		numberOfImages: number
+	): Promise<AxiosResponse<UpdatedEventResponse | NonSuccessResponse>> {
+		return await this.httpClient.http.post<UpdatedEventResponse | NonSuccessResponse>(
+			"/events/update-event", { eventfullEventData, numberOfImages }
+		)
 	}
 
 	async getEvents(): Promise<AxiosResponse<EventsResponse | ErrorResponse>> {

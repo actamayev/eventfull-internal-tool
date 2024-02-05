@@ -35,7 +35,7 @@ declare global {
 	// Events:
 	type ImageURLsResponse = { imageId: string, presignedUrl: string }
 	type NewEventResponse = { newEvent: EventFromDB, imagesURLsData: ImageURLsResponse[] }
-	type UpdatedEventResponse = { updatedEvent: EventFromDB }
+	type UpdatedEventResponse = { updatedEvent: EventFromDB, imagesURLsData: ImageURLsResponse[] }
 	type EventsResponse = { events: EventFromDB[] }
 	type SingleEventResponse = { event: EventFromDB }
 
