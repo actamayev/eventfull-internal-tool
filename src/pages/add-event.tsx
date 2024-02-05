@@ -48,10 +48,10 @@ function AddEvent() {
 		customEventDates: [],
 		ongoingEventTimes: []
 	})
-	const [selectedFiles, setSelctedFiles] = useState<File[]>([])
+	const [selectedImages, setSelectedImages] = useState<File[]>([])
 	const [error, setError] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
-	const addEvent = useAddEvent(eventDetails, selectedFiles, setError, setIsSubmitting)
+	const addEvent = useAddEvent(eventDetails, selectedImages, setError, setIsSubmitting)
 
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
@@ -104,8 +104,8 @@ function AddEvent() {
 				/>
 
 				<ImageUploader
-					selectedFiles={selectedFiles}
-					setSelectedFiles={setSelctedFiles}
+					selectedImages={selectedImages}
+					setSelectedImages={setSelectedImages}
 				/>
 
 				<ChooseEventFrequency

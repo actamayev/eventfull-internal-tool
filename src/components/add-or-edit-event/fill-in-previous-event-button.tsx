@@ -7,6 +7,7 @@ import AppContext from "../../contexts/eventfull-it-context"
 interface Props {
 	setEventDetails: (value: React.SetStateAction<CreatingEvent>) => void
 }
+
 function FillInPreviousEventButton(props: Props) {
 	const { setEventDetails } = props
 	const appContext = useContext(AppContext)

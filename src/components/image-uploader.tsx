@@ -1,22 +1,22 @@
+import _ from "lodash"
 import { useState, ChangeEvent, useRef } from "react"
 import Button from "./button"
-import _ from "lodash"
 
 interface Props {
-	selectedFiles: File[]
-	setSelectedFiles: (files: File[]) => void
+	selectedImages: File[]
+	setSelectedImages: (files: File[]) => void
 }
 
 export default function ImageUploader(props: Props) {
-	const { selectedFiles, setSelectedFiles } = props
+	const { selectedImages, setSelectedImages } = props
 	const [previewUrls, setPreviewUrls] = useState<string[]>([])
 	const fileInputRef = useRef<HTMLInputElement>(null)
 
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files.length > 0) {
 			const newFiles = Array.from(e.target.files)
-			const totalFiles = selectedFiles.concat(newFiles).slice(0, 10) // Limit to 10 images
-			setSelectedFiles(totalFiles)
+			const totalFiles = selectedImages.concat(newFiles).slice(0, 10) // Limit to 10 images
+			setSelectedImages(totalFiles)
 
 			const newPreviewUrls = totalFiles.map(file => URL.createObjectURL(file))
 			setPreviewUrls(newPreviewUrls)
@@ -26,11 +26,15 @@ export default function ImageUploader(props: Props) {
 	}
 
 	const removeImage = (index: number) => {
-		const updatedFiles = selectedFiles.filter((a, idx) => idx !== index)
-		setSelectedFiles(updatedFiles)
+		const updatedFiles = selectedImages.filter((a, idx) => idx !== index)
+		setSelectedImages(updatedFiles)
 
 		const updatedPreviewUrls = updatedFiles.map(file => URL.createObjectURL(file))
 		setPreviewUrls(updatedPreviewUrls)
+	}
+
+	const handleButtonClick = () => {
+		fileInputRef.current?.click()
 	}
 
 	return (
@@ -41,7 +45,16 @@ export default function ImageUploader(props: Props) {
 				onChange={handleImageChange}
 				multiple
 				accept="image/*"
+				style={{ display: "none" }}
 			/>
+			<Button
+				title="Choose Images"
+				colorClass="bg-blue-300"
+				hoverClass="hover:bg-blue-400"
+				onClick={handleButtonClick}
+			/>
+			<span>{selectedImages.length > 0 ? `${selectedImages.length} file(s) selected` : " No file chosen"}</span>
+
 			<div className="preview-container">
 				{previewUrls.map((url, index) => (
 					<div key={index} style={{ position: "relative", display: "inline-block", margin: "5px" }}>

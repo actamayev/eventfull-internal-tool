@@ -74,11 +74,11 @@ function EditEvent() {
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	})
-	const [selectedFiles, setSelctedFiles] = useState<File[]>([])
+	const [selectedImages, setSelectedImages] = useState<File[]>([])
 	const [error, setError] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const retrievedEvent = useSetSingleEvent(eventId, setError, setEventDetails)
-	const editEvent = useEditEvent(retrievedEvent, eventDetails, selectedFiles, setError, setIsSubmitting)
+	const editEvent = useEditEvent(retrievedEvent, eventDetails, selectedImages, setError, setIsSubmitting)
 
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
@@ -140,8 +140,8 @@ function EditEvent() {
 				/>
 
 				<ImageUploader
-					selectedFiles={selectedFiles}
-					setSelectedFiles={setSelctedFiles}
+					selectedImages={selectedImages}
+					setSelectedImages={setSelectedImages}
 				/>
 
 				<ShowPictures eventDetails={eventDetails} />
