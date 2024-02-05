@@ -108,6 +108,8 @@ function EditEvent() {
 		return <>(No Changes made)</>
 	}
 
+	const activeImagesCount = eventDetails.eventImages.reduce((count, image) => image.isActive ? count + 1 : count, 0)
+
 	return (
 		<EventTemplate title="Edit">
 			<form onSubmit={editEvent}>
@@ -148,6 +150,7 @@ function EditEvent() {
 				/>
 
 				<ImageUploader
+					eventDetailsPicturesLength={activeImagesCount}
 					selectedImages={selectedImages}
 					setSelectedImages={setSelectedImages}
 				/>

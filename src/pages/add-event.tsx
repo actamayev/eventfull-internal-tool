@@ -104,6 +104,7 @@ function AddEvent() {
 				/>
 
 				<ImageUploader
+					eventDetailsPicturesLength={0}
 					selectedImages={selectedImages}
 					setSelectedImages={setSelectedImages}
 				/>
