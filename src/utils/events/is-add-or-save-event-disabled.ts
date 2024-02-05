@@ -1,6 +1,6 @@
 import _ from "lodash"
 
-export default function isEventDisabled(eventDetails: Partial<CreatingEvent | EventFromDB>): boolean {
+export default function isAddOrSaveEventDisabled(eventDetails: Partial<CreatingEvent | EventFromDB>): boolean {
 	if (_.isEmpty(eventDetails.eventName)) {
 		return true
 	} else if (_.isEmpty(eventDetails.eventFrequency)) {

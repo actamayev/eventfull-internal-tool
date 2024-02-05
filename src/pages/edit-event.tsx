@@ -7,21 +7,21 @@ import Button from "../components/button"
 import useEditEvent from "../hooks/events/edit-event"
 import EventTemplate from "../components/event-template"
 import AppContext from "../contexts/eventfull-it-context"
+import ImageUploader from "../components/image-uploader"
+import useSetSingleEvent from "../hooks/events/set-single-event"
+import isAddOrSaveEventDisabled from "../utils/events/is-add-or-save-event-disabled"
 import SelectTimes from "../components/add-or-edit-event/select-times"
 import AddressInput from "../components/add-or-edit-event/address-input"
-import useSetSingleEvent from "../hooks/events/set-single-event"
-import isEventDisabled from "../utils/events/is-add-event-disabled"
+import EventURLInput from "../components/add-or-edit-event/event-url-input"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
-import ChooseEventFrequency from "../components/add-or-edit-event/choose-event-frequency"
-import ErrorMessage from "../components/login-and-registration-form/error-message"
 import EventNameInput from "../components/add-or-edit-event/event-name-input"
-import DescriptionInput from "../components/add-or-edit-event/description-input"
 import EventPriceInput from "../components/add-or-edit-event/event-price-input"
 import ChooseEventType from "../components/add-or-edit-event/choose-event-type"
-import ToggleVirtualEvent from "../components/add-or-edit-event/is-event-virtual"
 import TogglePublicEvent from "../components/add-or-edit-event/is-event-public"
-import EventURLInput from "../components/add-or-edit-event/event-url-input"
-import ImageUploader from "../components/image-uploader"
+import DescriptionInput from "../components/add-or-edit-event/description-input"
+import ToggleVirtualEvent from "../components/add-or-edit-event/is-event-virtual"
+import ErrorMessage from "../components/login-and-registration-form/error-message"
+import ChooseEventFrequency from "../components/add-or-edit-event/choose-event-frequency"
 
 const libraries: ("places")[] = ["places"]
 
@@ -157,7 +157,7 @@ function EditEvent() {
 				<div className="mt-2">
 					<Button
 						title= {`Edit ${eventDetails.eventName}`}
-						disabled={isEventDisabled(eventDetails) || isSubmitting}
+						disabled={isAddOrSaveEventDisabled(eventDetails) || isSubmitting}
 						colorClass="bg-green-500"
 						hoverClass="hover:bg-green-600"
 					/>

@@ -17,7 +17,7 @@ export default function EventURLInput(props: Props) {
 			id="event-url"
 			label="Event URL"
 			type="text"
-			placeholder="Save Princess Peach"
+			placeholder="https://www.youtube.com/@Levi_Sheridan"
 			onChange={handleEventURLChange}
 			value={eventDetails.eventURL}
 		/>

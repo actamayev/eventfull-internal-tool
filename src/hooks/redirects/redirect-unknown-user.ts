@@ -15,7 +15,7 @@ export default function useRedirectUnknownUser (): void {
 				navigate("/")
 			} else {
 				const hasUsername = await retrievePersonalData()
-				if (hasUsername === false) {
+				if (hasUsername === false) { // Don't change this to if (!hasUsername), because hasUsername can be void
 					navigate("/finish-admin-registration")
 				}
 			}

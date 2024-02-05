@@ -34,6 +34,7 @@ export default function useEditEvent(
 				setError("Unable to edit event. Please reload and try again.")
 				return
 			}
+			// TODO: Figure out how to handle image uploads for editing events
 
 			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
 			appContext.eventsData.editEvent(response.data.updatedEvent)
