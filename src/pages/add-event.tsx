@@ -121,10 +121,11 @@ function AddEvent() {
 
 				<div className="mt-2">
 					<Button
-						title= {`Add ${eventDetails.eventName || "Event"}`}
+						title= {`Add${eventDetails.eventName ? (": " + eventDetails.eventName) : ""}`}
 						disabled={isAddOrSaveEventDisabled(eventDetails) || isSubmitting}
-						colorClass="bg-green-500"
-						hoverClass="hover:bg-green-600"
+						colorClass="bg-emerald-600"
+						hoverClass="hover:bg-emerald-700"
+						className="text-white font-semibold"
 					/>
 				</div>
 			</form>

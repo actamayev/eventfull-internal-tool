@@ -13,7 +13,7 @@ export default function ChooseEventFrequency(props: Props) {
 				value={eventDetails.eventFrequency}
 				onChange={(e) => setEventDetails({...eventDetails, eventFrequency: e.target.value as EventFrequency})}
 				className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white \
-				rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+				rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-600 sm:text-sm"
 			>
 				<option value="">Select Event Frequency</option>
 				<option value="one-time">One-time</option>

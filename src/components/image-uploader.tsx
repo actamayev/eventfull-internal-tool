@@ -49,9 +49,10 @@ export default function ImageUploader(props: Props) {
 			/>
 			<Button
 				title="Choose Images"
-				colorClass="bg-blue-300"
-				hoverClass="hover:bg-blue-400"
+				colorClass="bg-violet-500"
+				hoverClass="hover:bg-violet-600"
 				onClick={handleButtonClick}
+				className="text-white font-semibold"
 			/>
 			<span>{selectedImages.length > 0 ? `${selectedImages.length} file(s) selected` : " No file chosen"}</span>
 
@@ -65,9 +66,10 @@ export default function ImageUploader(props: Props) {
 						/>
 						<Button
 							title="Remove"
-							colorClass="bg-red-500"
-							hoverClass="hover:bg-red-600"
+							colorClass="bg-red-600"
+							hoverClass="hover:bg-red-700"
 							onClick={() => removeImage(index)}
+							className="text-white font-semibold"
 						/>
 					</div>
 				))}

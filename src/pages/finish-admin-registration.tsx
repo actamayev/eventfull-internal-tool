@@ -82,12 +82,11 @@ function FinishAdminRegistration() {
 				<ErrorMessage error = {error} />
 
 				<Button
-					className = "mt-3 w-full font-bold text-lg"
+					className = "mt-3 w-full font-bold text-lg text-white"
 					colorClass = "bg-green-600"
 					hoverClass = "hover:bg-green-700"
 					disabled = {loading}
 					title = "Register"
-					textColor = "text-white"
 				/>
 			</form>
 

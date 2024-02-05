@@ -161,8 +161,9 @@ function EditEvent() {
 					<Button
 						title= {`Edit ${eventDetails.eventName}`}
 						disabled={isAddOrSaveEventDisabled(eventDetails) || isSubmitting}
-						colorClass="bg-green-500"
-						hoverClass="hover:bg-green-600"
+						colorClass="bg-orange-500"
+						hoverClass="hover:bg-orange-600"
+						className="text-white font-bold"
 					/>
 				</div>
 			</form>

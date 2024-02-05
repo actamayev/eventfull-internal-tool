@@ -61,12 +61,11 @@ function AddAdmin() {
 				<SuccessMessage message = {success} />
 
 				<Button
-					className = "mt-3 w-full font-bold text-lg"
-					colorClass = "bg-green-600"
-					hoverClass = "hover:bg-green-700"
+					className = "mt-3 w-full font-bold text-lg text-white"
+					colorClass = "bg-blue-600"
+					hoverClass = "hover:bg-blue-700"
 					disabled = {loading}
-					title = "Add Amin"
-					textColor = "text-white"
+					title = {`Add ${registerInformation.firstName || "Admin"}`}
 				/>
 			</form>
 

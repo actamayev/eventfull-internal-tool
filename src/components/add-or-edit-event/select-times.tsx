@@ -66,8 +66,9 @@ export default function SelectTimes(props: Props) {
 						<Button
 							title="Delete"
 							onClick={() => deleteCustomEventDate(index)}
-							colorClass="bg-red-300"
-							hoverClass="hover:bg-red-400"
+							colorClass="bg-red-500"
+							hoverClass="hover:bg-red-600"
+							className="text-white font-semibold"
 						/>
 					</div>
 				))}
