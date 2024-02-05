@@ -37,9 +37,7 @@ export default class EventsClass {
 
 	public getLastEvent(): EventClass | null {
 		const keys = Array.from(this.eventsMap.keys())
-		if (keys.length === 0) {
-			return null
-		}
+		if (_.isEmpty(keys)) return null
 		return this.eventsMap.get(keys[keys.length - 1]) || null
 	}
 }

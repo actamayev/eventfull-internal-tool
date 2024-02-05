@@ -50,6 +50,7 @@ export default function CustomEventDateSelector(props: Props) {
 				<Button
 					title="Confirm"
 					onClick={handleConfirm}
+					disabled={!startTime || !endTime}
 					colorClass="bg-blue-300"
 					hoverClass="hover:bg-blue-400"
 				/>

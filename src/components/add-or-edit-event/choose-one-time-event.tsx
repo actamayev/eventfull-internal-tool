@@ -14,12 +14,12 @@ export default function ChooseOneTimeEvent(props: Props) {
 	const handleStartTimeChange = (newStartDate: Date | null) => {
 		if (_.isNull(newStartDate)) {
 			alert("Start time must be after End time.")
-			return // Early return, do not update state
+			return
 		}
 
 		if (eventDetails.singularEventTime?.endTime !== undefined && newStartDate > eventDetails.singularEventTime.endTime) {
 			alert("Start time must be before the end time.")
-			return // Early return, do not update state
+			return
 		}
 
 		// Update event details only if the new start time is valid
@@ -40,10 +40,8 @@ export default function ChooseOneTimeEvent(props: Props) {
 	const handleEndTimeChange = (newEndDate: Date | null) => {
 		if (_.isNull(newEndDate)) {
 			alert("End time must be after Start time.")
-			return
 		} else if (eventDetails.singularEventTime?.startTime === undefined) {
 			alert("Please choose a start time first.")
-			return
 		} else {
 			if (newEndDate < eventDetails.singularEventTime.startTime) {
 				alert("End time must be after the start time.")
