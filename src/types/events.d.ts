@@ -51,6 +51,7 @@ declare global {
 	interface ImageURLs {
 		imageId: string
 		imageURL?: string
+		isActive: boolean
 	}
 
 	interface GridRowData {

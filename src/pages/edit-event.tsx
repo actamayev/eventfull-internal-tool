@@ -74,7 +74,7 @@ function EditEvent() {
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	})
-	const [selectedImages, setSelectedImages] = useState<File[]>([])
+	const [selectedImages, setSelectedImages] = useState<File[]>([]) // to be used for uploading images
 	const [error, setError] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const retrievedEvent = useSetSingleEvent(eventId, setError, setEventDetails)
@@ -98,6 +98,12 @@ function EditEvent() {
 		setEventDetails(prev => {
 			return { ...prev, ...newEventDetails as Partial<EventFromDB> }
 		})
+	}
+
+	function ChangesMade () {
+		// TODO: Make this react to when images are uploaded
+		if (!_.isEqual(eventDetails, retrievedEvent)) return null
+		return <>(No Changes made)</>
 	}
 
 	return (
@@ -144,7 +150,10 @@ function EditEvent() {
 					setSelectedImages={setSelectedImages}
 				/>
 
-				<ShowPictures eventDetails={eventDetails} />
+				<ShowPictures
+					eventDetails={eventDetails}
+					setEventDetails = {setEventDetails}
+				/>
 
 				<ChooseEventFrequency
 					eventDetails={eventDetails}
@@ -157,7 +166,7 @@ function EditEvent() {
 
 				<ErrorMessage error={error} />
 
-				<div className="mt-2">
+				<div className="flex flex-row mt-2">
 					<Button
 						title= {`Edit ${eventDetails.eventName}`}
 						disabled={isAddOrSaveEventDisabled(eventDetails) || isSubmitting}
@@ -165,6 +174,7 @@ function EditEvent() {
 						hoverClass="hover:bg-orange-600"
 						className="text-white font-bold"
 					/>
+					<ChangesMade />
 				</div>
 			</form>
 		</EventTemplate>

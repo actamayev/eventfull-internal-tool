@@ -33,7 +33,7 @@ export default function useAddEvent(
 				return
 			}
 			const imageURLs: ImageURLs[] = response.data.imagesURLsData.map((imageURLData) => ({
-				imageId: imageURLData.imageId, imageURL: ""
+				imageId: imageURLData.imageId, imageURL: "", isActive: true
 			}))
 
 			for (let i = 0; i < _.size(selectedFiles); i++) {
