@@ -9,7 +9,7 @@ declare global {
 	interface BaseEventTime {
 		startTime: Date
 		endTime: Date
-		eventDuration: {
+		eventDuration?: {
 			hours: number
 			minutes: number
 		}
@@ -34,7 +34,6 @@ declare global {
 
 		eventURL?: string
 		extraEventCategories?: string[]
-		eventImageURL?: string
 
 		// For one time events:
 		singularEventTime?: BaseEventTime | null
@@ -47,6 +46,11 @@ declare global {
 		invitees: SocialData[]
 		coHosts: SocialData[]
 		eventCapacity: number
+	}
+
+	interface ImageURLs {
+		imageId: string
+		imageURL?: string
 	}
 
 	interface GridRowData {

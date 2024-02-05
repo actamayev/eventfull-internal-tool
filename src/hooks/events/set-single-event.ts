@@ -1,15 +1,17 @@
 import _ from "lodash"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import AppContext from "../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
+import extractEventData from "../../utils/events/extract-event-data"
 
 export default function useSetSingleEvent(
 	eventId: string | undefined,
 	setError: React.Dispatch<React.SetStateAction<string>>,
 	setEventDetails: (value: React.SetStateAction<EventFromDB>) => void
-): void {
+): EventFromDB | undefined {
 	const appContext = useContext(AppContext)
+	const [retrievedEvent, setRetrievedEvent] = useState<EventFromDB | undefined>(undefined)
 
 	useEffect(() => {
 		if (
@@ -21,7 +23,9 @@ export default function useSetSingleEvent(
 
 		const event = appContext.eventsData.contextForEvent(eventId)
 		if (!_.isUndefined(event)) {
-			setEventDetails(event)
+			const extractedEvent = extractEventData(event)
+			setEventDetails(extractedEvent)
+			setRetrievedEvent(extractedEvent)
 		} else {
 			void setSingleEvent()
 		}
@@ -35,8 +39,12 @@ export default function useSetSingleEvent(
 				throw new Error("Failed to retrieve event")
 			}
 			setEventDetails(response.data.event)
+			setRetrievedEvent(response.data.event) // Update the state with the fetched event
+
 		} catch (err) {
 			setErrorAxiosResponse(err, setError, "Failed to retrieve event")
 		}
 	}
+
+	return retrievedEvent
 }

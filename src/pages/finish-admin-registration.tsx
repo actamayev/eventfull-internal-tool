@@ -25,7 +25,7 @@ function FinishAdminRegistration() {
 	})
 	const [error, setError] = useState("")
 	const [loading, setLoading] = useState(false)
-	const [showPassword, setShowPassword] = useState(true)
+	const [showPassword, setShowPassword] = useState(false)
 
 	useEffect(() => {
 		if (!_.isNil(appContext.personalData?.username)) {
@@ -38,20 +38,15 @@ function FinishAdminRegistration() {
 		return "password"
 	}
 
-	const secondaryAdminSubmit = useSecondaryAdminInfoSubmit()
+	const secondaryAdminSubmit = useSecondaryAdminInfoSubmit(registerInformation, setError, setLoading)
 
 	const setRegisterInformationGeneric = (newCredentials: Partial<SecondaryAdminRegisterInformation>) => {
 		setRegisterInformation(prev => ({ ...prev, ...newCredentials }))
 	}
 
-	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-		e.preventDefault()
-		await secondaryAdminSubmit(e, registerInformation, setError, setLoading)
-	}
-
 	return (
 		<AuthTemplate title="Finish Admin Registration">
-			<form onSubmit={handleFormSubmit}>
+			<form onSubmit={secondaryAdminSubmit}>
 				<div className="flex">
 					<div className="w-1/3 ml-4">
 

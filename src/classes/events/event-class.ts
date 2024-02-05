@@ -4,6 +4,7 @@ export default class EventClass {
 	constructor(eventData: EventFromDB) {
 		makeAutoObservable(this)
 		this._id = eventData._id
+		this.__v = eventData.__v
 		this.address = eventData.address
 		this.attendees = eventData.attendees
 		this.canInvitedUsersInviteOthers = eventData.canInvitedUsersInviteOthers
@@ -12,7 +13,6 @@ export default class EventClass {
 		this.customEventDates = eventData.customEventDates
 		this.eventCapacity = eventData.eventCapacity
 		this.eventDescription = eventData.eventDescription
-		this.eventImageURL = eventData.eventImageURL
 		this.eventFrequency = eventData.eventFrequency
 		this.eventName = eventData.eventName
 		this.eventPrice = eventData.eventPrice
@@ -27,12 +27,14 @@ export default class EventClass {
 		this.ongoingEventTimes = eventData.ongoingEventTimes
 		this.singularEventTime = eventData.singularEventTime
 		this.organizer = eventData.organizer
+		this.eventImages = eventData.eventImages
 
 		this.createdAt = eventData.createdAt
 		this.updatedAt = eventData.updatedAt
 	}
 
 	public _id: string
+	public __v: number
 	public address: string
 	public attendees: EventfullAttendee[]
 	public canInvitedUsersInviteOthers: boolean
@@ -47,7 +49,6 @@ export default class EventClass {
 	public eventCapacity: number | null
 	public eventDescription: string
 	public eventFrequency: EventFrequency
-	public eventImageURL?: string
 	public eventName: string
 	public eventPrice: number
 	public eventPublic: boolean
@@ -61,6 +62,7 @@ export default class EventClass {
 	public ongoingEventTimes: OngoingEvents[]
 	public singularEventTime?: BaseEventTime
 	public organizer?: SocialData
+	public eventImages: ImageURLs[] = []
 
 	public createdAt: Date
 	public updatedAt: Date

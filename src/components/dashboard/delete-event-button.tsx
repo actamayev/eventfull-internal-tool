@@ -1,5 +1,5 @@
 import _ from "lodash"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { CustomCellRendererProps } from "ag-grid-react"
 import Button from "../button"
 import AppContext from "../../contexts/eventfull-it-context"
@@ -8,12 +8,17 @@ import { isErrorResponses } from "../../utils/type-checks"
 export default function DeleteButtonRenderer(props: CustomCellRendererProps) {
 	const appContext = useContext(AppContext)
 	const [confirmDelete, setConfirmDelete] = useState(false)
+	const adjustColumnWidth = props.context.adjustDeleteColumnWidth
 
-	// TODO: When this is clicked, it should widen the grid to show the delete button
+	useEffect(() => {
+		// Adjust column width when confirmDelete changes
+		const newWidth = confirmDelete ? 220 : 100 // Adjust these values as needed
+		adjustColumnWidth(newWidth)
+	}, [confirmDelete, adjustColumnWidth])
+
 	const handleDeleteClick = () => setConfirmDelete(true)
 	const handleCancelClick = () => setConfirmDelete(false)
 
-	// TODO: The grid shouldn't shrink back to its original size after the delete button is clicked
 	const handleConfirmDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		try {
 			e.preventDefault()
@@ -57,6 +62,5 @@ export default function DeleteButtonRenderer(props: CustomCellRendererProps) {
 				className="ml-2 flex items-center justify-center text-white font-semibold rounded-md text-s h-9 my-0.5"
 			/>
 		</div>
-
 	)
 }

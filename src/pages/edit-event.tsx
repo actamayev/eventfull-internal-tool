@@ -4,17 +4,25 @@ import { useParams } from "react-router-dom"
 import { useContext, useState } from "react"
 import { useLoadScript } from "@react-google-maps/api"
 import Button from "../components/button"
-import FormGroup from "../components/form-group"
 import useEditEvent from "../hooks/events/edit-event"
 import EventTemplate from "../components/event-template"
 import AppContext from "../contexts/eventfull-it-context"
-import SelectTimes from "../components/add-event/select-times"
-import AddressInput from "../components/add-event/address-input"
+import ImageUploader from "../components/image-uploader"
 import useSetSingleEvent from "../hooks/events/set-single-event"
-import isEventDisabled from "../utils/events/is-add-event-disabled"
+import isAddOrSaveEventDisabled from "../utils/events/is-add-or-save-event-disabled"
+import SelectTimes from "../components/add-or-edit-event/select-times"
+import AddressInput from "../components/add-or-edit-event/address-input"
+import EventURLInput from "../components/add-or-edit-event/event-url-input"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
-import SelectEventFrequency from "../components/add-event/select-event-frequency"
+import EventNameInput from "../components/add-or-edit-event/event-name-input"
+import EventPriceInput from "../components/add-or-edit-event/event-price-input"
+import ChooseEventType from "../components/add-or-edit-event/choose-event-type"
+import TogglePublicEvent from "../components/add-or-edit-event/is-event-public"
+import DescriptionInput from "../components/add-or-edit-event/description-input"
+import ToggleVirtualEvent from "../components/add-or-edit-event/is-event-virtual"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
+import ChooseEventFrequency from "../components/add-or-edit-event/choose-event-frequency"
+import ShowPictures from "../components/add-or-edit-event/show-pictures"
 
 const libraries: ("places")[] = ["places"]
 
@@ -26,9 +34,10 @@ function EditEvent() {
 
 	const [eventDetails, setEventDetails] = useState<EventFromDB>({
 		_id: "",
+		__v: 0,
 		eventName: "",
-		eventPrice: 2,
-		eventType: "Entertainment",
+		eventPrice: 0,
+		eventType: "",
 		isVirtual: false,
 		isActive: true,
 		eventPublic: true,
@@ -37,8 +46,9 @@ function EditEvent() {
 
 		eventFrequency: "one-time",
 		address: "",
-		eventDescription: "Test description",
-		eventURL: "google.com",
+		eventDescription: "",
+		eventImages: [],
+		eventURL: "",
 
 		invitees: [],
 		coHosts: [],
@@ -64,9 +74,11 @@ function EditEvent() {
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	})
+	const [selectedFiles, setSelctedFiles] = useState<File[]>([])
 	const [error, setError] = useState("")
-	useSetSingleEvent(eventId, setError, setEventDetails)
-	const editEvent = useEditEvent()
+	const [isSubmitting, setIsSubmitting] = useState(false)
+	const retrievedEvent = useSetSingleEvent(eventId, setError, setEventDetails)
+	const editEvent = useEditEvent(retrievedEvent, eventDetails, selectedFiles, setError, setIsSubmitting)
 
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
@@ -90,15 +102,10 @@ function EditEvent() {
 
 	return (
 		<EventTemplate title="Edit">
-			<form onSubmit={(e) => editEvent(e, eventDetails, setError)}>
-				<FormGroup
-					id="event-name"
-					label="Event Name"
-					type="text"
-					placeholder="Save Princess Peach"
-					onChange={(e) => setEventDetails({...eventDetails, eventName: e.target.value})}
-					required
-					value={eventDetails.eventName}
+			<form onSubmit={editEvent}>
+				<EventNameInput
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
 				/>
 				{isLoaded && (
 					<AddressInput
@@ -106,7 +113,40 @@ function EditEvent() {
 						setEventDetails={setEventDetailsGeneric}
 					/>
 				)}
-				<SelectEventFrequency
+				<DescriptionInput
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
+				/>
+
+				<EventPriceInput
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
+				/>
+				<ChooseEventType
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
+				/>
+				<ToggleVirtualEvent
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
+				/>
+				<TogglePublicEvent
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
+				/>
+				<EventURLInput
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
+				/>
+
+				<ImageUploader
+					selectedFiles={selectedFiles}
+					setSelectedFiles={setSelctedFiles}
+				/>
+
+				<ShowPictures eventDetails={eventDetails} />
+
+				<ChooseEventFrequency
 					eventDetails={eventDetails}
 					setEventDetails={setEventDetailsGeneric}
 				/>
@@ -120,9 +160,9 @@ function EditEvent() {
 				<div className="mt-2">
 					<Button
 						title= {`Edit ${eventDetails.eventName}`}
-						disabled={isEventDisabled(eventDetails)}
+						disabled={isAddOrSaveEventDisabled(eventDetails) || isSubmitting}
 						colorClass="bg-green-500"
-						hoverClass="hover:bg-green-700"
+						hoverClass="hover:bg-green-600"
 					/>
 				</div>
 			</form>

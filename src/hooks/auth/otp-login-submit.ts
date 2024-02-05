@@ -6,24 +6,19 @@ import AppContext from "../../contexts/eventfull-it-context"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
 import confirmOTPLoginFields from "../../utils/auth/confirm-otp-fields"
 
-export default function useOTPLoginSubmit (): (
-	e: React.FormEvent<HTMLFormElement>,
+export default function useOTPLoginSubmit (
 	loginInformation: OTPCredentials,
 	setError: (error: string) => void,
 	setLoading: (loading: boolean) => void,
+): (
+	e: React.FormEvent<HTMLFormElement>
 ) => Promise<void> {
 	const appContext = useContext(AppContext)
 	const navigate = useNavigate()
 
-	const otpLoginSubmit = async (
-		e: React.FormEvent<HTMLFormElement>,
-		loginInformation: OTPCredentials,
-		setError: (error: string) => void,
-		setLoading: (loading: boolean) => void,
-	): Promise<void> => {
-		setError("")
+	const otpLoginSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
-
+		setError("")
 		try {
 			const areCredentialsValid = confirmOTPLoginFields(loginInformation, setError)
 			if (areCredentialsValid === false) return

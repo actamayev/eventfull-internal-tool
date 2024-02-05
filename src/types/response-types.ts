@@ -33,13 +33,15 @@ declare global {
 	type PersonalInfoResponse = { personalInfo: PersonalInfo }
 
 	// Events:
-	type NewEventResponse = { newEvent: EventFromDB }
+	type ImageURLsResponse = { imageId: string, presignedUrl: string }
+	type NewEventResponse = { newEvent: EventFromDB, imagesURLsData: ImageURLsResponse[] }
 	type UpdatedEventResponse = { updatedEvent: EventFromDB }
 	type EventsResponse = { events: EventFromDB[] }
 	type SingleEventResponse = { event: EventFromDB }
 
 	interface EventFromDB extends TimestampsInterface {
 		_id: string // This is actually Types.ObjectId, but I don't want to import it here
+		__v: number
 		address: string
 		attendees: EventfullAttendee[]
 		canInvitedUsersInviteOthers: boolean
@@ -53,8 +55,9 @@ declare global {
 		customEventDates: BaseEventTime[]
 		eventCapacity: number | null
 		eventDescription: string
+		eventImages: ImageURLs[]
+
 		eventFrequency: EventFrequency
-		eventImageURL?: string
 		eventName: string
 		eventPrice: number
 		eventPublic: boolean

@@ -25,20 +25,15 @@ function Login() {
 		return "password"
 	}
 
-	const loginSubmit = useLoginSubmit()
+	const loginSubmit = useLoginSubmit(loginInformation, setError, setLoading)
 
 	const setLoginInformationGeneric = (newCredentials: Partial<LoginCredentials>) => {
 		setLoginInformation(prev => ({ ...prev, ...newCredentials }))
 	}
 
-	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-		e.preventDefault()
-		await loginSubmit(e, loginInformation, setError, setLoading)
-	}
-
 	return (
 		<AuthTemplate title="Login">
-			<form onSubmit={handleFormSubmit}>
+			<form onSubmit={loginSubmit}>
 				<ContactInput
 					credentials={loginInformation}
 					setCredentials={setLoginInformation}

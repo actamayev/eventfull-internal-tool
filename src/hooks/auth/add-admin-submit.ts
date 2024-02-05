@@ -5,24 +5,18 @@ import AppContext from "../../contexts/eventfull-it-context"
 import confirmAddAdminFields from "../../utils/auth/confirm-add-admin-fields"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
 
-export default function useAddAdminSubmit (): (
-	e: React.FormEvent<HTMLFormElement>,
+export default function useAddAdminSubmit (
 	initialAdminRegisterInformation: InitialAdminRegisterInformation,
 	setError: (error: string) => void,
 	setLoading: (loading: boolean) => void,
 	setRegisterInformation: React.Dispatch<React.SetStateAction<InitialAdminRegisterInformation>>,
 	setSuccess: React.Dispatch<React.SetStateAction<string>>
+): (
+	e: React.FormEvent<HTMLFormElement>,
 ) => Promise<void> {
 	const appContext = useContext(AppContext)
 
-	const addAdmin = async (
-		e: React.FormEvent<HTMLFormElement>,
-		initialAdminRegisterInformation: InitialAdminRegisterInformation,
-		setError: (error: string) => void,
-		setLoading: (loading: boolean) => void,
-		setRegisterInformation: React.Dispatch<React.SetStateAction<InitialAdminRegisterInformation>>,
-		setSuccess: React.Dispatch<React.SetStateAction<string>>
-	): Promise<void> => {
+	const addAdmin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
 		setError("")
 		setSuccess("")

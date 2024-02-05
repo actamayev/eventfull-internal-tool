@@ -5,10 +5,10 @@ import useAddAdminSubmit from "../hooks/auth/add-admin-submit"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 import AuthTemplate from "../components/login-and-registration-form/auth-template"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
+import SuccessMessage from "../components/login-and-registration-form/success-message"
 import EmailInput from "../components/login-and-registration-form/new-admin/email-input"
 import LastNameInput from "../components/login-and-registration-form/new-admin/last-name-input"
 import FirstNameInput from "../components/login-and-registration-form/new-admin/first-name-input"
-import SuccessMessage from "../components/login-and-registration-form/success-message"
 
 function AddAdmin() {
 	useRedirectUnknownUser()
@@ -22,20 +22,15 @@ function AddAdmin() {
 	const [success, setSuccess] = useState("")
 	const [loading, setLoading] = useState(false)
 
-	const addAdminSubmit = useAddAdminSubmit()
+	const addAdminSubmit = useAddAdminSubmit(registerInformation, setError, setLoading, setRegisterInformation, setSuccess)
 
 	const setRegisterInformationGeneric = (newCredentials: Partial<InitialAdminRegisterInformation>) => {
 		setRegisterInformation(prev => ({ ...prev, ...newCredentials }))
 	}
 
-	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-		e.preventDefault()
-		await addAdminSubmit(e, registerInformation, setError, setLoading, setRegisterInformation, setSuccess)
-	}
-
 	return (
 		<AuthTemplate title="Add Admin" width="w-5/12">
-			<form onSubmit={handleFormSubmit}>
+			<form onSubmit={addAdminSubmit}>
 				<div className="flex">
 					<div className="w-1/3 ml-2">
 						<EmailInput

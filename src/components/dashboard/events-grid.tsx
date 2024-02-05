@@ -6,7 +6,7 @@ import "ag-grid-community/styles/ag-grid.css"
 import { useNavigate } from "react-router-dom"
 import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
-import { GridApi, GridReadyEvent, SizeColumnsToContentStrategy  } from "ag-grid-community"
+import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy  } from "ag-grid-community"
 import Button from "../button"
 import AppContext from "../../contexts/eventfull-it-context"
 import dashboardColumns from "../../utils/events/dashboard-colums"
@@ -18,16 +18,7 @@ function EventsGrid () {
 	const navigate = useNavigate()
 	const [rowData, setRowData] = useState<GridRowData[]>([])
 	const [gridApi, setGridApi] = useState<GridApi | null>(null)
-
-	useEffect(() => {
-		if (!_.isNull(gridApi) && !_.isEmpty(rowData)) {
-		// Filter out any undefined values
-			const columnFields = dashboardColumns.map(col => col.field).filter(field => field !== undefined) as string[]
-
-			gridApi.sizeColumnsToFit() // Optional: Sizes columns to fit the grid width
-			gridApi.autoSizeColumns(columnFields) // Autosizes columns to fit content
-		}
-	}, [gridApi, rowData])
+	const [gridHeight, setGridHeight] = useState<string | number>("100%")
 
 	useEffect(() => {
 		const disposeAutorun = autorun(() => {
@@ -39,10 +30,17 @@ function EventsGrid () {
 		return () => disposeAutorun()
 	}, [appContext.eventsData?.eventsMap])
 
-	const onGridReady = (params: GridReadyEvent) => {
-		setGridApi(params.api)
-		// Additional logic for when the grid is ready
-	}
+	useEffect(() => {
+		const rowHeight = 40 // Your row height
+		const headerHeight = 40
+		const paginationPanelHeight = 70 // Approximate pagination panel height
+		const totalRowsHeight = rowData.length * rowHeight
+		const totalGridHeight = headerHeight + totalRowsHeight + paginationPanelHeight
+
+		// Set maximum height if total height is greater than a certain value
+		const maxHeight = 1500
+		setGridHeight(Math.min(totalGridHeight, maxHeight))
+	}, [gridApi, rowData])
 
 	const autoSizeStrategy: SizeColumnsToContentStrategy = {
 		type: "fitCellContents",
@@ -55,9 +53,18 @@ function EventsGrid () {
 		gridRef.current.api.updateGridOptions({ quickFilterText: filterText })
 	}, [gridRef])
 
+	const adjustDeleteColumnWidth = (newWidth: number) => {
+		if (_.isNull(gridApi)) return
+		gridApi.setColumnWidth("delete", newWidth)
+	}
+
+	const handleRowDoubleClicked = (event: RowDoubleClickedEvent) => {
+		navigate(`/edit-event/${event.data.eventId}`)
+	}
+
 	return (
 		<div className="flex-grow">
-			<div className="flex justify-between mb-4">
+			<div className="flex justify-between mb-2">
 				<div className="flex-grow">
 					<input
 						type="text"
@@ -71,22 +78,25 @@ function EventsGrid () {
 					<Button
 						title="+ Add event"
 						onClick={() => navigate("/add-event")}
-						colorClass="bg-blue-400"
-						hoverClass="hover:bg-blue-500"
-						className="p-2 rounded-md font-bold"
+						colorClass="bg-blue-600"
+						hoverClass="hover:bg-blue-700"
+						className="rounded-md font-bold text-white p-2 border-2 border-blue-600 hover:border-blue-700"
 					/>
 				</div>
 			</div>
-			<div className="ag-theme-alpine" style={{ height: 1500, width: "100%" }}>
+			<div className="ag-theme-alpine" style={{ height: gridHeight, width: "100%" }}>
 				<AgGridReact
 					ref={gridRef}
 					columnDefs={dashboardColumns}
 					rowData={rowData}
-					onGridReady={onGridReady}
+					onGridReady={(params) => setGridApi(params.api)}
 					pagination={true}
+					headerHeight={40}
 					paginationPageSize={50}
 					rowHeight={40}
 					autoSizeStrategy={autoSizeStrategy}
+					context={{ adjustDeleteColumnWidth }}
+					onRowDoubleClicked={handleRowDoubleClicked}
 				/>
 			</div>
 		</div>
