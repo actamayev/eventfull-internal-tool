@@ -24,7 +24,7 @@ export default function useOTPLoginSubmit (
 			if (areCredentialsValid === false) return
 
 			setLoading(true)
-			const response = await appContext.eventfullApiClient.authDataService.loginWithOTP(loginInformation.email, loginInformation.otp)
+			const response = await appContext.eventfullApiClient.authDataService.loginWithOTP(loginInformation)
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
 				setError("Unable to login. Please reload and try again.")
 				return

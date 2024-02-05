@@ -9,8 +9,8 @@ export default class AuthDataService {
 		return await this.httpClient.http.post<LoginSuccess | NonSuccessResponse>("/auth/login", { loginInformation })
 	}
 
-	async loginWithOTP(email: string, otp: string): Promise<AxiosResponse<OTPLoginPersonalInfo | NonSuccessResponse>> {
-		return await this.httpClient.http.post<OTPLoginPersonalInfo | NonSuccessResponse>("/auth/otp-login", { email, otp })
+	async loginWithOTP(otpLoginInformation: OTPCredentials): Promise<AxiosResponse<OTPLoginPersonalInfo | NonSuccessResponse>> {
+		return await this.httpClient.http.post<OTPLoginPersonalInfo | NonSuccessResponse>("/auth/otp-login", { otpLoginInformation })
 	}
 
 	async addAdmin(
