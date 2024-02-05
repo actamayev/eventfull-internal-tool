@@ -27,8 +27,6 @@ export default function useEditEvent(
 			navigate("/dashboard")
 			return
 		}
-		// TODO: Consider adding a separate endpoint to just upload pictures.
-		// if the previous and new events are eqaual, but there are new pictures
 		setLoading(true)
 		try {
 			const response = await appContext.eventfullApiClient.eventsDataService.editEvent(

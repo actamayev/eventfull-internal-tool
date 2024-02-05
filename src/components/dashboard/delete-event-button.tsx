@@ -40,7 +40,7 @@ export default function DeleteButtonRenderer(props: CustomCellRendererProps) {
 				onClick={handleDeleteClick}
 				colorClass="bg-red-600"
 				hoverClass="hover:bg-red-700"
-				className="flex items-center justify-center font-semibold rounded-md text-s h-9 my-0.5 text-white"
+				className="flex items-center justify-center font-semibold rounded-md text-s h-9 text-white p-1"
 			/>
 		)
 	}
@@ -52,14 +52,14 @@ export default function DeleteButtonRenderer(props: CustomCellRendererProps) {
 				onClick={handleConfirmDelete}
 				colorClass="bg-red-600"
 				hoverClass="hover:bg-red-700"
-				className="flex items-center justify-center text-white font-semibold rounded-md text-s h-9 my-0.5"
+				className="flex items-center justify-center text-white font-semibold rounded-md text-s h-9 p-1"
 			/>
 			<Button
 				title="Cancel"
 				onClick={handleCancelClick}
 				colorClass="bg-gray-500"
 				hoverClass="hover:bg-gray-600"
-				className="ml-2 flex items-center justify-center text-white font-semibold rounded-md text-s h-9 my-0.5"
+				className="ml-2 flex items-center justify-center text-white font-semibold rounded-md text-s h-9 p-1"
 			/>
 		</div>
 	)

@@ -13,7 +13,7 @@ export default function EditButtonRenderer (props: CustomCellRendererProps) {
 			onClick={handleClick}
 			colorClass="bg-orange-500"
 			hoverClass="hover:bg-orange-600"
-			className="flex items-center justify-center font-semibold rounded-md text-s h-9 my-0.5 text-white"
+			className="flex items-center justify-center font-semibold rounded-md text-s h-9 text-white p-1"
 		/>
 	)
 }

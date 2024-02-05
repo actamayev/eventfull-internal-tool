@@ -33,7 +33,6 @@ export default function useAddEvent(
 				return
 			}
 			if (!_.isEmpty(response.data.imagesURLsData)) {
-
 				const imageURLs: ImageURLs[] = response.data.imagesURLsData.map((imageURLData) => ({
 					imageId: imageURLData.imageId, imageURL: "", isActive: true
 				}))
