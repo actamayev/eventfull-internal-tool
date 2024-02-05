@@ -4,6 +4,7 @@ export default class EventClass {
 	constructor(eventData: EventFromDB) {
 		makeAutoObservable(this)
 		this._id = eventData._id
+		this.__v = eventData.__v
 		this.address = eventData.address
 		this.attendees = eventData.attendees
 		this.canInvitedUsersInviteOthers = eventData.canInvitedUsersInviteOthers
@@ -33,6 +34,7 @@ export default class EventClass {
 	}
 
 	public _id: string
+	public __v: number
 	public address: string
 	public attendees: EventfullAttendee[]
 	public canInvitedUsersInviteOthers: boolean

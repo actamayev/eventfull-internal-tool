@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react"
 import AppContext from "../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
+import extractEventData from "../../utils/events/extract-event-data"
 
 export default function useSetSingleEvent(
 	eventId: string | undefined,
@@ -22,8 +23,9 @@ export default function useSetSingleEvent(
 
 		const event = appContext.eventsData.contextForEvent(eventId)
 		if (!_.isUndefined(event)) {
-			setEventDetails(event)
-			setRetrievedEvent(event)
+			const extractedEvent = extractEventData(event)
+			setEventDetails(extractedEvent)
+			setRetrievedEvent(extractedEvent)
 		} else {
 			void setSingleEvent()
 		}

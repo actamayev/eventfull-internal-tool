@@ -2,7 +2,6 @@ import _ from "lodash"
 import { LocalizationProvider } from "@mui/x-date-pickers"
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3"
-import calculateEventDuration from "../../utils/events/calculate-event-duration"
 
 interface Props {
 	eventDetails: CreatingEvent | EventFromDB
@@ -13,8 +12,6 @@ export default function ChooseOneTimeEvent(props: Props) {
 	const { eventDetails, setEventDetails } = props
 
 	const handleStartTimeChange = (newStartDate: Date | null) => {
-		console.log("newStartDate", newStartDate)
-
 		if (_.isNull(newStartDate)) {
 			alert("Start time must be after End time.")
 			return // Early return, do not update state
@@ -36,11 +33,9 @@ export default function ChooseOneTimeEvent(props: Props) {
 				...eventDetails.singularEventTime,
 				startTime: newStartDate,
 				endTime: newEndDate,
-				eventDuration: calculateEventDuration(newStartDate, newEndDate),
 			},
 		})
 	}
-
 
 	const handleEndTimeChange = (newEndDate: Date | null) => {
 		if (_.isNull(newEndDate)) {
@@ -59,7 +54,6 @@ export default function ChooseOneTimeEvent(props: Props) {
 				singularEventTime: {
 					...eventDetails.singularEventTime,
 					endTime: newEndDate,
-					eventDuration: calculateEventDuration(eventDetails.singularEventTime.startTime, newEndDate)
 				}
 			})
 		}

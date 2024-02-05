@@ -33,6 +33,7 @@ function EditEvent() {
 
 	const [eventDetails, setEventDetails] = useState<EventFromDB>({
 		_id: "",
+		__v: 0,
 		eventName: "",
 		eventPrice: 0,
 		eventType: "",

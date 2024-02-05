@@ -3,7 +3,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers"
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3"
 import Button from "../button"
-import calculateEventDuration from "../../utils/events/calculate-event-duration"
 
 interface Props {
 	onConfirm: (newEventDate: BaseEventTime) => void
@@ -25,7 +24,6 @@ export default function CustomEventDateSelector(props: Props) {
 			onConfirm({
 				startTime: new Date(startTime),
 				endTime: new Date(endTime),
-				eventDuration: calculateEventDuration(new Date(startTime), new Date(endTime))
 			})
 			setStartTime(null)
 			setEndTime(null)

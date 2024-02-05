@@ -9,7 +9,7 @@ declare global {
 	interface BaseEventTime {
 		startTime: Date
 		endTime: Date
-		eventDuration: {
+		eventDuration?: {
 			hours: number
 			minutes: number
 		}

@@ -41,6 +41,7 @@ declare global {
 
 	interface EventFromDB extends TimestampsInterface {
 		_id: string // This is actually Types.ObjectId, but I don't want to import it here
+		__v: number
 		address: string
 		attendees: EventfullAttendee[]
 		canInvitedUsersInviteOthers: boolean

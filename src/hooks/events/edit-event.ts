@@ -5,6 +5,7 @@ import EventsClass from "../../classes/events/events-class"
 import AppContext from "../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
+import { calculateEventDurationForEditEvents } from "../../utils/events/calculate-event-duration"
 
 export default function useEditEvent(
 	previousEventDetails: EventFromDB | undefined,
@@ -20,13 +21,14 @@ export default function useEditEvent(
 
 	const editEvent = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
-		if (previousEventDetails === eventDetails) {
+		const eventDetailsWithEventDuration = calculateEventDurationForEditEvents(eventDetails)
+		if (previousEventDetails === eventDetailsWithEventDuration) {
 			navigate("/dashboard")
 			return
 		}
 		setLoading(true)
 		try {
-			const response = await appContext.eventfullApiClient.eventsDataService.editEvent(eventDetails)
+			const response = await appContext.eventfullApiClient.eventsDataService.editEvent(eventDetailsWithEventDuration)
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
 				setError("Unable to edit event. Please reload and try again.")

@@ -6,6 +6,7 @@ import AppContext from "../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
 import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
 import uploadFileToS3 from "../../utils/upload-file-to-aws"
+import { calculateEventDurationForNewEvents } from "../../utils/events/calculate-event-duration"
 
 export default function useAddEvent(
 	eventDetails: CreatingEvent,
@@ -22,7 +23,10 @@ export default function useAddEvent(
 		e.preventDefault()
 		setLoading(true)
 		try {
-			const response = await appContext.eventfullApiClient.eventsDataService.addEvent(eventDetails, _.size(selectedFiles))
+			const eventDetailsWithEventDuration = calculateEventDurationForNewEvents(eventDetails)
+			const response = await appContext.eventfullApiClient.eventsDataService.addEvent(
+				eventDetailsWithEventDuration, _.size(selectedFiles)
+			)
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
 				setError("Unable to add event. Please reload and try again.")

@@ -1,7 +1,6 @@
-import calculateEventDuration from "../../utils/events/calculate-event-duration"
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3"
 import { LocalizationProvider } from "@mui/x-date-pickers"
 import { TimePicker }  from "@mui/x-date-pickers/TimePicker"
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3"
 
 interface Props {
 	day: DayOfWeek
@@ -43,7 +42,6 @@ export default function DayTimeSelector (props: Props) {
 					dayOfWeek: day,
 					startTime: defaultStartTime,
 					endTime: defaultEndTime,
-					eventDuration: calculateEventDuration(defaultStartTime, defaultEndTime)
 				}
 			]
 		}
@@ -66,7 +64,6 @@ export default function DayTimeSelector (props: Props) {
 			dayOfWeek: day,
 			startTime: dayDetails?.startTime || defaultStartTime,
 			endTime: dayDetails?.endTime || defaultEndTime,
-			eventDuration: dayDetails?.eventDuration || { hours: 0, minutes: 0 },
 		}
 
 		const timeValue = new Date(currentTimes[type])
@@ -86,10 +83,6 @@ export default function DayTimeSelector (props: Props) {
 			alert("End time cannot be before start time.")
 			return // Exit the function without updating the state
 		}
-
-		// If times are valid, calculate the updated duration and update the state
-		const updatedDuration = calculateEventDuration(currentTimes.startTime, currentTimes.endTime)
-		currentTimes.eventDuration = updatedDuration
 
 		const updatedEventTimes = eventDetails.ongoingEventTimes?.map(d =>
 			d.dayOfWeek === day ? currentTimes : d

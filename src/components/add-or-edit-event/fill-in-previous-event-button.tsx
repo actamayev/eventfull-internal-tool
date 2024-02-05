@@ -44,8 +44,8 @@ function FillInPreviousEventButton(props: Props) {
 	return (
 		<Button
 			title={`Fill in with previous event's details (${lastEvent.eventName})`}
-			colorClass="bg-blue-500"
-			hoverClass="hover:bg-blue-600"
+			colorClass="bg-blue-300"
+			hoverClass="hover:bg-blue-400"
 			onClick={() => setEventDetails(convertEventToCreatingEvent(lastEvent))}
 		/>
 	)
