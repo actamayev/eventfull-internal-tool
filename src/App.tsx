@@ -10,6 +10,7 @@ import EventDashboard from "./pages/event-dashboard"
 import FinishAdminRegistration from "./pages/finish-admin-registration"
 
 import useRetrievePersonalInfo from "./hooks/retrieve-personal-info"
+import ViewUser from "./pages/view-user"
 
 export default function App() {
 	useRetrievePersonalInfo()
@@ -26,6 +27,7 @@ export default function App() {
 			<Route path = "/edit-event/:eventId" element = {<EditEvent />} />
 
 			<Route path = "/user-dashboard" element = {<UserDashboard />} />
+			<Route path = "/view-user/:userId" element = {<ViewUser />} />
 
 			<Route path = "*" element = {<Missing />} />
 		</Routes>

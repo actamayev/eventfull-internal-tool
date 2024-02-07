@@ -5,7 +5,7 @@ import { useContext, useState } from "react"
 import { useLoadScript } from "@react-google-maps/api"
 import Button from "../components/button"
 import useEditEvent from "../hooks/events/edit-event"
-import EventTemplate from "../components/event-template"
+import CardTemplate from "../components/card-template"
 import AppContext from "../contexts/eventfull-it-context"
 import ImageUploader from "../components/image-uploader"
 import useSetSingleEvent from "../hooks/events/set-single-event"
@@ -111,7 +111,7 @@ function EditEvent() {
 	const activeImagesCount = eventDetails.eventImages.reduce((count, image) => image.isActive ? count + 1 : count, 0)
 
 	return (
-		<EventTemplate title="Edit">
+		<CardTemplate title="Edit Event">
 			<form onSubmit={editEvent}>
 				<EventNameInput
 					eventDetails={eventDetails}
@@ -182,7 +182,7 @@ function EditEvent() {
 					<ChangesMade />
 				</div>
 			</form>
-		</EventTemplate>
+		</CardTemplate>
 	)
 }
 

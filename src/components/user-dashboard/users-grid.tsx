@@ -53,7 +53,7 @@ function UsersGrid () {
 	}, [gridRef])
 
 	const handleRowDoubleClicked = (user: RowDoubleClickedEvent) => {
-		navigate(`/edit-user/${user.data.userId}`)
+		navigate(`/view-user/${user.data.userId}`)
 	}
 
 	return (

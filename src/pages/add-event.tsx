@@ -3,7 +3,7 @@ import { useCallback,  useState } from "react"
 import { useLoadScript } from "@react-google-maps/api"
 import Button from "../components/button"
 import useAddEvent from "../hooks/events/add-event"
-import EventTemplate from "../components/event-template"
+import CardTemplate from "../components/card-template"
 import ImageUploader from "../components/image-uploader"
 import isAddOrSaveEventDisabled from "../utils/events/is-add-or-save-event-disabled"
 import SelectTimes from "../components/add-or-edit-event/select-times"
@@ -63,7 +63,7 @@ function AddEvent() {
 	}, [setEventDetails])
 
 	return (
-		<EventTemplate title="Add">
+		<CardTemplate title="Add Event">
 			<FillInPreviousEventButton setEventDetails={setEventDetails} />
 			<form onSubmit={addEvent}>
 				<EventNameInput
@@ -130,7 +130,7 @@ function AddEvent() {
 					/>
 				</div>
 			</form>
-		</EventTemplate>
+		</CardTemplate>
 	)
 }
 

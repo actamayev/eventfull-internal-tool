@@ -8,4 +8,8 @@ export default class UsersDataService {
 	async getUsersEvents(): Promise<AxiosResponse<UsersResponse | ErrorResponse>> {
 		return await this.httpClient.http.get<UsersResponse | ErrorResponse>("/users/get-users")
 	}
+
+	async getUserById(userId: string): Promise<AxiosResponse<SingleUserResponse | ErrorResponses>> {
+		return await this.httpClient.http.get<SingleUserResponse | ErrorResponses>(`/users/get-user/${userId}`)
+	}
 }

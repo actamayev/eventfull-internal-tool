@@ -75,6 +75,7 @@ declare global {
 
 	// Users:
 	type UsersResponse = { users: UserFromDB[] }
+	type SingleUserResponse = { user: UserFromDB }
 
 	interface UserFromDB extends TimestampsInterface {
 		// TODO: Finish constructing the shape of the User from DB. should be a mirror of the user model.

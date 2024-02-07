@@ -11,7 +11,7 @@ const usersDashboardColumns: ColDef[] = [
 	{ headerName: "Email", field: "email", comparator: caseInsensitiveComparator, width: 150 },
 	{ headerName: "Phone Number", field: "phoneNumber", comparator: caseInsensitiveComparator, width: 40 },
 	{ headerName: "Number of friends", field: "numberOfFriends", width: 40 },
-	{ headerName: "Last Updated At", field: "lastLogin", comparator: dateComparator, width: 40 },
+	{ headerName: "Last Login", field: "lastLogin", comparator: dateComparator, width: 40 },
 	{ headerName: "Account Created", field: "createdAt", comparator: dateComparator, width: 40 },
 ]
 

@@ -3,7 +3,7 @@ interface Props {
 	children: React.ReactNode
 }
 
-export default function EventTemplate(props: Props) {
+export default function CardTemplate(props: Props) {
 	const { title, children } = props
 
 	return (
@@ -13,7 +13,7 @@ export default function EventTemplate(props: Props) {
 					className = "flex mx-auto mb-4 text-5xl font-extrabold \
 						leading-none tracking-tight text-gray-900"
 				>
-					{title} Event
+					{title}
 				</h1>
 				{children}
 			</div>

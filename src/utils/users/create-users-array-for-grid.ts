@@ -16,7 +16,7 @@ export default function createUsersArrayForGrid(usersData: Map<string, UserClass
 			phoneNumber: user.phoneNumber,
 			numberOfFriends: user.friends.length,
 			lastLogin: user.loginHistory.length > 0
-				? dayjs(user.loginHistory[0].loginTime).format("M/D/YY [at] h:mmA")
+				? dayjs(user.loginHistory[user.loginHistory.length - 1].loginTime).format("M/D/YY [at] h:mmA")
 				: "Never",
 			createdAt: dayjs(user.createdAt).format("M/D/YY [at] h:mmA")
 		}))
