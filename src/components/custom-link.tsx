@@ -37,7 +37,7 @@ export default function CustomLink(props: Props) {
 }
 
 export function TopNavLink(props: Props) {
-	const css = "text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+	const css = "text-gray-200 hover:text-white px-3 py-2 rounded-md font-medium"
 	return <CustomLink css = {css} {...props} />
 }
 

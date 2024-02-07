@@ -3,11 +3,15 @@ import { action, makeObservable, observable } from "mobx"
 import EventClass from "./event-class"
 
 export default class EventsClass {
-	public eventsMap: Map<string, EventClass> = new Map()
+	public eventsMap: Map<string, EventClass> = new Map() // key: event id, value: EventClass
+	public eventTypes: Map<string, EventTypeFromDB> = new Map() // key: event type, value: EventType
+	public eventCategories: Map<string, string> = new Map() // key: category, value: description
 
 	constructor() {
 		makeObservable(this, {
 			eventsMap: observable,
+			eventTypes: observable,
+			eventCategories: observable,
 		})
 	}
 
@@ -40,4 +44,34 @@ export default class EventsClass {
 		if (_.isEmpty(keys)) return null
 		return this.eventsMap.get(keys[keys.length - 1]) || null
 	}
+
+	// public addEventType = action((eventType: EventType): void => {
+	// 	if (this.eventTypes.has(eventType.name)) return
+	// 	this.eventTypes.set(eventType.name, eventType)
+	// })
+
+	public assignEventTypes = action((eventTypesFromDB: EventTypeFromDB[]): void => {
+		eventTypesFromDB.forEach((eventType) => {
+			if (this.eventTypes.has(eventType.name)) return
+			this.eventTypes.set(eventType.name, {
+				_id: eventType._id,
+				name: eventType.name,
+				description: eventType.description,
+				categories: eventType.categories
+
+			})
+		})
+	})
+
+	public assignEventCategories = action((eventCategoriesFromDB: EventCategoryFromDB[]): void => {
+		eventCategoriesFromDB.forEach((eventCategory) => {
+			if (this.eventCategories.has(eventCategory.eventCategory)) return
+			this.eventCategories.set(eventCategory.eventCategory, eventCategory.description)
+		})
+	})
+
+	public addEventCategory = action((category: string, description: string): void => {
+		if (this.eventCategories.has(category)) return
+		this.eventCategories.set(category, description)
+	})
 }

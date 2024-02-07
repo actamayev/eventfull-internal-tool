@@ -2,8 +2,8 @@ import dayjs from "dayjs"
 import customParseFormat from "dayjs/plugin/customParseFormat"
 dayjs.extend(customParseFormat)
 import { ColDef } from "ag-grid-community"
-import EditButtonRenderer from "../../components/event-dashboard/edit-event-button"
-import DeleteButtonRenderer from "../../components/event-dashboard/delete-event-button"
+import EditButtonRenderer from "../../components/events-dashboard/edit-event-button"
+import DeleteButtonRenderer from "../../components/events-dashboard/delete-event-button"
 import { caseInsensitiveComparator, dateComparator } from "../comparators"
 
 const eventsDashboardColumns: ColDef[] = [

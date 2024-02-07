@@ -2,16 +2,16 @@ import _ from "lodash"
 import { observer } from "mobx-react"
 import { useNavigate } from "react-router-dom"
 import { useContext, useState, useEffect } from "react"
-import Button from "../components/button"
-import AppContext from "../contexts/eventfull-it-context"
-import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
-import AuthTemplate from "../components/login-and-registration-form/auth-template"
-import ErrorMessage from "../components/login-and-registration-form/error-message"
-import useSecondaryAdminInfoSubmit from "../hooks/auth/secondary-admin-info-submit"
-import PasswordInput from "../components/login-and-registration-form/password-input"
-import UsernameInput from "../components/login-and-registration-form/new-admin/username-input"
-import ConfirmPassword from "../components/login-and-registration-form/new-admin/confirm-password"
-import ShowOrHidePasswordButton from "../components/login-and-registration-form/show-or-hide-password-button"
+import Button from "../../components/button"
+import AppContext from "../../contexts/eventfull-it-context"
+import useRedirectUnknownUser from "../../hooks/redirects/redirect-unknown-user"
+import AuthTemplate from "../../components/login-and-registration-form/auth-template"
+import ErrorMessage from "../../components/login-and-registration-form/error-message"
+import useSecondaryAdminInfoSubmit from "../../hooks/auth/secondary-admin-info-submit"
+import PasswordInput from "../../components/login-and-registration-form/password-input"
+import UsernameInput from "../../components/login-and-registration-form/new-admin/username-input"
+import ConfirmPassword from "../../components/login-and-registration-form/new-admin/confirm-password"
+import ShowOrHidePasswordButton from "../../components/login-and-registration-form/show-or-hide-password-button"
 
 function FinishAdminRegistration() {
 	useRedirectUnknownUser()
@@ -29,7 +29,7 @@ function FinishAdminRegistration() {
 
 	useEffect(() => {
 		if (!_.isNil(appContext.personalData?.username)) {
-			navigate("/event-dashboard")
+			navigate("/events-dashboard")
 		}
 	}, [])
 

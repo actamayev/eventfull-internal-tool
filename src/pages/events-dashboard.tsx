@@ -2,14 +2,14 @@ import _ from "lodash"
 import { useContext } from "react"
 import { observer } from "mobx-react"
 import AppContext from "../contexts/eventfull-it-context"
-import useRetrieveUsers from "../hooks/users/retrieve-users"
-import UsersGrid from "../components/user-dashboard/users-grid"
+import EventsGrid from "../components/events-dashboard/events-grid"
+import useRetrieveEvents from "../hooks/events/retrieve-events"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 
-function UserDashboard() {
+function EventsDashboard() {
 	const appContext = useContext(AppContext)
 	useRedirectUnknownUser()
-	useRetrieveUsers()
+	useRetrieveEvents()
 
 	// This is here to prevent the page from rendering if the user is not logged in
 	if (
@@ -17,7 +17,7 @@ function UserDashboard() {
 		_.isNil(appContext.personalData?.username)
 	) return null
 
-	return <UsersGrid />
+	return <EventsGrid />
 }
 
-export default observer(UserDashboard)
+export default observer(EventsDashboard)

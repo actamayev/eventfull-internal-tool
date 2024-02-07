@@ -38,4 +38,12 @@ export default class EventsDataService {
 	async addEventImages(eventId: string, imageURLs: ImageURLs[]): Promise<AxiosResponse<AllCommonResponses>> {
 		return await this.httpClient.http.post<AllCommonResponses>(`/events/add-image-urls/${eventId}`, { imageURLs })
 	}
+
+	async retrieveEventTypes(): Promise<AxiosResponse<EventTypesResponse | ErrorResponse>> {
+		return await this.httpClient.http.get<EventTypesResponse | ErrorResponse>("/events/get-event-types")
+	}
+
+	async retrieveEventCategories(): Promise<AxiosResponse<EventCategoriesResponse | ErrorResponse>> {
+		return await this.httpClient.http.get<EventCategoriesResponse | ErrorResponse>("/events/get-event-categories")
+	}
 }

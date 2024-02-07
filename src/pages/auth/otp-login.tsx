@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { observer } from "mobx-react"
-import Button from "../components/button"
-import useOTPLoginSubmit from "../hooks/auth/otp-login-submit"
-import useRedirectKnownUser from "../hooks/redirects/redirect-known-user"
-import OTPInput from "../components/login-and-registration-form/login/otp-input"
-import ErrorMessage from "../components/login-and-registration-form/error-message"
-import AuthTemplate from "../components/login-and-registration-form/auth-template"
-import EmailInput from "../components/login-and-registration-form/new-admin/email-input"
+import Button from "../../components/button"
+import useOTPLoginSubmit from "../../hooks/auth/otp-login-submit"
+import useRedirectKnownUser from "../../hooks/redirects/redirect-known-user"
+import OTPInput from "../../components/login-and-registration-form/login/otp-input"
+import ErrorMessage from "../../components/login-and-registration-form/error-message"
+import AuthTemplate from "../../components/login-and-registration-form/auth-template"
+import EmailInput from "../../components/login-and-registration-form/new-admin/email-input"
 
 function OTPLogin() {
 	useRedirectKnownUser()

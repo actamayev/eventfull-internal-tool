@@ -21,7 +21,3 @@ export default function createUsersArrayForGrid(usersData: Map<string, UserClass
 			createdAt: dayjs(user.createdAt).format("M/D/YY [at] h:mmA")
 		}))
 }
-
-export function formatReadableDate(date: Date): string {
-	return dayjs(date).format("M/D/YY [at] h:mmA")
-}

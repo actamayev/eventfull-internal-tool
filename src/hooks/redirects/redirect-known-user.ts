@@ -9,7 +9,7 @@ export default function useRedirectKnownUser (): void  {
 
 	useEffect(() => {
 		if (!_.isNil(appContext.authClass.accessToken)) {
-			navigate("/event-dashboard")
+			navigate("/events-dashboard")
 		}
 	}, [])
 }

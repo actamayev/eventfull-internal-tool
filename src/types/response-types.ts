@@ -38,6 +38,8 @@ declare global {
 	type UpdatedEventResponse = { updatedEvent: EventFromDB, imagesURLsData: ImageURLsResponse[] }
 	type EventsResponse = { events: EventFromDB[] }
 	type SingleEventResponse = { event: EventFromDB }
+	type EventTypesResponse = { eventTypes: EventTypeFromDB[] }
+	type EventCategoriesResponse = { eventCategories: EventCategoryFromDB[] }
 
 	interface EventFromDB extends TimestampsInterface {
 		_id: string // This is actually Types.ObjectId, but I don't want to import it here
@@ -71,6 +73,19 @@ declare global {
 		ongoingEventTimes: OngoingEvents[]
 		singularEventTime?: BaseEventTime
 		organizer?: SocialData
+	}
+
+	interface EventTypeFromDB {
+		_id: string
+		name: string
+		description: string
+		categories: string[]
+	}
+
+	interface EventCategoryFromDB {
+		_id: string
+		eventCategory: string
+		description: string
 	}
 
 	// Users:

@@ -24,7 +24,7 @@ export default function useEditEvent(
 		e.preventDefault()
 		const eventDetailsWithEventDuration = calculateEventDurationForEditEvents(eventDetails)
 		if (previousEventDetails === eventDetailsWithEventDuration && _.isEmpty(selectedFiles)) {
-			navigate("/event-dashboard")
+			navigate("/events-dashboard")
 			return
 		}
 		setLoading(true)
@@ -62,7 +62,7 @@ export default function useEditEvent(
 
 			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
 			appContext.eventsData.editEvent(response.data.updatedEvent)
-			navigate("/event-dashboard")
+			navigate("/events-dashboard")
 		} catch (error) {
 			setErrorAxiosResponse(error, setError, "Unable to edit event")
 		} finally {

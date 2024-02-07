@@ -6,7 +6,7 @@ import CardTemplate from "../components/card-template"
 import AppContext from "../contexts/eventfull-it-context"
 import useSetSingleUser from "../hooks/users/set-single-user"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
-import { formatReadableDate } from "../utils/events/create-events-array-for-grid"
+import formatReadableDate from "../utils/format-readable-date"
 
 function ViewUser() {
 	useRedirectUnknownUser()

@@ -9,7 +9,7 @@ export default function Missing () {
 
 	const LinkToHome = observer(() => {
 		if (!_.isNull(appContext.authClass.accessToken)) {
-			return <Link to = "/event-dashboard" className="hover:underline">Back to Dashboard</Link>
+			return <Link to = "/events-dashboard" className="hover:underline">Back to Dashboard</Link>
 		} else {
 			return <Link to = "/" className="font-bold hover:underline">Login</Link>
 		}

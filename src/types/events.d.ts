@@ -54,16 +54,6 @@ declare global {
 		isActive: boolean
 	}
 
-	interface EventGridRowData {
-		eventId: string
-		eventName: string
-		eventDescription: string
-		address: string
-		createdByUsername: string
-		createdAt: string
-		updatedAt: string
-	}
-
 	interface EventfullInvitee {
 		user: SocialData
 		attendingStatus: "Not Attending" | "Not Responded"
