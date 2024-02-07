@@ -6,12 +6,13 @@ import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 import useRetrieveEventTypes from "../hooks/events/retrieve-event-types"
 import useRetrieveEventCategories from "../hooks/events/retrieve-event-categories"
 import EventTypesGrid from "../components/event-types-and-categories-dashboard/event-types-grid"
+import EventCategoriesGrid from "../components/event-types-and-categories-dashboard/event-categories-grid"
 
 function EventsDashboard() {
 	const appContext = useContext(AppContext)
 	useRedirectUnknownUser()
 	useRetrieveEventTypes()
-	useRetrieveEventCategories
+	useRetrieveEventCategories()
 
 	// This is here to prevent the page from rendering if the user is not logged in
 	if (
@@ -20,10 +21,11 @@ function EventsDashboard() {
 	) return null
 
 	return (
-		<>
+		<div className="flex min-w-full">
 			<EventTypesGrid />
+			<EventCategoriesGrid />
 
-		</>
+		</div>
 	)
 }
 

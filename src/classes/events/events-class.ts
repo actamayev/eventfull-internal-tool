@@ -5,7 +5,7 @@ import EventClass from "./event-class"
 export default class EventsClass {
 	public eventsMap: Map<string, EventClass> = new Map() // key: event id, value: EventClass
 	public eventTypes: Map<string, EventTypeFromDB> = new Map() // key: event type, value: EventType
-	public eventCategories: Map<string, string> = new Map() // key: category, value: description
+	public eventCategories: Map<string, EventCategoryFromDB> = new Map() // key: category, value: Event Category
 
 	constructor() {
 		makeObservable(this, {
@@ -66,12 +66,16 @@ export default class EventsClass {
 	public assignEventCategories = action((eventCategoriesFromDB: EventCategoryFromDB[]): void => {
 		eventCategoriesFromDB.forEach((eventCategory) => {
 			if (this.eventCategories.has(eventCategory.eventCategory)) return
-			this.eventCategories.set(eventCategory.eventCategory, eventCategory.description)
+			this.eventCategories.set(eventCategory.eventCategory, {
+				_id: eventCategory._id,
+				eventCategory: eventCategory.eventCategory,
+				description: eventCategory.description
+			})
 		})
 	})
 
-	public addEventCategory = action((category: string, description: string): void => {
-		if (this.eventCategories.has(category)) return
-		this.eventCategories.set(category, description)
-	})
+	// public addEventCategory = action((category: string, description: string): void => {
+	// 	if (this.eventCategories.has(category)) return
+	// 	this.eventCategories.set(category, description)
+	// })
 }

@@ -26,7 +26,7 @@ declare global {
 		eventCategoryId: string
 		eventCategory: string
 		description: string
-		createdAt: string
+		// createdAt: string
 	}
 
 	interface EventTypesGridRowData {

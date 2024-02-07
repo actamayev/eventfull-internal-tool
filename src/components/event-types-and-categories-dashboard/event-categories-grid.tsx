@@ -8,23 +8,24 @@ import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
 import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy  } from "ag-grid-community"
 import AppContext from "../../contexts/eventfull-it-context"
-import createEventTypesArrayForGrid from "../../utils/event-types-and-categories/event-types/create-event-types-array-for-grid"
-import eventTypesDashboardColumns from "../../utils/event-types-and-categories/event-types/event-types-dashboard-columns"
+import createEventCategoriesArrayForGrid
+	from "../../utils/event-types-and-categories/event-categories/create-event-categories-array-for-grid"
+import eventCategoriesDashboardColumns from "../../utils/event-types-and-categories/event-categories/event-categories-dashboard-columns"
 
-function EventTypesGrid () {
+function EventCategoriesGrid () {
 	const appContext = useContext(AppContext)
 	const gridRef = useRef<AgGridReact | null>(null)
 	const navigate = useNavigate()
-	const [rowData, setRowData] = useState<EventTypesGridRowData[]>([])
+	const [rowData, setRowData] = useState<EventCategoriesGridRowData[]>([])
 	const [gridApi, setGridApi] = useState<GridApi | null>(null)
 	const [gridHeight, setGridHeight] = useState<string | number>("100%")
 
 	useEffect(() => {
 		const disposeAutorun = autorun(() => {
 			if (_.isNull(appContext.eventsData)) return
-			const plainMap = toJS(appContext.eventsData.eventTypes)
-			const eventTypesArray = createEventTypesArrayForGrid(plainMap)
-			setRowData(eventTypesArray)
+			const plainMap = toJS(appContext.eventsData.eventCategories)
+			const eventCategoriesArray = createEventCategoriesArrayForGrid(plainMap)
+			setRowData(eventCategoriesArray)
 		})
 		return () => disposeAutorun()
 	}, [appContext.usersData?.usersMap])
@@ -63,7 +64,7 @@ function EventTypesGrid () {
 					<input
 						type="text"
 						id="filter-text-box"
-						placeholder="Search Event Types..."
+						placeholder="Search Event Categories..."
 						onInput={onFilterTextBoxChanged}
 						className="p-2 border-2 border-gray-300 rounded-md w-1/6"
 					/>
@@ -72,7 +73,7 @@ function EventTypesGrid () {
 			<div className="ag-theme-alpine" style={{ height: gridHeight, width: "100%" }}>
 				<AgGridReact
 					ref={gridRef}
-					columnDefs={eventTypesDashboardColumns}
+					columnDefs={eventCategoriesDashboardColumns}
 					rowData={rowData}
 					onGridReady={(params) => setGridApi(params.api)}
 					pagination={true}
@@ -87,4 +88,4 @@ function EventTypesGrid () {
 	)
 }
 
-export default observer(EventTypesGrid)
+export default observer(EventCategoriesGrid)
