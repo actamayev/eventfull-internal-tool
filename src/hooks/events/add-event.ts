@@ -55,7 +55,7 @@ export default function useAddEvent(
 
 			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
 			appContext.eventsData.addEvent(response.data.newEvent)
-			navigate("/dashboard")
+			navigate("/event-dashboard")
 		} catch (error) {
 			setErrorAxiosResponse(error, setError, "Unable to add event")
 		} finally {

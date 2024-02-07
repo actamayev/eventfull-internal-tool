@@ -54,7 +54,7 @@ declare global {
 		isActive: boolean
 	}
 
-	interface GridRowData {
+	interface EventGridRowData {
 		eventId: string
 		eventName: string
 		eventDescription: string

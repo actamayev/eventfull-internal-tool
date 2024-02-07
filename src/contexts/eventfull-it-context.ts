@@ -5,11 +5,13 @@ import AuthClass from "../classes/auth-class"
 import EventsClass from "../classes/events/events-class"
 import PersonalInfoClass from "../classes/personal-info-class"
 import EventfullITApiClient from "../classes/eventfull-it-api-client"
+import UsersClass from "../classes/users/users-class"
 
 export class EventfullITContext {
 	private _authClass = new AuthClass()
 	private _personalData: PersonalInfoClass | null = null
 	private _eventsData: EventsClass | null = null
+	private _usersData: UsersClass | null = null
 	public eventfullApiClient = new EventfullITApiClient()
 
 	constructor() {
@@ -41,11 +43,20 @@ export class EventfullITContext {
 		this._eventsData = eventsData
 	}
 
+	get usersData(): UsersClass | null {
+		return this._usersData
+	}
+
+	set usersData(usersData: UsersClass | null) {
+		this._usersData = usersData
+	}
+
 	private getAllDataFromStorage(): void {
 		this.getAuthDataFromStorage()
 		if (_.isNull(this.authClass.accessToken)) return
 		if (_.isNull(this.personalData)) this.personalData = new PersonalInfoClass()
 		if (_.isNull(this.eventsData)) this.eventsData = new EventsClass()
+		if (_.isNull(this.usersData)) this.usersData = new UsersClass()
 		this.personalData.getUsernameFromStorage()
 	}
 
@@ -92,6 +103,7 @@ export class EventfullITContext {
 			this.authClass = new AuthClass()
 			this.personalData = null
 			this.eventsData = null
+			this.usersData = null
 			this.eventfullApiClient = new EventfullITApiClient()
 		})
 	}

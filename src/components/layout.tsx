@@ -34,7 +34,7 @@ export default function Layout (props: Props) {
 	const LinkToHome = observer(() => {
 		return (
 			<CustomLink
-				href={!_.isNull(appContext.authClass.accessToken) ? "/dashboard" : "/"}
+				href={!_.isNull(appContext.authClass.accessToken) ? "/event-dashboard" : "/"}
 				title="Eventfull"
 				css = "text-gray-200 hover:text-white font-bold text-xl"
 			/>

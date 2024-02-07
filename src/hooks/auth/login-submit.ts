@@ -30,7 +30,7 @@ export default function useLoginSubmit (
 				return
 			}
 			appContext.setDataAfterLogin(response.data.accessToken, response.data)
-			navigate("/dashboard")
+			navigate("/event-dashboard")
 		} catch (error: unknown) {
 			setErrorAxiosResponse(error, setError, "Unable to login")
 		} finally {

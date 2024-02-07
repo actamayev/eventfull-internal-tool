@@ -12,6 +12,10 @@ declare global {
 	interface SocialDataWithTimestamp extends SocialData {
 		createdAt: Date
 	}
+
+	interface LoginHistory {
+		loginTime: Date
+	}
 }
 
 export {}

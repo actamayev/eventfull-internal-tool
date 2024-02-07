@@ -1,29 +1,29 @@
 import _ from "lodash"
 import { useContext, useEffect } from "react"
-import EventsClass from "../../classes/events/events-class"
 import AppContext from "../../contexts/eventfull-it-context"
 import { isErrorResponse } from "../../utils/type-checks"
+import UsersClass from "../../classes/users/users-class"
 
-export default function useRetrieveEvents(): void {
+export default function useRetrieveUsers(): void {
 	const appContext = useContext(AppContext)
 
 	useEffect(() => {
 		if (_.isNull(appContext.eventfullApiClient.httpClient.accessToken)) return
-		void retrieveEvents()
+		void retrieveUsers()
 	}, [appContext.eventfullApiClient.httpClient.accessToken])
 
-	const retrieveEvents = async (): Promise<void> => {
+	const retrieveUsers = async (): Promise<void> => {
 		try {
-			const response = await appContext.eventfullApiClient.eventsDataService.getEvents()
+			const response = await appContext.eventfullApiClient.usersDataService.getUsersEvents()
 
 			if (!_.isEqual(response.status, 200) || isErrorResponse(response.data)) {
 				console.error(response)
 				return
 			}
 
-			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
-			for (const event of response.data.events) {
-				appContext.eventsData.addEvent(event)
+			if (_.isNull(appContext.usersData)) appContext.usersData = new UsersClass()
+			for (const user of response.data.users) {
+				appContext.usersData.addUser(user)
 			}
 		} catch (error) {
 			console.error(error)

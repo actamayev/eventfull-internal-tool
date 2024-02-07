@@ -29,7 +29,7 @@ function FinishAdminRegistration() {
 
 	useEffect(() => {
 		if (!_.isNil(appContext.personalData?.username)) {
-			navigate("/dashboard")
+			navigate("/event-dashboard")
 		}
 	}, [])
 

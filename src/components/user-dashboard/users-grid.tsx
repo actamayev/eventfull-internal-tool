@@ -7,28 +7,27 @@ import { useNavigate } from "react-router-dom"
 import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
 import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy  } from "ag-grid-community"
-import Button from "../button"
 import AppContext from "../../contexts/eventfull-it-context"
-import dashboardColumns from "../../utils/events/dashboard-colums"
-import createEventsArrayForGrid from "../../utils/events/create-events-array-for-grid"
+import createUsersArrayForGrid from "../../utils/users/create-users-array-for-grid"
+import usersDashboardColumns from "../../utils/users/users-dashboard-columns"
 
-function EventsGrid () {
+function UsersGrid () {
 	const appContext = useContext(AppContext)
 	const gridRef = useRef<AgGridReact | null>(null)
 	const navigate = useNavigate()
-	const [rowData, setRowData] = useState<GridRowData[]>([])
+	const [rowData, setRowData] = useState<UserGridRowData[]>([])
 	const [gridApi, setGridApi] = useState<GridApi | null>(null)
 	const [gridHeight, setGridHeight] = useState<string | number>("100%")
 
 	useEffect(() => {
 		const disposeAutorun = autorun(() => {
-			if (_.isNull(appContext.eventsData)) return
-			const plainMap = toJS(appContext.eventsData.eventsMap)
-			const eventsArray = createEventsArrayForGrid(plainMap)
-			setRowData(eventsArray)
+			if (_.isNull(appContext.usersData)) return
+			const plainMap = toJS(appContext.usersData.usersMap)
+			const usersArray = createUsersArrayForGrid(plainMap)
+			setRowData(usersArray)
 		})
 		return () => disposeAutorun()
-	}, [appContext.eventsData?.eventsMap])
+	}, [appContext.usersData?.usersMap])
 
 	useEffect(() => {
 		const rowHeight = 40 // Your row height
@@ -53,13 +52,8 @@ function EventsGrid () {
 		gridRef.current.api.updateGridOptions({ quickFilterText: filterText })
 	}, [gridRef])
 
-	const adjustDeleteColumnWidth = (newWidth: number) => {
-		if (_.isNull(gridApi)) return
-		gridApi.setColumnWidth("delete", newWidth)
-	}
-
-	const handleRowDoubleClicked = (event: RowDoubleClickedEvent) => {
-		navigate(`/edit-event/${event.data.eventId}`)
+	const handleRowDoubleClicked = (user: RowDoubleClickedEvent) => {
+		navigate(`/edit-user/${user.data.userId}`)
 	}
 
 	return (
@@ -69,25 +63,16 @@ function EventsGrid () {
 					<input
 						type="text"
 						id="filter-text-box"
-						placeholder="Search Events..."
+						placeholder="Search Users..."
 						onInput={onFilterTextBoxChanged}
 						className="p-2 border-2 border-gray-300 rounded-md w-1/6"
-					/>
-				</div>
-				<div>
-					<Button
-						title="+ Add event"
-						onClick={() => navigate("/add-event")}
-						colorClass="bg-blue-600"
-						hoverClass="hover:bg-blue-700"
-						className="rounded-md font-bold text-white p-2 border-2 border-blue-600 hover:border-blue-700"
 					/>
 				</div>
 			</div>
 			<div className="ag-theme-alpine" style={{ height: gridHeight, width: "100%" }}>
 				<AgGridReact
 					ref={gridRef}
-					columnDefs={dashboardColumns}
+					columnDefs={usersDashboardColumns}
 					rowData={rowData}
 					onGridReady={(params) => setGridApi(params.api)}
 					pagination={true}
@@ -95,7 +80,6 @@ function EventsGrid () {
 					paginationPageSize={50}
 					rowHeight={40}
 					autoSizeStrategy={autoSizeStrategy}
-					context={{ adjustDeleteColumnWidth }}
 					onRowDoubleClicked={handleRowDoubleClicked}
 				/>
 			</div>
@@ -103,4 +87,4 @@ function EventsGrid () {
 	)
 }
 
-export default observer(EventsGrid)
+export default observer(UsersGrid)

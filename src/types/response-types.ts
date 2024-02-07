@@ -72,6 +72,23 @@ declare global {
 		singularEventTime?: BaseEventTime
 		organizer?: SocialData
 	}
+
+	// Users:
+	type UsersResponse = { users: UserFromDB[] }
+
+	interface UserFromDB extends TimestampsInterface {
+		// TODO: Finish constructing the shape of the User from DB. should be a mirror of the user model.
+		_id: string
+		firstName: string
+		lastName?: string
+		email?: string
+		phoneNumber?: string
+		friends: SocialDataWithTimestamp[]
+		username?: string
+		createdAt: Date
+		updatedAt: Date
+		loginHistory: LoginHistory[]
+	}
 }
 
 export {}
