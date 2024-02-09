@@ -100,7 +100,7 @@ function EventCategoriesGrid () {
 						adjustDeleteColumnWidth,
 						handleConfirmDelete,
 						whatIsThis: "Event Category",
-						// whereToNavigate: `/edit-event-category/${}`,
+						getNavigationPath: (id: string) => `/edit-event-category/${id}`
 					}}
 					onRowDoubleClicked={handleRowDoubleClicked}
 				/>

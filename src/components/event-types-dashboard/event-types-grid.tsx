@@ -99,6 +99,7 @@ function EventTypesGrid () {
 						adjustDeleteColumnWidth,
 						handleConfirmDelete,
 						whatIsThis: "Event Type",
+						getNavigationPath: (id: string) => `/edit-event-type/${id}`
 					}}
 					onRowDoubleClicked={handleRowDoubleClicked}
 				/>

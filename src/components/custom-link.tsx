@@ -1,5 +1,5 @@
 import classNames from "classnames" // This is a utility for conditionally joining classNames together
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 interface Props {
 	href: string
@@ -42,7 +42,14 @@ export function TopNavLink(props: Props) {
 }
 
 export function VerticalNavLink(props: Props) {
-	const css = "px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300"
+	const location = useLocation()
+	let css
+	if (location.pathname === props.href) {
+		css = "bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium"
+	} else {
+		css = "bg-gray-200 text-gray-800 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+	}
+
 	return (
 		<li className="list-none">
 			<CustomLink css={css} {...props} />
