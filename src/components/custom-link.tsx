@@ -45,9 +45,9 @@ export function VerticalNavLink(props: Props) {
 	const location = useLocation()
 	let css
 	if (location.pathname === props.href) {
-		css = "bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium"
+		css = "bg-black text-white block px-3 py-2 rounded-md text-base font-medium"
 	} else {
-		css = "bg-gray-200 text-gray-800 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+		css = "bg-gray-200 text-black hover:bg-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
 	}
 
 	return (
