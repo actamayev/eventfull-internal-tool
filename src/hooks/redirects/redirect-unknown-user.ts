@@ -14,6 +14,7 @@ export default function useRedirectUnknownUser (): void {
 			if (_.isNil(appContext.authClass.accessToken)) {
 				navigate("/")
 			} else {
+				if (!_.isNil(appContext.personalData?.username)) return
 				const hasUsername = await retrievePersonalData()
 				if (hasUsername === false) { // Don't change this to if (!hasUsername), because hasUsername can be void
 					navigate("/finish-admin-registration")
