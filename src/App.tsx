@@ -6,14 +6,15 @@ import AddEvent from "./pages/add-event"
 import ViewUser from "./pages/view-user"
 import EditEvent from "./pages/edit-event"
 import OTPLogin from "./pages/auth/otp-login"
+import AddEventType from "./pages/add-event-type"
 import UsersDashboard from "./pages/users-dashboard"
 import EventsDashboard from "./pages/events-dashboard"
+import AddEventCategory from "./pages/add-event-category"
+import EventTypesDashboard from "./pages/event-types-dashboard"
+import EventCategoriesDashboard from "./pages/event-categories-dashboard"
 import FinishAdminRegistration from "./pages/auth/finish-admin-registration"
-import EventTypesAndCategoriesDashboard from "./pages/event-types-and-categories-dashboard"
 
 import useRetrievePersonalInfo from "./hooks/retrieve-personal-info"
-import AddEventCategory from "./pages/add-event-category"
-import AddEventType from "./pages/add-event-type"
 
 export default function App() {
 	useRetrievePersonalInfo()
@@ -32,7 +33,9 @@ export default function App() {
 			<Route path = "/users-dashboard" element = {<UsersDashboard />} />
 			<Route path = "/view-user/:userId" element = {<ViewUser />} />
 
-			<Route path = "/event-types-and-categories-dashboard" element = {<EventTypesAndCategoriesDashboard />} />
+			<Route path = "/event-types-dashboard" element = {<EventTypesDashboard />} />
+			<Route path = "/event-categories-dashboard" element = {<EventCategoriesDashboard />} />
+
 			<Route path = "/add-event-type" element = {<AddEventType />} />
 			<Route path = "/add-event-category" element = {<AddEventCategory />} />
 

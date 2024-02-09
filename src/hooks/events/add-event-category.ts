@@ -29,7 +29,7 @@ export default function useAddEventCategory(
 
 			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
 			appContext.eventsData.addEventCategory(response.data.eventCategory)
-			navigate("/event-types-and-categories-dashboard")
+			navigate("/event-categories-dashboard")
 		} catch (error) {
 			setErrorAxiosResponse(error, setError, "Unable to add event category")
 		} finally {

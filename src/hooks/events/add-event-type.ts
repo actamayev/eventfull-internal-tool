@@ -29,7 +29,7 @@ export default function useAddEventType(
 
 			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
 			appContext.eventsData.addEventType(response.data.eventType)
-			navigate("/event-types-and-categories-dashboard")
+			navigate("/event-types-dashboard")
 		} catch (error) {
 			setErrorAxiosResponse(error, setError, "Unable to add event type")
 		} finally {
