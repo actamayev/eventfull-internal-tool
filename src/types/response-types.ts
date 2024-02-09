@@ -41,8 +41,7 @@ declare global {
 	type EventTypesResponse = { eventTypes: EventTypeFromDB[] }
 	type EventCategoriesResponse = { eventCategories: EventCategoryFromDB[] }
 
-	interface EventFromDB extends TimestampsInterface {
-		_id: string // This is actually Types.ObjectId, but I don't want to import it here
+	interface EventFromDB extends TimestampsInterface, IDInterface {
 		__v: number
 		address: string
 		attendees: EventfullAttendee[]
@@ -75,15 +74,13 @@ declare global {
 		organizer?: SocialData
 	}
 
-	interface EventTypeFromDB {
-		_id: string
+	interface EventTypeFromDB extends IDInterface {
 		name: string
 		description: string
 		categories: string[]
 	}
 
-	interface EventCategoryFromDB {
-		_id: string
+	interface EventCategoryFromDB extends IDInterface {
 		eventCategory: string
 		description: string
 	}
@@ -92,9 +89,7 @@ declare global {
 	type UsersResponse = { users: UserFromDB[] }
 	type SingleUserResponse = { user: UserFromDB }
 
-	interface UserFromDB extends TimestampsInterface {
-		// TODO: Finish constructing the shape of the User from DB. should be a mirror of the user model.
-		_id: string
+	interface UserFromDB extends TimestampsInterface, IDInterface {
 		firstName: string
 		lastName?: string
 		email?: string

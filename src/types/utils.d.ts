@@ -4,6 +4,10 @@ declare global {
 		updatedAt: Date
 	}
 
+	interface IDInterface {
+		_id: string
+	}
+
 	interface SocialData {
 		userId: string
 		username: string
