@@ -1,12 +1,12 @@
 import _ from "lodash"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import EventsClass from "../../classes/events/events-class"
-import AppContext from "../../contexts/eventfull-it-context"
-import { isNonSuccessResponse } from "../../utils/type-checks"
-import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
-import { calculateEventDurationForEditEvents } from "../../utils/events/calculate-event-duration"
-import uploadFileToS3 from "../../utils/upload-file-to-aws"
+import EventsClass from "../../../classes/events/events-class"
+import AppContext from "../../../contexts/eventfull-it-context"
+import { isNonSuccessResponse } from "../../../utils/type-checks"
+import setErrorAxiosResponse from "../../../utils/error-handling/set-error-axios-response"
+import { calculateEventDurationForEditEvents } from "../../../utils/events/calculate-event-duration"
+import uploadFileToS3 from "../../../utils/upload-file-to-aws"
 
 export default function useEditEvent(
 	previousEventDetails: EventFromDB | undefined,

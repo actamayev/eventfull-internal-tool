@@ -1,8 +1,8 @@
 import FormGroup from "../form-group"
 
 interface Props {
-	eventCategory: CreatingEventCategory
-	setEventCategory: React.Dispatch<React.SetStateAction<CreatingEventCategory>>
+	eventCategory: CreatingEventCategory | EventCategoryFromDB
+	setEventCategory: (newCategoryDetails: Partial<CreatingEventCategory | EventCategoryFromDB>) => void
 }
 
 export default function EventCategoryNameInput(props: Props) {

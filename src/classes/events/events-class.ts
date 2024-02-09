@@ -15,6 +15,7 @@ export default class EventsClass {
 		})
 	}
 
+	// Events:
 	public contextForEvent(eventId: string): EventClass | undefined {
 		const event = this.eventsMap.get(eventId)
 		return event
@@ -25,6 +26,12 @@ export default class EventsClass {
 		const newEvent = new EventClass(event)
 		this.eventsMap.set(event._id, newEvent)
 	})
+
+	public getLastEvent(): EventClass | null {
+		const keys = Array.from(this.eventsMap.keys())
+		if (_.isEmpty(keys)) return null
+		return this.eventsMap.get(keys[keys.length - 1]) || null
+	}
 
 	public editEvent = action((event: EventFromDB): void => {
 		if (this.eventsMap.has(event._id) === false) return
@@ -39,35 +46,7 @@ export default class EventsClass {
 		this.eventsMap.delete(eventId)
 	})
 
-	public getLastEvent(): EventClass | null {
-		const keys = Array.from(this.eventsMap.keys())
-		if (_.isEmpty(keys)) return null
-		return this.eventsMap.get(keys[keys.length - 1]) || null
-	}
-
-	public addEventType = action((eventType: EventTypeFromDB): void => {
-		if (this.eventTypes.has(eventType._id)) return
-		this.eventTypes.set(eventType._id, {
-			_id: eventType._id,
-			eventTypeName: eventType.eventTypeName,
-			description: eventType.description,
-			categories: eventType.categories,
-			createdAt: eventType.createdAt,
-			updatedAt: eventType.updatedAt,
-			createdBy: eventType.createdBy,
-		})
-	})
-
-	public assignEventTypes = action((eventTypesFromDB: EventTypeFromDB[]): void => {
-		eventTypesFromDB.forEach((eventType) => {
-			this.addEventType(eventType)
-		})
-	})
-
-	public removeEventType = action((eventTypeId: string): void => {
-		this.eventTypes.delete(eventTypeId)
-	})
-
+	// Event Categories:
 	public assignEventCategories = action((eventCategoriesFromDB: EventCategoryFromDB[]): void => {
 		eventCategoriesFromDB.forEach((eventCategory) => {
 			this.addEventCategory(eventCategory)
@@ -86,7 +65,42 @@ export default class EventsClass {
 		})
 	})
 
+	public editEventCategory = action((category: EventCategoryFromDB): void => {
+		if (this.eventCategories.has(category._id) === false) return
+		this.eventCategories.set(category._id, category)
+	})
+
 	public removeEventCategory = action((categoryId: string): void => {
 		this.eventCategories.delete(categoryId)
 	})
+
+	// Event Types:
+	public assignEventTypes = action((eventTypesFromDB: EventTypeFromDB[]): void => {
+		eventTypesFromDB.forEach((eventType) => {
+			this.addEventType(eventType)
+		})
+	})
+
+	public addEventType = action((eventType: EventTypeFromDB): void => {
+		if (this.eventTypes.has(eventType._id)) return
+		this.eventTypes.set(eventType._id, {
+			_id: eventType._id,
+			eventTypeName: eventType.eventTypeName,
+			description: eventType.description,
+			categories: eventType.categories,
+			createdAt: eventType.createdAt,
+			updatedAt: eventType.updatedAt,
+			createdBy: eventType.createdBy,
+		})
+	})
+
+	public editEventType = action((eventType: EventTypeFromDB): void => {
+		if (this.eventTypes.has(eventType._id) === false) return
+		this.eventTypes.set(eventType._id, eventType)
+	})
+
+	public removeEventType = action((eventTypeId: string): void => {
+		this.eventTypes.delete(eventTypeId)
+	})
+
 }

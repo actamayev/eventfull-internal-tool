@@ -4,13 +4,13 @@ import Button from "../components/button"
 import CardTemplate from "../components/card-template"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
-import useAddEventType from "../hooks/events/add-event-type"
+import useAddEventType from "../hooks/events/add/add-event-type"
 import EventTypeNameInput from "../components/add-event-type/event-type-input"
 import EventTypeDescriptionInput from "../components/add-event-type/event-type-description-input"
 import SelectEventCategories from "../components/add-event-type/select-event-categories"
-import useRetrieveEventTypes from "../hooks/events/retrieve-event-types"
-import useRetrieveEventCategories from "../hooks/events/retrieve-event-categories"
-import useIsNewEventTypeDisabled from "../hooks/events/is-new-event-type-disabled"
+import useRetrieveEventTypes from "../hooks/events/retrieve/retrieve-event-types"
+import useRetrieveEventCategories from "../hooks/events/retrieve/retrieve-event-categories"
+import useIsNewEventTypeDisabled from "../hooks/events/is-button-disabled/is-new-event-type-disabled"
 
 function AddEventType() {
 	useRedirectUnknownUser()

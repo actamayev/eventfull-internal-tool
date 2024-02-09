@@ -10,6 +10,7 @@ import AddEventType from "./pages/add-event-type"
 import UsersDashboard from "./pages/users-dashboard"
 import EventsDashboard from "./pages/events-dashboard"
 import AddEventCategory from "./pages/add-event-category"
+import EditEventCategory from "./pages/edit-event-category"
 import EventTypesDashboard from "./pages/event-types-dashboard"
 import EventCategoriesDashboard from "./pages/event-categories-dashboard"
 import FinishAdminRegistration from "./pages/auth/finish-admin-registration"
@@ -34,10 +35,11 @@ export default function App() {
 			<Route path = "/view-user/:userId" element = {<ViewUser />} />
 
 			<Route path = "/event-types-dashboard" element = {<EventTypesDashboard />} />
-			<Route path = "/event-categories-dashboard" element = {<EventCategoriesDashboard />} />
-
 			<Route path = "/add-event-type" element = {<AddEventType />} />
+
+			<Route path = "/event-categories-dashboard" element = {<EventCategoriesDashboard />} />
 			<Route path = "/add-event-category" element = {<AddEventCategory />} />
+			<Route path = "/edit-event-category/:eventCategoryId" element = {<EditEventCategory />} />
 
 			<Route path = "*" element = {<Missing />} />
 		</Routes>

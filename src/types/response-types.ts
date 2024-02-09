@@ -39,11 +39,6 @@ declare global {
 	type EventsResponse = { events: EventFromDB[] }
 	type SingleEventResponse = { event: EventFromDB }
 
-	type EventTypesResponse = { eventTypes: EventTypeFromDB[] }
-	type SingleEventTypeResponse = { eventType: EventTypeFromDB }
-	type EventCategoriesResponse = { eventCategories: EventCategoryFromDB[] }
-	type SingleEventCategoryResponse = { eventCategory: EventCategoryFromDB }
-
 	interface EventFromDB extends TimestampsInterface, IDInterface {
 		__v: number
 		address: string
@@ -76,6 +71,11 @@ declare global {
 		singularEventTime?: BaseEventTime
 		organizer?: SocialData
 	}
+
+	type EventTypesResponse = { eventTypes: EventTypeFromDB[] }
+	type SingleEventTypeResponse = { eventType: EventTypeFromDB }
+	type EventCategoriesResponse = { eventCategories: EventCategoryFromDB[] }
+	type SingleEventCategoryResponse = { eventCategory: EventCategoryFromDB }
 
 	interface EventTypeFromDB extends IDInterface, TimestampsInterface {
 		eventTypeName: string

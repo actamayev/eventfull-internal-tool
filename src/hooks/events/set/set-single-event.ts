@@ -1,9 +1,9 @@
 import _ from "lodash"
 import { useContext, useEffect, useState } from "react"
-import AppContext from "../../contexts/eventfull-it-context"
-import { isNonSuccessResponse } from "../../utils/type-checks"
-import setErrorAxiosResponse from "../../utils/error-handling/set-error-axios-response"
-import extractEventData from "../../utils/events/extract-event-data"
+import AppContext from "../../../contexts/eventfull-it-context"
+import { isNonSuccessResponse } from "../../../utils/type-checks"
+import setErrorAxiosResponse from "../../../utils/error-handling/set-error-axios-response"
+import extractEventData from "../../../utils/events/extract-event-data"
 
 export default function useSetSingleEvent(
 	eventId: string | undefined,

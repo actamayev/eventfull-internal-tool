@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { observer } from "mobx-react"
 import AppContext from "../contexts/eventfull-it-context"
 import EventsGrid from "../components/events-dashboard/events-grid"
-import useRetrieveEvents from "../hooks/events/retrieve-events"
+import useRetrieveEvents from "../hooks/events/retrieve/retrieve-events"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 
 function EventsDashboard() {

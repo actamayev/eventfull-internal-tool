@@ -1,6 +1,6 @@
 import _ from "lodash"
 import { useContext, useMemo } from "react"
-import AppContext from "../../contexts/eventfull-it-context"
+import AppContext from "../../../contexts/eventfull-it-context"
 
 export default function useIsNewEventTypeDisabled(
 	eventType: CreatingEventType,

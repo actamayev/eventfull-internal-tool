@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { observer } from "mobx-react"
 import AppContext from "../contexts/eventfull-it-context"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
-import useRetrieveEventCategories from "../hooks/events/retrieve-event-categories"
+import useRetrieveEventCategories from "../hooks/events/retrieve/retrieve-event-categories"
 import EventCategoriesGrid from "../components/event-categories-dashboard/event-categories-grid"
 
 function EventCategoriesDashboard() {
