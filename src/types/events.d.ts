@@ -81,7 +81,7 @@ declare global {
 		eventTypeName: string
 		description: string
 		categories: {
-			_id: string
+			categoryId: string
 			eventCategoryName: string
 		}[]
 	}

@@ -6,11 +6,11 @@ import "ag-grid-community/styles/ag-grid.css"
 import { useNavigate } from "react-router-dom"
 import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
-import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy  } from "ag-grid-community"
-import AppContext from "../../contexts/eventfull-it-context"
-import createEventTypesArrayForGrid from "../../utils/event-types/create-event-types-array-for-grid"
-import eventTypesDashboardColumns from "../../utils/event-types/event-types-dashboard-columns"
+import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy } from "ag-grid-community"
 import Button from "../button"
+import AppContext from "../../contexts/eventfull-it-context"
+import eventTypesDashboardColumns from "../../utils/event-types/event-types-dashboard-columns"
+import createEventTypesArrayForGrid from "../../utils/event-types/create-event-types-array-for-grid"
 
 function EventTypesGrid () {
 	const appContext = useContext(AppContext)

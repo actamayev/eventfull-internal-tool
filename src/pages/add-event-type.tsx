@@ -24,8 +24,6 @@ function AddEventType() {
 	useRetrieveEventCategories()
 	const addEventCategory = useAddEventType(eventType, setError, setIsSubmitting)
 
-	// TODO: when accessing this page,need to make sure event categories and event types are loaded
-
 	return (
 		<CardTemplate title="Add Event Type">
 			<form onSubmit={addEventCategory}>

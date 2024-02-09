@@ -77,18 +77,26 @@ declare global {
 		organizer?: SocialData
 	}
 
-	interface EventTypeFromDB extends IDInterface {
+	interface EventTypeFromDB extends IDInterface, TimestampsInterface {
 		eventTypeName: string
 		description: string
 		categories: {
 			_id: string
 			eventCategoryName: string
 		}[]
+		createdBy: {
+			adminId: string
+			username: string
+		}
 	}
 
-	interface EventCategoryFromDB extends IDInterface {
+	interface EventCategoryFromDB extends IDInterface, TimestampsInterface {
 		eventCategoryName: string
 		description: string
+		createdBy: {
+			adminId: string
+			username: string
+		}
 	}
 
 	// Users:

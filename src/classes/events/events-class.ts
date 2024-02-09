@@ -4,8 +4,8 @@ import EventClass from "./event-class"
 
 export default class EventsClass {
 	public eventsMap: Map<string, EventClass> = new Map() // key: event id, value: EventClass
-	public eventTypes: Map<string, CreatingEventType> = new Map() // key: event type, value: EventType
-	public eventCategories: Map<string, CreatingEventCategory> = new Map() // key: category _id, value: Event Category
+	public eventTypes: Map<string, EventTypeFromDB> = new Map() // key: event type, value: EventType
+	public eventCategories: Map<string, EventCategoryFromDB> = new Map() // key: category _id, value: Event Category
 
 	constructor() {
 		makeObservable(this, {
@@ -48,38 +48,37 @@ export default class EventsClass {
 	public addEventType = action((eventType: EventTypeFromDB): void => {
 		if (this.eventTypes.has(eventType._id)) return
 		this.eventTypes.set(eventType._id, {
+			_id: eventType._id,
 			eventTypeName: eventType.eventTypeName,
 			description: eventType.description,
-			categories: eventType.categories
+			categories: eventType.categories,
+			createdAt: eventType.createdAt,
+			updatedAt: eventType.updatedAt,
+			createdBy: eventType.createdBy,
 		})
 	})
 
 	public assignEventTypes = action((eventTypesFromDB: EventTypeFromDB[]): void => {
 		eventTypesFromDB.forEach((eventType) => {
-			if (this.eventTypes.has(eventType._id)) return
-			this.eventTypes.set(eventType._id, {
-				eventTypeName: eventType.eventTypeName,
-				description: eventType.description,
-				categories: eventType.categories
-			})
+			this.addEventType(eventType)
 		})
 	})
 
 	public assignEventCategories = action((eventCategoriesFromDB: EventCategoryFromDB[]): void => {
 		eventCategoriesFromDB.forEach((eventCategory) => {
-			if (this.eventCategories.has(eventCategory._id)) return
-			this.eventCategories.set(eventCategory._id, {
-				eventCategoryName: eventCategory.eventCategoryName,
-				description: eventCategory.description
-			})
+			this.addEventCategory(eventCategory)
 		})
 	})
 
 	public addEventCategory = action((newCategory: EventCategoryFromDB): void => {
 		if (this.eventCategories.has(newCategory._id)) return
 		this.eventCategories.set(newCategory._id, {
+			_id: newCategory._id,
 			eventCategoryName: newCategory.eventCategoryName,
-			description: newCategory.description
+			description: newCategory.description,
+			createdBy: newCategory.createdBy,
+			createdAt: newCategory.createdAt,
+			updatedAt: newCategory.updatedAt,
 		})
 	})
 }
