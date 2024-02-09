@@ -6,13 +6,14 @@ import "ag-grid-community/styles/ag-grid.css"
 import { useNavigate } from "react-router-dom"
 import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
-import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy } from "ag-grid-community"
+import { GridApi, RowDoubleClickedEvent } from "ag-grid-community"
 import Button from "../button"
 import AppContext from "../../contexts/eventfull-it-context"
 import createEventCategoriesArrayForGrid
 	from "../../utils/event-categories/create-event-categories-array-for-grid"
 import eventCategoriesDashboardColumns from "../../utils/event-categories/event-categories-dashboard-columns"
 import useSetGridHeight from "../../hooks/set-grid-height"
+import { isErrorResponses } from "../../utils/type-checks"
 
 function EventCategoriesGrid () {
 	const appContext = useContext(AppContext)
@@ -33,10 +34,6 @@ function EventCategoriesGrid () {
 		return () => disposeAutorun()
 	}, [appContext.usersData?.usersMap])
 
-	const autoSizeStrategy: SizeColumnsToContentStrategy = {
-		type: "fitCellContents",
-	}
-
 	const onFilterTextBoxChanged = useCallback(() => {
 		if (!gridRef.current) return
 
@@ -44,8 +41,27 @@ function EventCategoriesGrid () {
 		gridRef.current.api.updateGridOptions({ quickFilterText: filterText })
 	}, [gridRef])
 
-	const handleRowDoubleClicked = (user: RowDoubleClickedEvent) => {
-		navigate(`/edit-event-category/${user.data.eventCategoryId}`)
+	const adjustDeleteColumnWidth = (newWidth: number) => {
+		if (_.isNull(gridApi)) return
+		gridApi.setColumnWidth("delete", newWidth)
+	}
+
+	const handleRowDoubleClicked = (eventCategory: RowDoubleClickedEvent) => {
+		navigate(`/edit-event-category/${eventCategory.data.id}`)
+	}
+
+	const handleConfirmDelete = async (e: React.MouseEvent<HTMLButtonElement>, eventCategoryId: string) => {
+		try {
+			e.preventDefault()
+			const response = await appContext.eventfullApiClient.eventsDataService.deleteEventCategory(eventCategoryId)
+			if (!_.isEqual(response.status, 200) || isErrorResponses(response.data)) {
+				console.error(response)
+				return
+			}
+			appContext.eventsData?.removeEventCategory(eventCategoryId)
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	return (
@@ -80,7 +96,12 @@ function EventCategoriesGrid () {
 					headerHeight={40}
 					paginationPageSize={50}
 					rowHeight={40}
-					autoSizeStrategy={autoSizeStrategy}
+					context={{
+						adjustDeleteColumnWidth,
+						handleConfirmDelete,
+						whatIsThis: "Event Category",
+						// whereToNavigate: `/edit-event-category/${}`,
+					}}
 					onRowDoubleClicked={handleRowDoubleClicked}
 				/>
 			</div>

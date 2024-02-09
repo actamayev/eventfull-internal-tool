@@ -64,6 +64,10 @@ export default class EventsClass {
 		})
 	})
 
+	public removeEventType = action((eventTypeId: string): void => {
+		this.eventTypes.delete(eventTypeId)
+	})
+
 	public assignEventCategories = action((eventCategoriesFromDB: EventCategoryFromDB[]): void => {
 		eventCategoriesFromDB.forEach((eventCategory) => {
 			this.addEventCategory(eventCategory)
@@ -80,5 +84,9 @@ export default class EventsClass {
 			createdAt: newCategory.createdAt,
 			updatedAt: newCategory.updatedAt,
 		})
+	})
+
+	public removeEventCategory = action((categoryId: string): void => {
+		this.eventCategories.delete(categoryId)
 	})
 }

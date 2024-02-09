@@ -1,11 +1,16 @@
 import { useNavigate } from "react-router-dom"
-import { CustomCellRendererProps } from "ag-grid-react"
-import Button from "../button"
+import Button from "./button"
+
+interface CustomCellRendererProps {
+	context: {
+		whereToNavigate: string
+	}
+}
 
 export default function EditButtonRenderer (props: CustomCellRendererProps) {
 	const navigate = useNavigate()
 
-	const handleClick = () => navigate(`/edit-event/${props.data.eventId}`)
+	const handleClick = () => navigate(props.context.whereToNavigate)
 
 	return (
 		<Button

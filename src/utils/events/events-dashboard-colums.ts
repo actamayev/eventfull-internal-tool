@@ -2,17 +2,17 @@ import dayjs from "dayjs"
 import customParseFormat from "dayjs/plugin/customParseFormat"
 dayjs.extend(customParseFormat)
 import { ColDef } from "ag-grid-community"
-import EditButtonRenderer from "../../components/events-dashboard/edit-event-button"
-import DeleteButtonRenderer from "../../components/events-dashboard/delete-event-button"
+import EditButtonRenderer from "../../components/edit-button-renderer"
+import DeleteButtonRenderer from "../../components/delete-button-renderer"
 import { caseInsensitiveComparator, dateComparator } from "../comparators"
 
 const eventsDashboardColumns: ColDef[] = [
 	{ headerName: "Event Name", field: "eventName", comparator: caseInsensitiveComparator, width: 175 },
 	{ headerName: "Description", field: "eventDescription", comparator: caseInsensitiveComparator, width: 300 },
 	{ headerName: "Location", field: "address", comparator: caseInsensitiveComparator, width: 150 },
-	{ headerName: "Created By", field: "createdByUsername", comparator: caseInsensitiveComparator, width: 150 },
-	{ headerName: "Created At", field: "createdAt", comparator: dateComparator, width: 40 },
-	{ headerName: "Last Updated At", field: "updatedAt", comparator: dateComparator, width: 40 },
+	{ headerName: "Created By", field: "createdByUsername", comparator: caseInsensitiveComparator, width: 120 },
+	{ headerName: "Created At", field: "createdAt", comparator: dateComparator, width: 151 },
+	{ headerName: "Last Updated At", field: "updatedAt", comparator: dateComparator, width: 151 },
 	{ headerName: "Edit", field: "edit", cellRenderer: EditButtonRenderer, width: 100 },
 	{ headerName: "Delete", field: "delete", cellRenderer: DeleteButtonRenderer, width: 100 }
 ]

@@ -6,7 +6,7 @@ import "ag-grid-community/styles/ag-grid.css"
 import { useNavigate } from "react-router-dom"
 import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
-import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy  } from "ag-grid-community"
+import { GridApi, RowDoubleClickedEvent  } from "ag-grid-community"
 import AppContext from "../../contexts/eventfull-it-context"
 import createUsersArrayForGrid from "../../utils/users/create-users-array-for-grid"
 import usersDashboardColumns from "../../utils/users/users-dashboard-columns"
@@ -31,10 +31,6 @@ function UsersGrid () {
 		return () => disposeAutorun()
 	}, [appContext.usersData?.usersMap])
 
-	const autoSizeStrategy: SizeColumnsToContentStrategy = {
-		type: "fitCellContents",
-	}
-
 	const onFilterTextBoxChanged = useCallback(() => {
 		if (!gridRef.current) return
 
@@ -43,7 +39,7 @@ function UsersGrid () {
 	}, [gridRef])
 
 	const handleRowDoubleClicked = (user: RowDoubleClickedEvent) => {
-		navigate(`/view-user/${user.data.userId}`)
+		navigate(`/view-user/${user.data.id}`)
 	}
 
 	return (
@@ -69,7 +65,6 @@ function UsersGrid () {
 					headerHeight={40}
 					paginationPageSize={50}
 					rowHeight={40}
-					autoSizeStrategy={autoSizeStrategy}
 					onRowDoubleClicked={handleRowDoubleClicked}
 				/>
 			</div>

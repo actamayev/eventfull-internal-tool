@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import Button from "../button"
+import Button from "./button"
+import calculateButtonWidth from "../utils/calculate-button-width"
 
 interface CustomCellRendererProps {
 	data: {
@@ -8,6 +9,7 @@ interface CustomCellRendererProps {
 	context: {
 		adjustDeleteColumnWidth: (width: number) => void
 		handleConfirmDelete: (e: React.MouseEvent<HTMLButtonElement>, id: string) => Promise<void>
+		whatIsThis: string
 	}
 }
 
@@ -16,8 +18,7 @@ export default function DeleteButtonRenderer(props: CustomCellRendererProps) {
 	const adjustColumnWidth = props.context.adjustDeleteColumnWidth
 
 	useEffect(() => {
-		// Adjust column width when confirmDelete changes
-		const newWidth = confirmDelete ? 220 : 140 // Adjust these values as needed
+		const newWidth = 100 + calculateButtonWidth(props.context.whatIsThis)
 		adjustColumnWidth(newWidth)
 	}, [confirmDelete, adjustColumnWidth])
 
@@ -27,7 +28,7 @@ export default function DeleteButtonRenderer(props: CustomCellRendererProps) {
 	if (confirmDelete === false) {
 		return (
 			<Button
-				title="Delete event"
+				title={`Delete ${props.context.whatIsThis}`}
 				onClick={handleDeleteClick}
 				colorClass="bg-red-600"
 				hoverClass="hover:bg-red-700"

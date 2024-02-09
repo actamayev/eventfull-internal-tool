@@ -60,4 +60,16 @@ export default class EventsDataService {
 	): Promise<AxiosResponse<SingleEventTypeResponse | NonSuccessResponse>> {
 		return await this.httpClient.http.post<SingleEventTypeResponse | NonSuccessResponse>("/events/add-event-type", { eventTypeDetails })
 	}
+
+	async deleteEventCategory(
+		eventCategoryId: string
+	): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
+		return await this.httpClient.http.delete<SuccessResponse | ErrorResponses>(`/events/delete-event-category/${eventCategoryId}`)
+	}
+
+	async deleteEventType(
+		eventTypeId: string
+	): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
+		return await this.httpClient.http.delete<SuccessResponse | ErrorResponses>(`/events/delete-event-type/${eventTypeId}`)
+	}
 }

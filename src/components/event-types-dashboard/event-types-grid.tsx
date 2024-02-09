@@ -6,12 +6,13 @@ import "ag-grid-community/styles/ag-grid.css"
 import { useNavigate } from "react-router-dom"
 import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
-import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy } from "ag-grid-community"
+import { GridApi, RowDoubleClickedEvent } from "ag-grid-community"
 import Button from "../button"
 import AppContext from "../../contexts/eventfull-it-context"
 import eventTypesDashboardColumns from "../../utils/event-types/event-types-dashboard-columns"
 import createEventTypesArrayForGrid from "../../utils/event-types/create-event-types-array-for-grid"
 import useSetGridHeight from "../../hooks/set-grid-height"
+import { isErrorResponses } from "../../utils/type-checks"
 
 function EventTypesGrid () {
 	const appContext = useContext(AppContext)
@@ -32,8 +33,9 @@ function EventTypesGrid () {
 		return () => disposeAutorun()
 	}, [appContext.usersData?.usersMap])
 
-	const autoSizeStrategy: SizeColumnsToContentStrategy = {
-		type: "fitCellContents",
+	const adjustDeleteColumnWidth = (newWidth: number) => {
+		if (_.isNull(gridApi)) return
+		gridApi.setColumnWidth("delete", newWidth)
 	}
 
 	const onFilterTextBoxChanged = useCallback(() => {
@@ -43,8 +45,22 @@ function EventTypesGrid () {
 		gridRef.current.api.updateGridOptions({ quickFilterText: filterText })
 	}, [gridRef])
 
-	const handleRowDoubleClicked = (user: RowDoubleClickedEvent) => {
-		navigate(`/edit-event-type/${user.data.eventTypeId}`)
+	const handleRowDoubleClicked = (eventType: RowDoubleClickedEvent) => {
+		navigate(`/edit-event-type/${eventType.data.id}`)
+	}
+
+	const handleConfirmDelete = async (e: React.MouseEvent<HTMLButtonElement>, eventTypeId: string) => {
+		try {
+			e.preventDefault()
+			const response = await appContext.eventfullApiClient.eventsDataService.deleteEventType(eventTypeId)
+			if (!_.isEqual(response.status, 200) || isErrorResponses(response.data)) {
+				console.error(response)
+				return
+			}
+			appContext.eventsData?.removeEventType(eventTypeId)
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	return (
@@ -79,7 +95,11 @@ function EventTypesGrid () {
 					headerHeight={40}
 					paginationPageSize={50}
 					rowHeight={40}
-					autoSizeStrategy={autoSizeStrategy}
+					context={{
+						adjustDeleteColumnWidth,
+						handleConfirmDelete,
+						whatIsThis: "Event Type",
+					}}
 					onRowDoubleClicked={handleRowDoubleClicked}
 				/>
 			</div>
