@@ -33,7 +33,10 @@ declare global {
 		eventTypeId: string
 		eventType: string
 		description: string
-		categories: string[]
+		categories: {
+			_id: string;
+			eventCategoryName: string;
+		}[]
 		// createdAt: string
 	}
 }

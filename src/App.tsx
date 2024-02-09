@@ -12,6 +12,8 @@ import FinishAdminRegistration from "./pages/auth/finish-admin-registration"
 import EventTypesAndCategoriesDashboard from "./pages/event-types-and-categories-dashboard"
 
 import useRetrievePersonalInfo from "./hooks/retrieve-personal-info"
+import AddEventCategory from "./pages/add-event-category"
+import AddEventType from "./pages/add-event-type"
 
 export default function App() {
 	useRetrievePersonalInfo()
@@ -31,6 +33,8 @@ export default function App() {
 			<Route path = "/view-user/:userId" element = {<ViewUser />} />
 
 			<Route path = "/event-types-and-categories-dashboard" element = {<EventTypesAndCategoriesDashboard />} />
+			<Route path = "/add-event-type" element = {<AddEventType />} />
+			<Route path = "/add-event-category" element = {<AddEventCategory />} />
 
 			<Route path = "*" element = {<Missing />} />
 		</Routes>

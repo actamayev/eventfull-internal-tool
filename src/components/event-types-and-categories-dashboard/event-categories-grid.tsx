@@ -6,11 +6,12 @@ import "ag-grid-community/styles/ag-grid.css"
 import { useNavigate } from "react-router-dom"
 import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
-import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy  } from "ag-grid-community"
+import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy } from "ag-grid-community"
+import Button from "../button"
 import AppContext from "../../contexts/eventfull-it-context"
 import createEventCategoriesArrayForGrid
-	from "../../utils/event-types-and-categories/event-categories/create-event-categories-array-for-grid"
-import eventCategoriesDashboardColumns from "../../utils/event-types-and-categories/event-categories/event-categories-dashboard-columns"
+	from "../../utils/event-categories/create-event-categories-array-for-grid"
+import eventCategoriesDashboardColumns from "../../utils/event-categories/event-categories-dashboard-columns"
 
 function EventCategoriesGrid () {
 	const appContext = useContext(AppContext)
@@ -67,6 +68,15 @@ function EventCategoriesGrid () {
 						placeholder="Search Event Categories..."
 						onInput={onFilterTextBoxChanged}
 						className="p-2 border-2 border-gray-300 rounded-md w-1/6"
+					/>
+				</div>
+				<div>
+					<Button
+						title="+ Add Event Category"
+						onClick={() => navigate("/add-event-category")}
+						colorClass="bg-blue-600"
+						hoverClass="hover:bg-blue-700"
+						className="rounded-md font-bold text-white p-2 border-2 border-blue-600 hover:border-blue-700"
 					/>
 				</div>
 			</div>

@@ -38,8 +38,11 @@ declare global {
 	type UpdatedEventResponse = { updatedEvent: EventFromDB, imagesURLsData: ImageURLsResponse[] }
 	type EventsResponse = { events: EventFromDB[] }
 	type SingleEventResponse = { event: EventFromDB }
+
 	type EventTypesResponse = { eventTypes: EventTypeFromDB[] }
+	type SingleEventTypeResponse = { eventType: EventTypeFromDB }
 	type EventCategoriesResponse = { eventCategories: EventCategoryFromDB[] }
+	type SingleEventCategoryResponse = { eventCategory: EventCategoryFromDB }
 
 	interface EventFromDB extends TimestampsInterface, IDInterface {
 		__v: number
@@ -75,13 +78,16 @@ declare global {
 	}
 
 	interface EventTypeFromDB extends IDInterface {
-		name: string
+		eventTypeName: string
 		description: string
-		categories: string[]
+		categories: {
+			_id: string
+			eventCategoryName: string
+		}[]
 	}
 
 	interface EventCategoryFromDB extends IDInterface {
-		eventCategory: string
+		eventCategoryName: string
 		description: string
 	}
 

@@ -71,6 +71,20 @@ declare global {
 		user: SocialData
 		invitedBy: SocialDataWithTimestamp
 	}
+
+	interface CreatingEventCategory {
+		eventCategoryName: string
+		description: string
+	}
+
+	interface CreatingEventType {
+		eventTypeName: string
+		description: string
+		categories: {
+			_id: string
+			eventCategoryName: string
+		}[]
+	}
 }
 
 export {}

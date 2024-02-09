@@ -8,8 +8,9 @@ import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
 import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy  } from "ag-grid-community"
 import AppContext from "../../contexts/eventfull-it-context"
-import createEventTypesArrayForGrid from "../../utils/event-types-and-categories/event-types/create-event-types-array-for-grid"
-import eventTypesDashboardColumns from "../../utils/event-types-and-categories/event-types/event-types-dashboard-columns"
+import createEventTypesArrayForGrid from "../../utils/event-types/create-event-types-array-for-grid"
+import eventTypesDashboardColumns from "../../utils/event-types/event-types-dashboard-columns"
+import Button from "../button"
 
 function EventTypesGrid () {
 	const appContext = useContext(AppContext)
@@ -66,6 +67,15 @@ function EventTypesGrid () {
 						placeholder="Search Event Types..."
 						onInput={onFilterTextBoxChanged}
 						className="p-2 border-2 border-gray-300 rounded-md w-1/6"
+					/>
+				</div>
+				<div>
+					<Button
+						title="+ Add Event Type"
+						onClick={() => navigate("/add-event-type")}
+						colorClass="bg-blue-600"
+						hoverClass="hover:bg-blue-700"
+						className="rounded-md font-bold text-white p-2 border-2 border-blue-600 hover:border-blue-700"
 					/>
 				</div>
 			</div>

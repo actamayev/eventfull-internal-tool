@@ -4,8 +4,8 @@ import EventClass from "./event-class"
 
 export default class EventsClass {
 	public eventsMap: Map<string, EventClass> = new Map() // key: event id, value: EventClass
-	public eventTypes: Map<string, EventTypeFromDB> = new Map() // key: event type, value: EventType
-	public eventCategories: Map<string, EventCategoryFromDB> = new Map() // key: category, value: Event Category
+	public eventTypes: Map<string, CreatingEventType> = new Map() // key: event type, value: EventType
+	public eventCategories: Map<string, CreatingEventCategory> = new Map() // key: category _id, value: Event Category
 
 	constructor() {
 		makeObservable(this, {
@@ -45,37 +45,41 @@ export default class EventsClass {
 		return this.eventsMap.get(keys[keys.length - 1]) || null
 	}
 
-	// public addEventType = action((eventType: EventType): void => {
-	// 	if (this.eventTypes.has(eventType.name)) return
-	// 	this.eventTypes.set(eventType.name, eventType)
-	// })
+	public addEventType = action((eventType: EventTypeFromDB): void => {
+		if (this.eventTypes.has(eventType._id)) return
+		this.eventTypes.set(eventType._id, {
+			eventTypeName: eventType.eventTypeName,
+			description: eventType.description,
+			categories: eventType.categories
+		})
+	})
 
 	public assignEventTypes = action((eventTypesFromDB: EventTypeFromDB[]): void => {
 		eventTypesFromDB.forEach((eventType) => {
-			if (this.eventTypes.has(eventType.name)) return
-			this.eventTypes.set(eventType.name, {
-				_id: eventType._id,
-				name: eventType.name,
+			if (this.eventTypes.has(eventType._id)) return
+			this.eventTypes.set(eventType._id, {
+				eventTypeName: eventType.eventTypeName,
 				description: eventType.description,
 				categories: eventType.categories
-
 			})
 		})
 	})
 
 	public assignEventCategories = action((eventCategoriesFromDB: EventCategoryFromDB[]): void => {
 		eventCategoriesFromDB.forEach((eventCategory) => {
-			if (this.eventCategories.has(eventCategory.eventCategory)) return
-			this.eventCategories.set(eventCategory.eventCategory, {
-				_id: eventCategory._id,
-				eventCategory: eventCategory.eventCategory,
+			if (this.eventCategories.has(eventCategory._id)) return
+			this.eventCategories.set(eventCategory._id, {
+				eventCategoryName: eventCategory.eventCategoryName,
 				description: eventCategory.description
 			})
 		})
 	})
 
-	// public addEventCategory = action((category: string, description: string): void => {
-	// 	if (this.eventCategories.has(category)) return
-	// 	this.eventCategories.set(category, description)
-	// })
+	public addEventCategory = action((newCategory: EventCategoryFromDB): void => {
+		if (this.eventCategories.has(newCategory._id)) return
+		this.eventCategories.set(newCategory._id, {
+			eventCategoryName: newCategory.eventCategoryName,
+			description: newCategory.description
+		})
+	})
 }

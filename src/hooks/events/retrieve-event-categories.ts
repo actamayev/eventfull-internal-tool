@@ -20,6 +20,7 @@ export default function useRetrieveEventCategories(): void {
 				console.error("Error retrieving event types", response)
 				return
 			}
+			console.log(response.data)
 			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
 			appContext.eventsData.assignEventCategories(response.data.eventCategories)
 		} catch (error) {

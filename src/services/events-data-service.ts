@@ -46,4 +46,18 @@ export default class EventsDataService {
 	async retrieveEventCategories(): Promise<AxiosResponse<EventCategoriesResponse | ErrorResponse>> {
 		return await this.httpClient.http.get<EventCategoriesResponse | ErrorResponse>("/events/get-event-categories")
 	}
+
+	async addEventCategory(
+		eventCategoryDetails: CreatingEventCategory
+	): Promise<AxiosResponse<SingleEventCategoryResponse | NonSuccessResponse>> {
+		return await this.httpClient.http.post<SingleEventCategoryResponse | NonSuccessResponse>(
+			"/events/add-event-category", { eventCategoryDetails }
+		)
+	}
+
+	async addEventType(
+		eventTypeDetails: CreatingEventType
+	): Promise<AxiosResponse<SingleEventTypeResponse | NonSuccessResponse>> {
+		return await this.httpClient.http.post<SingleEventTypeResponse | NonSuccessResponse>("/events/add-event-type", { eventTypeDetails })
+	}
 }
