@@ -10,6 +10,7 @@ import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy  } from "a
 import AppContext from "../../contexts/eventfull-it-context"
 import createUsersArrayForGrid from "../../utils/users/create-users-array-for-grid"
 import usersDashboardColumns from "../../utils/users/users-dashboard-columns"
+import useSetGridHeight from "../../hooks/set-grid-height"
 
 function UsersGrid () {
 	const appContext = useContext(AppContext)
@@ -18,6 +19,7 @@ function UsersGrid () {
 	const [rowData, setRowData] = useState<UserGridRowData[]>([])
 	const [gridApi, setGridApi] = useState<GridApi | null>(null)
 	const [gridHeight, setGridHeight] = useState<string | number>("100%")
+	useSetGridHeight(setGridHeight, gridApi, rowData.length)
 
 	useEffect(() => {
 		const disposeAutorun = autorun(() => {
@@ -28,18 +30,6 @@ function UsersGrid () {
 		})
 		return () => disposeAutorun()
 	}, [appContext.usersData?.usersMap])
-
-	useEffect(() => {
-		const rowHeight = 40 // Your row height
-		const headerHeight = 40
-		const paginationPanelHeight = 70 // Approximate pagination panel height
-		const totalRowsHeight = rowData.length * rowHeight
-		const totalGridHeight = headerHeight + totalRowsHeight + paginationPanelHeight
-
-		// Set maximum height if total height is greater than a certain value
-		const maxHeight = 1500
-		setGridHeight(Math.min(totalGridHeight, maxHeight))
-	}, [gridApi, rowData])
 
 	const autoSizeStrategy: SizeColumnsToContentStrategy = {
 		type: "fitCellContents",

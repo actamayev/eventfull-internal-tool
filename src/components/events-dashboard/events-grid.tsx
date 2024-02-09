@@ -11,6 +11,7 @@ import Button from "../button"
 import AppContext from "../../contexts/eventfull-it-context"
 import eventsDashboardColumns from "../../utils/events/events-dashboard-colums"
 import createEventsArrayForGrid from "../../utils/events/create-events-array-for-grid"
+import useSetGridHeight from "../../hooks/set-grid-height"
 
 function EventsGrid () {
 	const appContext = useContext(AppContext)
@@ -19,6 +20,7 @@ function EventsGrid () {
 	const [rowData, setRowData] = useState<EventGridRowData[]>([])
 	const [gridApi, setGridApi] = useState<GridApi | null>(null)
 	const [gridHeight, setGridHeight] = useState<string | number>("100%")
+	useSetGridHeight(setGridHeight, gridApi, rowData.length)
 
 	useEffect(() => {
 		const disposeAutorun = autorun(() => {
@@ -29,18 +31,6 @@ function EventsGrid () {
 		})
 		return () => disposeAutorun()
 	}, [appContext.eventsData?.eventsMap])
-
-	useEffect(() => {
-		const rowHeight = 40 // Your row height
-		const headerHeight = 40
-		const paginationPanelHeight = 70 // Approximate pagination panel height
-		const totalRowsHeight = rowData.length * rowHeight
-		const totalGridHeight = headerHeight + totalRowsHeight + paginationPanelHeight
-
-		// Set maximum height if total height is greater than a certain value
-		const maxHeight = 1500
-		setGridHeight(Math.min(totalGridHeight, maxHeight))
-	}, [gridApi, rowData])
 
 	const autoSizeStrategy: SizeColumnsToContentStrategy = {
 		type: "fitCellContents",

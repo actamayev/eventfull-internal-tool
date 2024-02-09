@@ -12,6 +12,7 @@ import AppContext from "../../contexts/eventfull-it-context"
 import createEventCategoriesArrayForGrid
 	from "../../utils/event-categories/create-event-categories-array-for-grid"
 import eventCategoriesDashboardColumns from "../../utils/event-categories/event-categories-dashboard-columns"
+import useSetGridHeight from "../../hooks/set-grid-height"
 
 function EventCategoriesGrid () {
 	const appContext = useContext(AppContext)
@@ -20,6 +21,7 @@ function EventCategoriesGrid () {
 	const [rowData, setRowData] = useState<EventCategoriesGridRowData[]>([])
 	const [gridApi, setGridApi] = useState<GridApi | null>(null)
 	const [gridHeight, setGridHeight] = useState<string | number>("100%")
+	useSetGridHeight(setGridHeight, gridApi, rowData.length)
 
 	useEffect(() => {
 		const disposeAutorun = autorun(() => {
@@ -30,18 +32,6 @@ function EventCategoriesGrid () {
 		})
 		return () => disposeAutorun()
 	}, [appContext.usersData?.usersMap])
-
-	useEffect(() => {
-		const rowHeight = 40 // Your row height
-		const headerHeight = 40
-		const paginationPanelHeight = 70 // Approximate pagination panel height
-		const totalRowsHeight = rowData.length * rowHeight
-		const totalGridHeight = headerHeight + totalRowsHeight + paginationPanelHeight
-
-		// Set maximum height if total height is greater than a certain value
-		const maxHeight = 1500
-		setGridHeight(Math.min(totalGridHeight, maxHeight))
-	}, [gridApi, rowData])
 
 	const autoSizeStrategy: SizeColumnsToContentStrategy = {
 		type: "fitCellContents",
