@@ -10,6 +10,7 @@ import EventTypeDescriptionInput from "../components/add-event-type/event-type-d
 import SelectEventCategories from "../components/add-event-type/select-event-categories"
 import useRetrieveEventTypes from "../hooks/events/retrieve-event-types"
 import useRetrieveEventCategories from "../hooks/events/retrieve-event-categories"
+import useIsNewEventTypeDisabled from "../hooks/events/is-new-event-type-disabled"
 
 function AddEventType() {
 	useRedirectUnknownUser()
@@ -19,9 +20,11 @@ function AddEventType() {
 		categories: [],
 	})
 	const [error, setError] = useState("")
+	const [message, setMessage] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	useRetrieveEventTypes()
 	useRetrieveEventCategories()
+	const isNewEventTypeDisabled = useIsNewEventTypeDisabled(eventType, setMessage)
 	const addEventCategory = useAddEventType(eventType, setError, setIsSubmitting)
 
 	return (
@@ -41,19 +44,19 @@ function AddEventType() {
 					eventType={eventType}
 					setEventType={setEventType}
 				/>
+				{/* TODO: Add a list of selected categories here (with a delete button for each one) */}
 
 				<ErrorMessage error={error} />
 
 				<div className="mt-2">
 					<Button
 						title= {`Add${eventType.eventTypeName ? (": " + eventType.eventTypeName) : ""}`}
-						disabled={isSubmitting}
-						// TODO: add a function to make sure all fields are filled
-						// and that the event category name is unique
+						disabled={isSubmitting || isNewEventTypeDisabled}
 						colorClass="bg-emerald-600"
 						hoverClass="hover:bg-emerald-700"
 						className="text-white font-semibold"
 					/>
+					{message && (<p className="text-red-500 text-sm mt-2">{message}</p>)}
 				</div>
 			</form>
 		</CardTemplate>

@@ -9,6 +9,7 @@ import EventCategoryInput from "../components/add-event-category/event-category-
 import EventCategoryDescriptionInput from "../components/add-event-category/event-category-description-input"
 import useRetrieveEventTypes from "../hooks/events/retrieve-event-types"
 import useRetrieveEventCategories from "../hooks/events/retrieve-event-categories"
+import useIsNewEventCategoryDisabled from "../hooks/events/is-new-event-category-disabled"
 
 function AddEventCategory() {
 	useRedirectUnknownUser()
@@ -17,9 +18,11 @@ function AddEventCategory() {
 		description: "",
 	})
 	const [error, setError] = useState("")
+	const [message, setMessage] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	useRetrieveEventTypes()
 	useRetrieveEventCategories()
+	const isNewEventCategoryDisabled = useIsNewEventCategoryDisabled(eventCategory, setMessage)
 	const addEventCategory = useAddEventCategory(eventCategory, setError, setIsSubmitting)
 
 	return (
@@ -40,13 +43,12 @@ function AddEventCategory() {
 				<div className="mt-2">
 					<Button
 						title= {`Add${eventCategory.eventCategoryName ? (": " + eventCategory.eventCategoryName) : ""}`}
-						disabled={isSubmitting}
-						// TODO: add a function to make sure all fields are filled
-						// and that the event category name is unique
+						disabled={isSubmitting || isNewEventCategoryDisabled}
 						colorClass="bg-emerald-600"
 						hoverClass="hover:bg-emerald-700"
 						className="text-white font-semibold"
 					/>
+					{message && (<p className="text-red-500 text-sm mt-2">{message}</p>)}
 				</div>
 			</form>
 		</CardTemplate>
