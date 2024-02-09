@@ -4,8 +4,8 @@ import { observer } from "mobx-react"
 import AppContext from "../../contexts/eventfull-it-context"
 
 interface Props {
-	eventType: CreatingEventType
-	setEventType: React.Dispatch<React.SetStateAction<CreatingEventType>>
+	eventType: CreatingEventType | EventTypeFromDB
+	setEventType: (newTypeDetails: Partial<CreatingEventType | EventTypeFromDB>) => void
 }
 
 function SelectEventCategories(props: Props) {

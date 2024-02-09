@@ -6,7 +6,6 @@ import Button from "../components/button"
 import CardTemplate from "../components/card-template"
 import useEditEventCategory from "../hooks/events/edit/edit-event-category"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
-import useRetrieveEventTypes from "../hooks/events/retrieve/retrieve-event-types"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
 import useSetSingleEventCategory from "../hooks/events/set/set-single-event-category"
 import EventCategoryInput from "../components/add-event-category/event-category-name-input"
@@ -30,14 +29,13 @@ function EditEventCategory() {
 	})
 	const [error, setError] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
-	useRetrieveEventTypes()
 	useRetrieveEventCategories()
 	const retrievedEventCategory = useSetSingleEventCategory(eventCategoryId, setError, setEventCategory)
 	const addEventCategory = useEditEventCategory(retrievedEventCategory, eventCategory, setError, setIsSubmitting)
 
-	const setEventDetailsGeneric = (newEventDetails: Partial<CreatingEventCategory | EventCategoryFromDB>) => {
+	const setEventCategoryGeneric = (newEventCategory: Partial<CreatingEventCategory | EventCategoryFromDB>) => {
 		setEventCategory(prev => {
-			return { ...prev, ...newEventDetails as Partial<EventCategoryFromDB> }
+			return { ...prev, ...newEventCategory as Partial<EventCategoryFromDB> }
 		})
 	}
 
@@ -51,12 +49,12 @@ function EditEventCategory() {
 			<form onSubmit={addEventCategory}>
 				<EventCategoryInput
 					eventCategory={eventCategory}
-					setEventCategory={setEventDetailsGeneric}
+					setEventCategory={setEventCategoryGeneric}
 				/>
 
 				<EventCategoryDescriptionInput
 					eventCategory={eventCategory}
-					setEventCategory={setEventDetailsGeneric}
+					setEventCategory={setEventCategoryGeneric}
 				/>
 
 				<ErrorMessage error={error} />

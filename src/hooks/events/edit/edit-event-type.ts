@@ -6,9 +6,9 @@ import AppContext from "../../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../../utils/type-checks"
 import setErrorAxiosResponse from "../../../utils/error-handling/set-error-axios-response"
 
-export default function useEditEventCategory(
-	previousEventCategory: EventCategoryFromDB | undefined,
-	eventCategory: EventCategoryFromDB,
+export default function useEditEventType(
+	previousEventType: EventTypeFromDB | undefined,
+	eventType: EventTypeFromDB,
 	setError: React.Dispatch<React.SetStateAction<string>>,
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ): (
@@ -19,26 +19,26 @@ export default function useEditEventCategory(
 
 	const editEvent = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
-		if (previousEventCategory === eventCategory) {
-			navigate("/event-categories-dashboard")
+		if (previousEventType === eventType) {
+			navigate("/event-types-dashboard")
 			return
 		}
 		setLoading(true)
 		try {
-			const response = await appContext.eventfullApiClient.eventsDataService.editEventCategory(
-				eventCategory
+			const response = await appContext.eventfullApiClient.eventsDataService.editEventType(
+				eventType
 			)
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
-				setError("Unable to edit event category. Please reload and try again.")
+				setError("Unable to edit event type. Please reload and try again.")
 				return
 			}
 
 			if (_.isNull(appContext.eventsData)) appContext.eventsData = new EventsClass()
-			appContext.eventsData.editEventCategory(eventCategory)
-			navigate("/event-categories-dashboard")
+			appContext.eventsData.editEventType(eventType)
+			navigate("/event-types-dashboard")
 		} catch (error) {
-			setErrorAxiosResponse(error, setError, "Unable to edit event category")
+			setErrorAxiosResponse(error, setError, "Unable to edit event type")
 		} finally {
 			setLoading(false)
 		}

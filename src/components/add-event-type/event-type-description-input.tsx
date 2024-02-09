@@ -1,8 +1,8 @@
 import FormGroup from "../form-group"
 
 interface Props {
-	eventType: CreatingEventType
-	setEventType: React.Dispatch<React.SetStateAction<CreatingEventType>>
+	eventType: CreatingEventType | EventTypeFromDB
+	setEventType: (newTypeDetails: Partial<CreatingEventType | EventTypeFromDB>) => void
 }
 
 export default function EventTypeDescriptionInput(props: Props) {
