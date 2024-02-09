@@ -44,7 +44,7 @@ function EventTypesGrid () {
 	}, [gridRef])
 
 	const handleRowDoubleClicked = (user: RowDoubleClickedEvent) => {
-		navigate(`/view-event-type/${user.data.eventTypeId}`)
+		navigate(`/edit-event-type/${user.data.eventTypeId}`)
 	}
 
 	return (

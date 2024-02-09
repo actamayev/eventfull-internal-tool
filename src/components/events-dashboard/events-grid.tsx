@@ -8,10 +8,11 @@ import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
 import { GridApi, RowDoubleClickedEvent, SizeColumnsToContentStrategy  } from "ag-grid-community"
 import Button from "../button"
+import useSetGridHeight from "../../hooks/set-grid-height"
+import { isErrorResponses } from "../../utils/type-checks"
 import AppContext from "../../contexts/eventfull-it-context"
 import eventsDashboardColumns from "../../utils/events/events-dashboard-colums"
 import createEventsArrayForGrid from "../../utils/events/create-events-array-for-grid"
-import useSetGridHeight from "../../hooks/set-grid-height"
 
 function EventsGrid () {
 	const appContext = useContext(AppContext)
@@ -33,7 +34,7 @@ function EventsGrid () {
 	}, [appContext.eventsData?.eventsMap])
 
 	const autoSizeStrategy: SizeColumnsToContentStrategy = {
-		type: "fitCellContents",
+		type: "fitCellContents"
 	}
 
 	const onFilterTextBoxChanged = useCallback(() => {
@@ -50,6 +51,20 @@ function EventsGrid () {
 
 	const handleRowDoubleClicked = (event: RowDoubleClickedEvent) => {
 		navigate(`/edit-event/${event.data.eventId}`)
+	}
+
+	const handleConfirmDelete = async (e: React.MouseEvent<HTMLButtonElement>, eventId: string) => {
+		try {
+			e.preventDefault()
+			const response = await appContext.eventfullApiClient.eventsDataService.deleteEvent(eventId)
+			if (!_.isEqual(response.status, 200) || isErrorResponses(response.data)) {
+				console.error(response)
+				return
+			}
+			appContext.eventsData?.removeEvent(eventId)
+		} catch (error) {
+			console.error(error)
+		}
 	}
 
 	return (
@@ -85,7 +100,10 @@ function EventsGrid () {
 					paginationPageSize={50}
 					rowHeight={40}
 					autoSizeStrategy={autoSizeStrategy}
-					context={{ adjustDeleteColumnWidth }}
+					context={{
+						adjustDeleteColumnWidth,
+						handleConfirmDelete,
+					}}
 					onRowDoubleClicked={handleRowDoubleClicked}
 				/>
 			</div>

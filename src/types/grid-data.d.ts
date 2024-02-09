@@ -1,6 +1,6 @@
 declare global {
 	interface EventGridRowData {
-		eventId: string
+		id: string
 		eventName: string
 		eventDescription: string
 		address: string
@@ -10,7 +10,7 @@ declare global {
 	}
 
 	interface UserGridRowData {
-		userId: string
+		id: string
 		firstName: string
 		numberOfFriends: number
 		lastName?: string
@@ -23,7 +23,7 @@ declare global {
 	}
 
 	interface EventCategoriesGridRowData {
-		eventCategoryId: string
+		id: string
 		eventCategory: string
 		description: string
 		createdAt: string
@@ -31,7 +31,7 @@ declare global {
 	}
 
 	interface EventTypesGridRowData {
-		eventTypeId: string
+		id: string
 		eventType: string
 		description: string
 		categories: string[]

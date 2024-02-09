@@ -9,7 +9,7 @@ export default function createEventsArrayForGrid(eventsData: Map<string, EventCl
 	return eventsArray
 		.filter(event => event.isActive)
 		.map(event => ({
-			eventId: event._id,
+			id: event._id,
 			eventName: event.eventName,
 			eventDescription: event.eventDescription,
 			address: event.address,

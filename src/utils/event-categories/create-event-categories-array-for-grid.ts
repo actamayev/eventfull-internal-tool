@@ -4,7 +4,7 @@ export default function createEventCategoriesArrayForGrid(
 	eventsCategories: Map<string, EventCategoryFromDB>
 ): EventCategoriesGridRowData[] {
 	const eventsCategoriesArray = Array.from(eventsCategories.entries()).map(([key, value]) => ({
-		eventCategoryId: key,
+		id: key,
 		eventCategory: value.eventCategoryName,
 		description: value.description,
 		createdAt: formatReadableDate(value.createdAt),

@@ -8,7 +8,7 @@ export default function createUsersArrayForGrid(usersData: Map<string, UserClass
 
 	return usersArray
 		.map(user => ({
-			userId: user._id,
+			id: user._id,
 			firstName: user.firstName,
 			lastName: user.lastName,
 			username: user.username,
