@@ -12,7 +12,7 @@ const eventTypesDashboardColumns: ColDef[] = [
 	{ headerName: "Categories", field: "categories", comparator: caseInsensitiveComparator, width: 150 },
 	{ headerName: "Created At", field: "createdAt", comparator: dateComparator, width: 151 },
 	{ headerName: "Created By", field: "createdBy", comparator: caseInsensitiveComparator, width: 150 },
-	{ headerName: "Edit", field: "edit", cellRenderer: EditButtonRenderer, width: 100 },
+	{ headerName: "Edit", field: "edit", cellRenderer: EditButtonRenderer, width: 133 },
 	{ headerName: "Delete", field: "delete", cellRenderer: DeleteButtonRenderer, width: 100 }
 ]
 
