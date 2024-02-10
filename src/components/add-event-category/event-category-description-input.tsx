@@ -20,6 +20,7 @@ export default function EventCategoryDescriptionInput(props: Props) {
 			onChange={handleEventCategoryNameChange}
 			required
 			value={eventCategory.description}
+			multiline={true}
 		/>
 	)
 }

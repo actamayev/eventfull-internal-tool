@@ -16,6 +16,7 @@ interface Props {
 	step?: number
 	value?: string
 	children?: React.ReactNode
+	multiline?: boolean
 }
 
 export default function FormGroup(props: Props) {
@@ -37,9 +38,10 @@ export default function FormGroup(props: Props) {
 		step,
 		value,
 		children,
+		multiline
 	} = props
 	// eslint-disable-next-line @typescript-eslint/naming-convention
-	const Component = as || "input"
+	const Component = as || (multiline ? "textarea" : "input")
 
 	const minAttribute = type === "datetime-local" ? minDate : minValue
 
@@ -56,9 +58,9 @@ export default function FormGroup(props: Props) {
 				pattern = {pattern}
 				placeholder = {placeholder}
 				required = {required}
-				rows = {rows}
-				type = {type || "text"}
-				step = {step}
+				rows={multiline ? rows : undefined} // Apply rows only for textarea
+				type={!multiline ? type || "text" : undefined} // Don't apply type to textarea
+				step={!multiline ? step : undefined} // Don't apply step to textarea
 				value = {value}
 			>
 				{children}

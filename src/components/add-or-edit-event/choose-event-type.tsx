@@ -29,7 +29,7 @@ function ChooseEventType(props: Props) {
 			>
 				<option value="">Select Event Type</option>
 				{Array.from(appContext.eventsData.eventTypes).map(([name, eventType]) => (
-					<option key={name} value={name}>{name}</option>
+					<option key={name} value={name}>{eventType.eventTypeName}</option>
 				))}
 			</select>
 		</div>

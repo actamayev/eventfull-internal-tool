@@ -19,7 +19,7 @@ export default function DescriptionInput(props: Props) {
 			placeholder="Embark on a thrilling quest through the perilous corridors of Bowser's Castle."
 			value={eventDetails.eventDescription}
 			onChange={handleDescriptionChange}
-			// multiline = {true}
+			multiline = {true}
 		/>
 	)
 }
