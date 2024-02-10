@@ -110,8 +110,6 @@ declare global {
 		phoneNumber?: string
 		friends: SocialDataWithTimestamp[]
 		username?: string
-		createdAt: Date
-		updatedAt: Date
 		loginHistory: LoginHistory[]
 	}
 }
