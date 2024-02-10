@@ -16,6 +16,7 @@ import EventCategoriesDashboard from "./pages/event-categories-dashboard"
 import FinishAdminRegistration from "./pages/auth/finish-admin-registration"
 
 import useRetrievePersonalInfo from "./hooks/retrieve-personal-info"
+import EditEventType from "./pages/edit-event-type"
 
 export default function App() {
 	useRetrievePersonalInfo()
@@ -36,6 +37,7 @@ export default function App() {
 
 			<Route path = "/event-types-dashboard" element = {<EventTypesDashboard />} />
 			<Route path = "/add-event-type" element = {<AddEventType />} />
+			<Route path = "/edit-event-type/:eventTypeId" element = {<EditEventType />} />
 
 			<Route path = "/event-categories-dashboard" element = {<EventCategoriesDashboard />} />
 			<Route path = "/add-event-category" element = {<AddEventCategory />} />

@@ -27,7 +27,6 @@ function AddEventType() {
 	const isNewEventTypeDisabled = useIsNewEventTypeDisabled(eventType, setMessage)
 	const addEventCategory = useAddEventType(eventType, setError, setIsSubmitting)
 
-
 	const setEventTypeGeneric = (newEventType: Partial<CreatingEventType | EventTypeFromDB>) => {
 		setEventType(prev => {
 			return { ...prev, ...newEventType as Partial<EventTypeFromDB> }

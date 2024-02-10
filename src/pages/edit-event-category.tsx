@@ -11,7 +11,7 @@ import useSetSingleEventCategory from "../hooks/events/set/set-single-event-cate
 import EventCategoryInput from "../components/add-event-category/event-category-name-input"
 import useRetrieveEventCategories from "../hooks/events/retrieve/retrieve-event-categories"
 import EventCategoryDescriptionInput from "../components/add-event-category/event-category-description-input"
-import isEditEventCategoryDisabled from "../utils/events/is-edit-event-category-button-disabled"
+import useIsUpdateEventCategoryDisabled from "../hooks/events/is-button-disabled/is-update-event-category-disabled"
 
 function EditEventCategory() {
 	useRedirectUnknownUser()
@@ -31,6 +31,7 @@ function EditEventCategory() {
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	useRetrieveEventCategories()
 	const retrievedEventCategory = useSetSingleEventCategory(eventCategoryId, setError, setEventCategory)
+	const isUpdateEventCategoryDisabled = useIsUpdateEventCategoryDisabled(eventCategory, retrievedEventCategory, setError)
 	const addEventCategory = useEditEventCategory(retrievedEventCategory, eventCategory, setError, setIsSubmitting)
 
 	const setEventCategoryGeneric = (newEventCategory: Partial<CreatingEventCategory | EventCategoryFromDB>) => {
@@ -62,7 +63,7 @@ function EditEventCategory() {
 				<div className="mt-2">
 					<Button
 						title= {`Edit${eventCategory.eventCategoryName ? (": " + eventCategory.eventCategoryName) : ""}`}
-						disabled={isSubmitting || isEditEventCategoryDisabled(eventCategory)}
+						disabled={isSubmitting || isUpdateEventCategoryDisabled}
 						colorClass="bg-emerald-600"
 						hoverClass="hover:bg-emerald-700"
 						className="text-white font-semibold"

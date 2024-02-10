@@ -1,3 +1,4 @@
+import _ from "lodash"
 import { useState } from "react"
 import { observer } from "mobx-react"
 import { useParams } from "react-router-dom"
@@ -12,7 +13,8 @@ import useRetrieveEventTypes from "../hooks/events/retrieve/retrieve-event-types
 import useRetrieveEventCategories from "../hooks/events/retrieve/retrieve-event-categories"
 import useEditEventType from "../hooks/events/edit/edit-event-type"
 import useSetSingleEventType from "../hooks/events/set/set-single-event-type"
-import isEditEventTypeDisabled from "../utils/events/is-edit-event-type-button-disabled"
+import useIsUpdateEventTypeDisabled from "../hooks/events/is-button-disabled/is-update-event-type-disabled"
+import determineIfEventTypesEqual from "../utils/event-types/determine-if-event-types-equal"
 
 function EditEventType() {
 	useRedirectUnknownUser()
@@ -34,6 +36,7 @@ function EditEventType() {
 	useRetrieveEventTypes()
 	useRetrieveEventCategories()
 	const retrievedEventType = useSetSingleEventType(eventTypeId, setError, setEventType)
+	const isUpdateEventTypeDisabled = useIsUpdateEventTypeDisabled(eventType, retrievedEventType, setError)
 	const editEventType = useEditEventType(retrievedEventType, eventType, setError, setIsSubmitting)
 
 	const setEventTypeGeneric = (newEventType: Partial<CreatingEventType | EventTypeFromDB>) => {
@@ -42,8 +45,17 @@ function EditEventType() {
 		})
 	}
 
+	if (_.isUndefined(retrievedEventType)) return null
+
+	function ChangesMade () {
+		if (_.isUndefined(retrievedEventType)) return null
+		else if (!determineIfEventTypesEqual(retrievedEventType, eventType)) return null
+		else if (_.isEmpty(eventType.categories)) return null
+		return <>(No Changes made)</>
+	}
+
 	return (
-		<CardTemplate title="Add Event Type">
+		<CardTemplate title="Edit Event Type">
 			<form onSubmit={editEventType}>
 				<EventTypeNameInput
 					eventType={eventType}
@@ -65,12 +77,13 @@ function EditEventType() {
 
 				<div className="mt-2">
 					<Button
-						title= {`Add${eventType.eventTypeName ? (": " + eventType.eventTypeName) : ""}`}
-						disabled={isSubmitting || isEditEventTypeDisabled(eventType)}
+						title= {`Edit${eventType.eventTypeName ? (": " + eventType.eventTypeName) : ""}`}
+						disabled={isSubmitting || isUpdateEventTypeDisabled}
 						colorClass="bg-emerald-600"
 						hoverClass="hover:bg-emerald-700"
 						className="text-white font-semibold"
 					/>
+					<ChangesMade />
 				</div>
 			</form>
 		</CardTemplate>

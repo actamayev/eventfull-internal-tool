@@ -5,6 +5,7 @@ import EventsClass from "../../../classes/events/events-class"
 import AppContext from "../../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../../utils/type-checks"
 import setErrorAxiosResponse from "../../../utils/error-handling/set-error-axios-response"
+import determineIfEventTypesEqual from "../../../utils/event-types/determine-if-event-types-equal"
 
 export default function useEditEventType(
 	previousEventType: EventTypeFromDB | undefined,
@@ -19,7 +20,7 @@ export default function useEditEventType(
 
 	const editEvent = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
-		if (previousEventType === eventType) {
+		if (previousEventType && determineIfEventTypesEqual(previousEventType, eventType)) {
 			navigate("/event-types-dashboard")
 			return
 		}

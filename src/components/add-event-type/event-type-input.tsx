@@ -17,7 +17,7 @@ export default function EventTypeNameInput(props: Props) {
 			id="type-name"
 			label="Event Type Name *"
 			type="text"
-			placeholder="Entertainment"
+			placeholder="Basketball game"
 			onChange={handleEventTypeNameChange}
 			required
 			value={eventType.eventTypeName}
