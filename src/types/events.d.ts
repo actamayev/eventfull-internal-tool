@@ -22,7 +22,10 @@ declare global {
 	interface CreatingEvent {
 		eventName: string
 		eventPrice: number
-		eventType: string
+		eventType: {
+			eventTypeId: string
+			eventTypeName: string
+		}
 		isVirtual: boolean
 		isActive: boolean
 		eventPublic: boolean
@@ -33,7 +36,10 @@ declare global {
 		eventDescription: string
 
 		eventURL?: string
-		extraEventCategories?: string[]
+		extraEventCategories?: {
+			eventCategoryId: string
+			eventCategoryName: string
+		}[]
 
 		// For one time events:
 		singularEventTime?: BaseEventTime | null
@@ -46,6 +52,10 @@ declare global {
 		invitees: SocialData[]
 		coHosts: SocialData[]
 		eventCapacity: number
+	}
+
+	interface SendingEvent extends CreatingEvent {
+		eventType: string
 	}
 
 	interface ImageURLs {
@@ -83,6 +93,17 @@ declare global {
 		categories: {
 			categoryId: string
 			eventCategoryName: string
+			description: string
+		}[]
+	}
+
+	interface SendingEventType {
+		eventTypeName: string
+		description: string
+		categories: {
+			categoryId: string
+			eventCategoryName: string
+			description: string
 		}[]
 	}
 }

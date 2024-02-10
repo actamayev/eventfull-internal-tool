@@ -61,9 +61,15 @@ declare global {
 		eventPrice: number
 		eventPublic: boolean
 		eventReviewable: boolean
-		eventType: string
+		eventType: {
+			eventTypeId: string
+			eventTypeName: string
+		}
 		eventURL?: string
-		extraEventCategories: string[]
+		extraEventCategories: {
+			categoryId: string
+			eventCategoryName: string
+		}[]
 		invitees: EventfullInvitee[]
 		isActive: boolean
 		isVirtual: boolean
@@ -74,6 +80,15 @@ declare global {
 
 	type EventTypesResponse = { eventTypes: EventTypeFromDB[] }
 	type SingleEventTypeResponse = { eventType: EventTypeFromDB }
+	type AddEventTypeResponse = {
+		_id: string
+		createdAt: Date
+		updatedAt: Date
+		createdBy: {
+			adminId: string
+			username: string
+		}
+	}
 	type EventCategoriesResponse = { eventCategories: EventCategoryFromDB[] }
 	type SingleEventCategoryResponse = { eventCategory: EventCategoryFromDB }
 
@@ -83,6 +98,7 @@ declare global {
 		categories: {
 			categoryId: string
 			eventCategoryName: string
+			description: string
 		}[]
 		createdBy: {
 			adminId: string

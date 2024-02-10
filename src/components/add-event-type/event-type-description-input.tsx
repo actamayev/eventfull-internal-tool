@@ -20,7 +20,6 @@ export default function EventTypeDescriptionInput(props: Props) {
 			onChange={handleEventTypeNameChange}
 			required
 			value={eventType.description}
-			multiline={true}
 		/>
 	)
 }

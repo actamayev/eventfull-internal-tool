@@ -68,6 +68,20 @@ export default class EventsClass {
 	public editEventCategory = action((category: EventCategoryFromDB): void => {
 		if (this.eventCategories.has(category._id) === false) return
 		this.eventCategories.set(category._id, category)
+		if (_.isEmpty(this.eventTypes)) return
+		this.eventTypes.forEach((eventType) => {
+			// Check if any category within eventType.categories matches the given category._id
+			const categoryIndex = eventType.categories.findIndex(cat => cat.categoryId === category._id)
+
+			if (categoryIndex !== -1) {
+				// Found the category, now updating it with new values
+				eventType.categories[categoryIndex].eventCategoryName = category.eventCategoryName
+				eventType.categories[categoryIndex].description = category.description
+
+				// Update the eventType in the map
+				this.eventTypes.set(eventType._id, eventType)
+			}
+		})
 	})
 
 	public removeEventCategory = action((categoryId: string): void => {

@@ -7,7 +7,7 @@ export default class EventsDataService {
 
 	// Events:
 	async addEvent(
-		eventfullEventData: CreatingEvent,
+		eventfullEventData: SendingEvent,
 		numberOfImages: number
 	): Promise<AxiosResponse<NewEventResponse | NonSuccessResponse>> {
 		return await this.httpClient.http.post<NewEventResponse | NonSuccessResponse>(
@@ -66,8 +66,8 @@ export default class EventsDataService {
 	}
 
 	// Event Types:
-	async addEventType(eventTypeDetails: CreatingEventType): Promise<AxiosResponse<SingleEventTypeResponse | NonSuccessResponse>> {
-		return await this.httpClient.http.post<SingleEventTypeResponse | NonSuccessResponse>("/events/add-event-type", { eventTypeDetails })
+	async addEventType(eventTypeDetails: SendingEventType): Promise<AxiosResponse<AddEventTypeResponse | NonSuccessResponse>> {
+		return await this.httpClient.http.post<AddEventTypeResponse | NonSuccessResponse>("/events/add-event-type", { eventTypeDetails })
 	}
 
 	async retrieveEventTypes(): Promise<AxiosResponse<EventTypesResponse | ErrorResponse>> {

@@ -37,7 +37,10 @@ function EditEvent() {
 		__v: 0,
 		eventName: "",
 		eventPrice: 0,
-		eventType: "",
+		eventType: {
+			eventTypeId: "",
+			eventTypeName: "",
+		},
 		isVirtual: false,
 		isActive: true,
 		eventPublic: true,

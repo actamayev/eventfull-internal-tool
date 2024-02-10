@@ -22,6 +22,7 @@ function SelectEventCategories(props: Props) {
 			const updatedCategories = [...eventType.categories, {
 				categoryId: selectedId,
 				eventCategoryName: selectedCategory.eventCategoryName,
+				description: selectedCategory.description,
 			}]
 			setEventType({ ...eventType, categories: updatedCategories })
 		}
