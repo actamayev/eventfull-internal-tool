@@ -27,10 +27,14 @@ export default function useEditEvent(
 			navigate("/events-dashboard")
 			return
 		}
+		const formattedEventDetails = {
+			...eventDetailsWithEventDuration, // Copy existing event details
+			eventType: eventDetails.eventType.eventTypeId
+		}
 		setLoading(true)
 		try {
 			const response = await appContext.eventfullApiClient.eventsDataService.editEvent(
-				eventDetailsWithEventDuration, _.size(selectedFiles)
+				formattedEventDetails, _.size(selectedFiles)
 			)
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {

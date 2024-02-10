@@ -24,7 +24,7 @@ export default function useAddEvent(
 		setLoading(true)
 		try {
 			const eventDetailsWithEventDuration = calculateEventDurationForNewEvents(eventDetails)
-			const transformedEvent: SendingEvent = {
+			const transformedEvent: SendingCreateEvent = {
 				...eventDetailsWithEventDuration,
 				eventType: eventDetails.eventType.eventTypeId
 			}

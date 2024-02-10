@@ -7,7 +7,7 @@ export default class EventsDataService {
 
 	// Events:
 	async addEvent(
-		eventfullEventData: SendingEvent,
+		eventfullEventData: SendingCreateEvent,
 		numberOfImages: number
 	): Promise<AxiosResponse<NewEventResponse | NonSuccessResponse>> {
 		return await this.httpClient.http.post<NewEventResponse | NonSuccessResponse>(
@@ -24,7 +24,7 @@ export default class EventsDataService {
 	}
 
 	async editEvent(
-		eventfullEventData: EventFromDB,
+		eventfullEventData: SendingUpdateEvent,
 		numberOfImages: number
 	): Promise<AxiosResponse<UpdatedEventResponse | NonSuccessResponse>> {
 		return await this.httpClient.http.post<UpdatedEventResponse | NonSuccessResponse>(

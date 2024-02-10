@@ -54,7 +54,7 @@ declare global {
 		eventCapacity: number
 	}
 
-	interface SendingEvent extends CreatingEvent {
+	interface SendingCreateEvent extends CreatingEvent {
 		eventType: string
 	}
 
@@ -105,6 +105,10 @@ declare global {
 			eventCategoryName: string
 			description: string
 		}[]
+	}
+
+	interface SendingUpdateEvent extends EventFromDB {
+		eventType: string
 	}
 }
 
