@@ -56,6 +56,7 @@ declare global {
 
 	interface SendingCreateEvent extends CreatingEvent {
 		eventType: string
+		extraEventCategories: string[]
 	}
 
 	interface ImageURLs {
@@ -109,6 +110,7 @@ declare global {
 
 	interface SendingUpdateEvent extends EventFromDB {
 		eventType: string
+		extraEventCategories: string[]
 	}
 }
 

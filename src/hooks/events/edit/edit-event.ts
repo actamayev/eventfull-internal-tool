@@ -29,7 +29,8 @@ export default function useEditEvent(
 		}
 		const formattedEventDetails = {
 			...eventDetailsWithEventDuration, // Copy existing event details
-			eventType: eventDetails.eventType.eventTypeId
+			eventType: eventDetails.eventType.eventTypeId,
+			extraEventCategories: eventDetails.extraEventCategories.map(category => category.categoryId)
 		}
 		setLoading(true)
 		try {
