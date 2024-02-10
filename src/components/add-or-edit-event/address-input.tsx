@@ -38,7 +38,6 @@ export default function AddressInput(props: Props) {
 			}}
 		>
 			<FormGroup
-				id="address"
 				label="Address *"
 				type="text"
 				placeholder="Bowser's Castle"

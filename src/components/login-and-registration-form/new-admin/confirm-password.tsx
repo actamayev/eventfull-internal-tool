@@ -11,7 +11,6 @@ export default function ConfirmPassword (props: Props) {
 
 	return (
 		<FormGroup
-			id = "confirm-password"
 			label = "Password Confirmation"
 			type = {showPassword}
 			placeholder = "Confirm Password"

@@ -14,7 +14,6 @@ export default function EventPriceInput(props: Props) {
 
 	return (
 		<FormGroup
-			id="event-price"
 			label="Price ($)"
 			type="number"
 			placeholder="$69.42"

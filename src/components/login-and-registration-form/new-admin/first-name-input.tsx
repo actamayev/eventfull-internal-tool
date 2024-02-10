@@ -10,7 +10,6 @@ export default function FirstNameInput (props: Props) {
 
 	return (
 		<FormGroup
-			id = "first-name"
 			label = "First Name"
 			type = "name"
 			placeholder = "Mike"

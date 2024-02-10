@@ -10,7 +10,6 @@ export default function OTPInput (props: Props) {
 
 	return (
 		<FormGroup
-			id = "otp"
 			label = "One Time Passcode"
 			type = "text"
 			placeholder = "314159"

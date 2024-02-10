@@ -10,7 +10,6 @@ export default function EmailInput (props: Props) {
 
 	return (
 		<FormGroup
-			id = "email"
 			label = "Email"
 			type = "contact"
 			placeholder = "abc@123.com"

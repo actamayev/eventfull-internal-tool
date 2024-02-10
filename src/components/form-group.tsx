@@ -1,7 +1,6 @@
 interface Props {
 	as?: React.ElementType
 	className?: string
-	id?: string
 	label?: string
 	max?: string
 	minDate?: string
@@ -23,7 +22,6 @@ export default function FormGroup(props: Props) {
 	const {
 		as,
 		className,
-		id,
 		label,
 		max,
 		minDate,
@@ -46,11 +44,10 @@ export default function FormGroup(props: Props) {
 	const minAttribute = type === "datetime-local" ? minDate : minValue
 
 	return (
-		<div id = {id} className= {`mb-4 ${className}`}>
-			{label && <label htmlFor = {id} className = "block text-sm font-medium text-gray-600">{label}</label>}
+		<div className= {`mb-4 ${className}`}>
+			{label && <label className = "block text-sm font-medium text-gray-600">{label}</label>}
 			<Component
 				className ="mt-1 p-2 w-full border rounded-md text-black"
-				id = {id}
 				max={max}
 				min = {minAttribute}
 				maxLength = {maxLength}

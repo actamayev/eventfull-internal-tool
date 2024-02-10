@@ -14,7 +14,6 @@ export default function EventTypeDescriptionInput(props: Props) {
 
 	return (
 		<FormGroup
-			id="type-description"
 			label="Description *"
 			type="text"
 			placeholder="A competetive basketball match."

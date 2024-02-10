@@ -14,7 +14,6 @@ export default function EventCategoryNameInput(props: Props) {
 
 	return (
 		<FormGroup
-			id="category-name"
 			label="Event Category Name *"
 			type="text"
 			placeholder="Entertainment"

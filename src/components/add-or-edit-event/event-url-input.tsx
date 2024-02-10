@@ -14,7 +14,6 @@ export default function EventURLInput(props: Props) {
 
 	return (
 		<FormGroup
-			id="event-url"
 			label="Event URL"
 			type="text"
 			placeholder="https://www.youtube.com/@Levi_Sheridan"
