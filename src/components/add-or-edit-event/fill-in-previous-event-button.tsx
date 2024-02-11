@@ -22,6 +22,7 @@ function FillInPreviousEventButton(props: Props) {
 			eventPublic: event.eventPublic,
 			eventReviewable: event.eventReviewable,
 			canInvitedUsersInviteOthers: event.canInvitedUsersInviteOthers,
+			extraEventCategories: event.extraEventCategories,
 
 			eventFrequency: event.eventFrequency,
 			address: event.address,

@@ -20,24 +20,19 @@ function ChooseExtraEventCategories(props: Props) {
 	) return null
 
 	const selectedEventTypeCategories = appContext.eventsData.eventTypes.get(
-		eventDetails.eventType.eventTypeId
+		eventDetails.eventType
 	)?.categories.map(c => c.categoryId) || []
 
 	const handleExtraCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const { options } = e.target
-		const updatedExtraCategories: ExtraEventCategory[] = []
+		const updatedExtraCategories: string[] = []
 
 		for (let i = 0; i < options.length; i++) {
 			const option = options[i]
 
 			if (option.selected) {
 				const category = appContext.eventsData?.eventCategories.get(option.value)
-				if (category) {
-					updatedExtraCategories.push({
-						categoryId: option.value, // Ensure this matches the expected key name
-						eventCategoryName: category.eventCategoryName
-					})
-				}
+				if (category) updatedExtraCategories.push(option.value)
 			}
 		}
 
@@ -46,7 +41,6 @@ function ChooseExtraEventCategories(props: Props) {
 			extraEventCategories: updatedExtraCategories
 		})
 	}
-	console.log(eventDetails.extraEventCategories)
 
 	return (
 		<div className="mt-1 mb-4">
@@ -55,7 +49,7 @@ function ChooseExtraEventCategories(props: Props) {
 			</label>
 			<select
 				multiple
-				value={eventDetails.extraEventCategories?.map(c => c.categoryId)}
+				value={eventDetails.extraEventCategories || []}
 				onChange={handleExtraCategoryChange}
 				className="mt-1 block w-full h-56 py-2 px-3 border border-gray-300 bg-white rounded-md \
 					shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-600 sm:text-sm"

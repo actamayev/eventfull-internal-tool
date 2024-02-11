@@ -24,13 +24,8 @@ export default function useAddEvent(
 		setLoading(true)
 		try {
 			const eventDetailsWithEventDuration = calculateEventDurationForNewEvents(eventDetails)
-			const transformedEvent: SendingCreateEvent = {
-				...eventDetailsWithEventDuration,
-				eventType: eventDetails.eventType.eventTypeId,
-				extraEventCategories: eventDetailsWithEventDuration.extraEventCategories?.map(category => category.categoryId) || []
-			}
 			const response = await appContext.eventfullApiClient.eventsDataService.addEvent(
-				transformedEvent, _.size(selectedFiles)
+				eventDetailsWithEventDuration, _.size(selectedFiles)
 			)
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {

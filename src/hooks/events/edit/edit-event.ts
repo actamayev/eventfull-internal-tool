@@ -27,15 +27,10 @@ export default function useEditEvent(
 			navigate("/events-dashboard")
 			return
 		}
-		const formattedEventDetails: SendingUpdateEvent = {
-			...eventDetailsWithEventDuration,
-			eventType: eventDetails.eventType.eventTypeId,
-			extraEventCategories: eventDetails.extraEventCategories.map(category => category.categoryId)
-		}
 		setLoading(true)
 		try {
 			const response = await appContext.eventfullApiClient.eventsDataService.editEvent(
-				formattedEventDetails, _.size(selectedFiles)
+				eventDetailsWithEventDuration, _.size(selectedFiles)
 			)
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {

@@ -29,10 +29,7 @@ function AddEvent() {
 	const [eventDetails, setEventDetails] = useState<CreatingEvent>({
 		eventName: "",
 		eventPrice: 0,
-		eventType: {
-			eventTypeId: "",
-			eventTypeName: "",
-		},
+		eventType: "",
 		isVirtual: false,
 		isActive: true,
 		eventPublic: true,

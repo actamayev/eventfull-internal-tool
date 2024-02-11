@@ -22,17 +22,14 @@ function ChooseEventType(props: Props) {
 	return (
 		<div className="mt-1 mb-4">
 			<select
-				value={eventDetails.eventType.eventTypeId}
+				value={eventDetails.eventType}
 				onChange={(e) => {
 					if (_.isNull(appContext.eventsData)) return
 					const selectedEventType = appContext.eventsData.eventTypes.get(e.target.value)
 					if (selectedEventType) {
 						setEventDetails({
 							...eventDetails,
-							eventType: {
-								eventTypeId: e.target.value,
-								eventTypeName: selectedEventType.eventTypeName
-							}
+							eventType: e.target.value,
 						})
 					}}}
 				className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm \
