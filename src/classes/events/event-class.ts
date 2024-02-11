@@ -53,15 +53,9 @@ export default class EventClass {
 	public eventPrice: number
 	public eventPublic: boolean
 	public eventReviewable: boolean
-	public eventType: {
-		eventTypeId: string
-		eventTypeName: string
-	}
+	public eventType: string
 	public eventURL?: string
-	public extraEventCategories: {
-		categoryId: string
-		eventCategoryName: string
-	}[]
+	public extraEventCategories: string[]
 	public invitees: EventfullInvitee[]
 	public isActive: boolean
 	public isVirtual: boolean

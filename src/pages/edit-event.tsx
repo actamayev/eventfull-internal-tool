@@ -23,6 +23,7 @@ import ToggleVirtualEvent from "../components/add-or-edit-event/is-event-virtual
 import ErrorMessage from "../components/login-and-registration-form/error-message"
 import isAddOrSaveEventDisabled from "../utils/events/is-add-or-save-event-disabled"
 import ChooseEventFrequency from "../components/add-or-edit-event/choose-event-frequency"
+import ChooseExtraEventCategories from "../components/add-or-edit-event/choose-extra-event-categories"
 
 const libraries: ("places")[] = ["places"]
 
@@ -37,10 +38,7 @@ function EditEvent() {
 		__v: 0,
 		eventName: "",
 		eventPrice: 0,
-		eventType: {
-			eventTypeId: "",
-			eventTypeName: "",
-		},
+		eventType: "",
 		isVirtual: false,
 		isActive: true,
 		eventPublic: true,
@@ -136,6 +134,10 @@ function EditEvent() {
 					setEventDetails={setEventDetailsGeneric}
 				/>
 				<ChooseEventType
+					eventDetails={eventDetails}
+					setEventDetails={setEventDetailsGeneric}
+				/>
+				<ChooseExtraEventCategories
 					eventDetails={eventDetails}
 					setEventDetails={setEventDetailsGeneric}
 				/>

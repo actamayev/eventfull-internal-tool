@@ -11,8 +11,8 @@ const eventsDashboardColumns: ColDef[] = [
 	{ headerName: "Description", field: "eventDescription", comparator: caseInsensitiveComparator, width: 375 },
 	{ headerName: "Location", field: "address", comparator: caseInsensitiveComparator, width: 375 },
 	{ headerName: "Created By", field: "createdByUsername", comparator: caseInsensitiveComparator, width: 120 },
-	{ headerName: "Created At", field: "createdAt", comparator: dateComparator, width: 151 },
-	{ headerName: "Last Updated At", field: "updatedAt", comparator: dateComparator, width: 151 },
+	{ headerName: "Created At", field: "createdAt", comparator: dateComparator, width: 158 },
+	{ headerName: "Last Updated At", field: "updatedAt", comparator: dateComparator, width: 158 },
 	{ headerName: "Edit", field: "edit", cellRenderer: EditButtonRenderer, width: 100 },
 	{ headerName: "Delete", field: "delete", cellRenderer: DeleteButtonRenderer, width: 100 }
 ]

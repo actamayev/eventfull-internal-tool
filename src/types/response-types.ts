@@ -61,15 +61,9 @@ declare global {
 		eventPrice: number
 		eventPublic: boolean
 		eventReviewable: boolean
-		eventType: {
-			eventTypeId: string
-			eventTypeName: string
-		}
+		eventType: string
 		eventURL?: string
-		extraEventCategories: {
-			categoryId: string
-			eventCategoryName: string
-		}[]
+		extraEventCategories: string[]
 		invitees: EventfullInvitee[]
 		isActive: boolean
 		isVirtual: boolean

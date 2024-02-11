@@ -2,9 +2,9 @@ import _ from "lodash"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import EventsClass from "../../../classes/events/events-class"
-import uploadFileToS3 from "../../../utils/upload-file-to-aws"
 import AppContext from "../../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../../utils/type-checks"
+import uploadImageLoop from "../../../utils/events/upload-image-loop"
 import setErrorAxiosResponse from "../../../utils/error-handling/set-error-axios-response"
 import { calculateEventDurationForEditEvents } from "../../../utils/events/calculate-event-duration"
 
@@ -27,15 +27,10 @@ export default function useEditEvent(
 			navigate("/events-dashboard")
 			return
 		}
-		const formattedEventDetails: SendingUpdateEvent = {
-			...eventDetailsWithEventDuration,
-			eventType: eventDetails.eventType.eventTypeId,
-			extraEventCategories: eventDetails.extraEventCategories.map(category => category.categoryId)
-		}
 		setLoading(true)
 		try {
 			const response = await appContext.eventfullApiClient.eventsDataService.editEvent(
-				formattedEventDetails, _.size(selectedFiles)
+				eventDetailsWithEventDuration, _.size(selectedFiles)
 			)
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
@@ -43,21 +38,7 @@ export default function useEditEvent(
 				return
 			}
 			if (!_.isEmpty(response.data.imagesURLsData)) {
-				const imageURLs: ImageURLs[] = response.data.imagesURLsData.map((imageURLData) => ({
-					imageId: imageURLData.imageId, imageURL: "", isActive: true
-				}))
-
-				for (let i = 0; i < _.size(selectedFiles); i++) {
-					const file = selectedFiles[i]
-					const imageId = response.data.imagesURLsData[i].imageId
-					const presignedUrl = response.data.imagesURLsData[i].presignedUrl
-					const uploadedImageUrl = await uploadFileToS3(file, presignedUrl)
-
-					// Find the corresponding object in imageURLs array and update its imageURL
-					const index = imageURLs.findIndex(item => item.imageId === imageId)
-					// eslint-disable-next-line max-depth
-					if (index !== -1) imageURLs[index].imageURL = uploadedImageUrl
-				}
+				const imageURLs = await uploadImageLoop(selectedFiles, response.data.imagesURLsData)
 
 				const allEventImages = _.concat(eventDetails.eventImages, imageURLs)
 

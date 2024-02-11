@@ -1,4 +1,5 @@
 import FormGroup from "../form-group"
+import CharacterLimit from "../character-limit"
 
 interface Props {
 	eventType: CreatingEventType | EventTypeFromDB
@@ -8,18 +9,28 @@ interface Props {
 export default function EventTypeDescriptionInput(props: Props) {
 	const { eventType, setEventType } = props
 
-	const handleEventTypeNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleEventTypeDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setEventType({...eventType, description: e.target.value})
 	}
 
 	return (
-		<FormGroup
-			label="Description *"
-			type="text"
-			placeholder="A competetive basketball match."
-			onChange={handleEventTypeNameChange}
-			required
-			value={eventType.description}
-		/>
+		<div className="flex items-center justify-between">
+			<FormGroup
+				label="Description *"
+				type="text"
+				placeholder="A competetive basketball match."
+				onChange={handleEventTypeDescriptionChange}
+				required
+				value={eventType.description}
+				maxLength={100}
+				className="flex-grow mr-4"
+			/>
+			<div className="shrink-0">
+				<CharacterLimit
+					variable={eventType.description}
+					maxLength={100}
+				/>
+			</div>
+		</div>
 	)
 }
