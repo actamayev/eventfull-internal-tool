@@ -18,4 +18,3 @@ export const caseInsensitiveComparator = (valueA: string | null, valueB: string 
 	if (_.isNull(valueB)) return 1
 	return valueA.toLowerCase().localeCompare(valueB.toLowerCase())
 }
-

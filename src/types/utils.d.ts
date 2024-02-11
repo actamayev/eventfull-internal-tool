@@ -17,6 +17,11 @@ declare global {
 		createdAt: Date
 	}
 
+	interface AdminSocialData {
+		adminId: string
+		username: string
+	}
+
 	interface LoginHistory {
 		loginTime: Date
 	}

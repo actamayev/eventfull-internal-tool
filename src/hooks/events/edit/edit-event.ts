@@ -27,8 +27,8 @@ export default function useEditEvent(
 			navigate("/events-dashboard")
 			return
 		}
-		const formattedEventDetails = {
-			...eventDetailsWithEventDuration, // Copy existing event details
+		const formattedEventDetails: SendingUpdateEvent = {
+			...eventDetailsWithEventDuration,
 			eventType: eventDetails.eventType.eventTypeId,
 			extraEventCategories: eventDetails.extraEventCategories.map(category => category.categoryId)
 		}

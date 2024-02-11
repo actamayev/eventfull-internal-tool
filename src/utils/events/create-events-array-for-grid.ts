@@ -1,5 +1,5 @@
-import EventClass from "../../classes/events/event-class"
 import formatReadableDate from "../format-readable-date"
+import EventClass from "../../classes/events/event-class"
 
 export default function createEventsArrayForGrid(eventsData: Map<string, EventClass>): EventGridRowData[] {
 	const eventsArray = eventsData instanceof Map

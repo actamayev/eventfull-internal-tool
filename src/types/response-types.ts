@@ -84,10 +84,7 @@ declare global {
 		_id: string
 		createdAt: Date
 		updatedAt: Date
-		createdBy: {
-			adminId: string
-			username: string
-		}
+		createdBy: AdminSocialData
 	}
 	type EventCategoriesResponse = { eventCategories: EventCategoryFromDB[] }
 	type SingleEventCategoryResponse = { eventCategory: EventCategoryFromDB }
@@ -100,19 +97,13 @@ declare global {
 			eventCategoryName: string
 			description: string
 		}[]
-		createdBy: {
-			adminId: string
-			username: string
-		}
+		createdBy: AdminSocialData
 	}
 
 	interface EventCategoryFromDB extends IDInterface, TimestampsInterface {
 		eventCategoryName: string
 		description: string
-		createdBy: {
-			adminId: string
-			username: string
-		}
+		createdBy: AdminSocialData
 	}
 
 	// Users:
