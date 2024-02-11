@@ -1,5 +1,5 @@
-import { observer } from "mobx-react"
 import { useState } from "react"
+import { observer } from "mobx-react"
 import Button from "../components/button"
 import CardTemplate from "../components/card-template"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"

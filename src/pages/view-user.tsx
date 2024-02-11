@@ -11,7 +11,6 @@ import formatReadableDate from "../utils/format-readable-date"
 function ViewUser() {
 	useRedirectUnknownUser()
 	const appContext = useContext(AppContext)
-
 	const { userId } = useParams<{ userId: string }>()
 	const retrievedEvent = useSetSingleUser(userId)
 

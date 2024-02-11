@@ -1,9 +1,9 @@
 import _ from "lodash"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
+import { isErrorResponses } from "../../../utils/type-checks"
 import EventsClass from "../../../classes/events/events-class"
 import AppContext from "../../../contexts/eventfull-it-context"
-import { isNonSuccessResponse } from "../../../utils/type-checks"
 import setErrorAxiosResponse from "../../../utils/error-handling/set-error-axios-response"
 
 export default function useEditEventCategory(
@@ -27,7 +27,7 @@ export default function useEditEventCategory(
 		try {
 			const response = await appContext.eventfullApiClient.eventsDataService.editEventCategory(eventCategory)
 
-			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
+			if (!_.isEqual(response.status, 200) || isErrorResponses(response.data)) {
 				setError("Unable to edit event category. Please reload and try again.")
 				return
 			}

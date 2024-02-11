@@ -1,9 +1,9 @@
 import _ from "lodash"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
+import { isErrorResponses } from "../../../utils/type-checks"
 import EventsClass from "../../../classes/events/events-class"
 import AppContext from "../../../contexts/eventfull-it-context"
-import { isNonSuccessResponse } from "../../../utils/type-checks"
 import setErrorAxiosResponse from "../../../utils/error-handling/set-error-axios-response"
 import determineIfEventTypesEqual from "../../../utils/event-types/determine-if-event-types-equal"
 
@@ -28,7 +28,7 @@ export default function useEditEventType(
 		try {
 			const response = await appContext.eventfullApiClient.eventsDataService.editEventType(eventType)
 
-			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
+			if (!_.isEqual(response.status, 200) || isErrorResponses(response.data)) {
 				setError("Unable to edit event type. Please reload and try again.")
 				return
 			}

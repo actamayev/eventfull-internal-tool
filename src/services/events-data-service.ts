@@ -57,8 +57,8 @@ export default class EventsDataService {
 		return await this.httpClient.http.get<SingleEventCategoryResponse | ErrorResponses>(`/events/get-event-category/${eventCategoryId}`)
 	}
 
-	async editEventCategory(eventCategoryDetails: EventCategoryFromDB): Promise<AxiosResponse<AllCommonResponses>> {
-		return await this.httpClient.http.post<AllCommonResponses>("/events/update-event-category", { eventCategoryDetails })
+	async editEventCategory(eventCategoryDetails: EventCategoryFromDB): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
+		return await this.httpClient.http.post<SuccessResponse | ErrorResponses>("/events/update-event-category", { eventCategoryDetails })
 	}
 
 	async deleteEventCategory(eventCategoryId: string): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
@@ -78,8 +78,8 @@ export default class EventsDataService {
 		return await this.httpClient.http.get<SingleEventTypeResponse | ErrorResponses>(`/events/get-event-type/${eventTypeId}`)
 	}
 
-	async editEventType(eventTypeDetails: EventTypeFromDB): Promise<AxiosResponse<AllCommonResponses>> {
-		return await this.httpClient.http.post<AllCommonResponses>("/events/update-event-type", { eventTypeDetails })
+	async editEventType(eventTypeDetails: EventTypeFromDB): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
+		return await this.httpClient.http.post<SuccessResponse | ErrorResponses>("/events/update-event-type", { eventTypeDetails })
 	}
 
 	async deleteEventType(eventTypeId: string): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
