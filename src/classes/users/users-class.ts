@@ -1,4 +1,4 @@
-import { makeObservable, observable } from "mobx"
+import { action, makeObservable, observable } from "mobx"
 import UserClass from "./user-class"
 
 export default class UsersClass {
@@ -15,9 +15,9 @@ export default class UsersClass {
 		return user
 	}
 
-	public addUser(user: UserFromDB): void {
+	public addUser = action((user: UserFromDB): void => {
 		if (this.usersMap.has(user._id)) return
 		const newUser = new UserClass(user)
 		this.usersMap.set(user._id, newUser)
-	}
+	})
 }
