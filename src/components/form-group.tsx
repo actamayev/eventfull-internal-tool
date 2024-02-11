@@ -6,6 +6,7 @@ interface Props {
 	minDate?: string
 	minValue?: number
 	maxLength?: number
+	multiline?: boolean
 	name?: string
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 	pattern?: string
@@ -16,7 +17,6 @@ interface Props {
 	step?: number
 	value?: string
 	children?: React.ReactNode
-	multiline?: boolean
 }
 
 export default function FormGroup(props: Props) {
@@ -28,6 +28,7 @@ export default function FormGroup(props: Props) {
 		minDate,
 		minValue,
 		maxLength,
+		multiline,
 		name,
 		onChange,
 		pattern,
@@ -38,7 +39,6 @@ export default function FormGroup(props: Props) {
 		step,
 		value,
 		children,
-		multiline
 	} = props
 	// eslint-disable-next-line @typescript-eslint/naming-convention
 	const Component = as || (multiline ? "textarea" : "input")

@@ -66,7 +66,7 @@ export default class EventsDataService {
 	}
 
 	// Event Types:
-	async addEventType(eventTypeDetails: SendingEventType): Promise<AxiosResponse<AddEventTypeResponse | NonSuccessResponse>> {
+	async addEventType(eventTypeDetails: CreatingEventType): Promise<AxiosResponse<AddEventTypeResponse | NonSuccessResponse>> {
 		return await this.httpClient.http.post<AddEventTypeResponse | NonSuccessResponse>("/events/add-event-type", { eventTypeDetails })
 	}
 

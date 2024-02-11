@@ -98,16 +98,6 @@ declare global {
 		}[]
 	}
 
-	interface SendingEventType {
-		eventTypeName: string
-		description: string
-		categories: {
-			categoryId: string
-			eventCategoryName: string
-			description: string
-		}[]
-	}
-
 	interface SendingUpdateEvent extends EventFromDB {
 		eventType: string
 		extraEventCategories: string[]

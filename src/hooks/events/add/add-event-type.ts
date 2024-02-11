@@ -20,12 +20,7 @@ export default function useAddEventType(
 		e.preventDefault()
 		setLoading(true)
 		try {
-			const transformedEventTypeDetails: SendingEventType = {
-				eventTypeName: eventTypeDetails.eventTypeName,
-				description: eventTypeDetails.description,
-				categories: eventTypeDetails.categories,
-			}
-			const response = await appContext.eventfullApiClient.eventsDataService.addEventType(transformedEventTypeDetails)
+			const response = await appContext.eventfullApiClient.eventsDataService.addEventType(eventTypeDetails)
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
 				setError("Unable to add event type. Please reload and try again.")
