@@ -1,4 +1,3 @@
-import _ from "lodash"
 import { useState, useEffect } from "react"
 
 interface Props {
@@ -21,8 +20,6 @@ export default function CharacterLimit (props: Props) {
 		if (isVariableOverLimit) return {color: "red"}
 		return {color: "black"}
 	}
-
-	if (_.isNull(variable)) return null
 
 	return (
 		<div style = {counterStyleLimit()}>

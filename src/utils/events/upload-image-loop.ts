@@ -17,7 +17,6 @@ export default async function uploadImageLoop(
 
 		// Find the corresponding object in imageURLs array and update its imageURL
 		const index = imageURLs.findIndex(item => item.imageId === imageId)
-		// eslint-disable-next-line max-depth
 		if (index !== -1) imageURLs[index].imageURL = uploadedImageUrl
 	}
 	return imageURLs

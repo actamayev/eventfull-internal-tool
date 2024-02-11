@@ -1,5 +1,5 @@
-import CharacterLimit from "../character-limit"
 import FormGroup from "../form-group"
+import CharacterLimit from "../character-limit"
 
 interface Props {
 	eventCategory: CreatingEventCategory | EventCategoryFromDB
@@ -15,7 +15,6 @@ export default function EventCategoryDescriptionInput(props: Props) {
 
 	return (
 		<div className="flex items-center justify-between">
-
 			<FormGroup
 				label="Event Category Description *"
 				type="text"

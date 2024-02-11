@@ -29,11 +29,10 @@ function ChooseExtraEventCategories(props: Props) {
 
 		for (let i = 0; i < options.length; i++) {
 			const option = options[i]
+			if (option.selected === false) continue
 
-			if (option.selected) {
-				const category = appContext.eventsData?.eventCategories.get(option.value)
-				if (category) updatedExtraCategories.push(option.value)
-			}
+			const category = appContext.eventsData?.eventCategories.get(option.value)
+			if (!_.isUndefined(category)) updatedExtraCategories.push(option.value)
 		}
 
 		setEventDetails({
@@ -54,12 +53,11 @@ function ChooseExtraEventCategories(props: Props) {
 				className="mt-1 block w-full h-56 py-2 px-3 border border-gray-300 bg-white rounded-md \
 					shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-600 sm:text-sm"
 			>
-				{Array.from(appContext.eventsData.eventCategories.entries()).map(([id, category]) => {
-					if (selectedEventTypeCategories.includes(id)) return null // Skip categories already in the event type
-					return (
+				{Array.from(appContext.eventsData.eventCategories.entries())
+					.filter(([id]) => !selectedEventTypeCategories.includes(id))
+					.map(([id, category]) => (
 						<option key={id} value={id}>{category.eventCategoryName}</option>
-					)
-				})}
+					))}
 			</select>
 		</div>
 	)
