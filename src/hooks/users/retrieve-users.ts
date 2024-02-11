@@ -8,7 +8,10 @@ export default function useRetrieveUsers(): void {
 	const appContext = useContext(AppContext)
 
 	useEffect(() => {
-		if (_.isNull(appContext.eventfullApiClient.httpClient.accessToken)) return
+		if (
+			_.isNull(appContext.eventfullApiClient.httpClient.accessToken) ||
+			!_.isEmpty(appContext.usersData?.usersMap)
+		) return
 		void retrieveUsers()
 	}, [appContext.eventfullApiClient.httpClient.accessToken])
 

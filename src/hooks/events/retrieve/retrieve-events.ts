@@ -8,7 +8,10 @@ export default function useRetrieveEvents(): void {
 	const appContext = useContext(AppContext)
 
 	useEffect(() => {
-		if (_.isNull(appContext.eventfullApiClient.httpClient.accessToken)) return
+		if (
+			_.isNull(appContext.eventfullApiClient.httpClient.accessToken) ||
+			!_.isEmpty(appContext.eventsData?.eventsMap)
+		) return
 		void retrieveEvents()
 	}, [appContext.eventfullApiClient.httpClient.accessToken])
 
