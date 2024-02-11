@@ -2,9 +2,9 @@ import _ from "lodash"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import EventsClass from "../../../classes/events/events-class"
-import uploadFileToS3 from "../../../utils/upload-file-to-aws"
 import AppContext from "../../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../../utils/type-checks"
+import uploadImageLoop from "../../../utils/events/upload-image-loop"
 import setErrorAxiosResponse from "../../../utils/error-handling/set-error-axios-response"
 import { calculateEventDurationForNewEvents } from "../../../utils/events/calculate-event-duration"
 
@@ -27,7 +27,7 @@ export default function useAddEvent(
 			const transformedEvent: SendingCreateEvent = {
 				...eventDetailsWithEventDuration,
 				eventType: eventDetails.eventType.eventTypeId,
-				extraEventCategories: eventDetailsWithEventDuration.extraEventCategories?.map(category => category.eventCategoryId) || []
+				extraEventCategories: eventDetailsWithEventDuration.extraEventCategories?.map(category => category.categoryId) || []
 			}
 			const response = await appContext.eventfullApiClient.eventsDataService.addEvent(
 				transformedEvent, _.size(selectedFiles)
@@ -38,21 +38,7 @@ export default function useAddEvent(
 				return
 			}
 			if (!_.isEmpty(response.data.imagesURLsData)) {
-				const imageURLs: ImageURLs[] = response.data.imagesURLsData.map((imageURLData) => ({
-					imageId: imageURLData.imageId, imageURL: "", isActive: true
-				}))
-
-				for (let i = 0; i < _.size(selectedFiles); i++) {
-					const file = selectedFiles[i]
-					const imageId = response.data.imagesURLsData[i].imageId
-					const presignedUrl = response.data.imagesURLsData[i].presignedUrl
-					const uploadedImageUrl = await uploadFileToS3(file, presignedUrl)
-
-					// Find the corresponding object in imageURLs array and update its imageURL
-					const index = imageURLs.findIndex(item => item.imageId === imageId)
-					// eslint-disable-next-line max-depth
-					if (index !== -1) imageURLs[index].imageURL = uploadedImageUrl
-				}
+				const imageURLs = await uploadImageLoop(selectedFiles, response.data.imagesURLsData)
 
 				response.data.newEvent.eventImages = imageURLs
 				await appContext.eventfullApiClient.eventsDataService.addEventImages(response.data.newEvent._id, imageURLs)

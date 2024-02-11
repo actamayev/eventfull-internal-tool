@@ -19,6 +19,11 @@ declare global {
 		dayOfWeek: DayOfWeek
 	}
 
+	interface ExtraEventCategory {
+		categoryId: string
+		eventCategoryName: string
+	}
+
 	interface CreatingEvent {
 		eventName: string
 		eventPrice: number
@@ -36,10 +41,7 @@ declare global {
 		eventDescription: string
 
 		eventURL?: string
-		extraEventCategories?: {
-			eventCategoryId: string
-			eventCategoryName: string
-		}[]
+		extraEventCategories?: ExtraEventCategory[]
 
 		// For one time events:
 		singularEventTime?: BaseEventTime | null
