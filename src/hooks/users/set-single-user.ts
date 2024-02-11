@@ -4,9 +4,7 @@ import AppContext from "../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
 import extractUserData from "../../utils/users/extract-user-data"
 
-export default function useSetSingleUser(
-	userId: string | undefined,
-): UserFromDB | undefined {
+export default function useSetSingleUser(userId: string | undefined): UserFromDB | undefined {
 	const appContext = useContext(AppContext)
 	const [retrievedUser, setRetrievedUser] = useState<UserFromDB | undefined>(undefined)
 
@@ -22,9 +20,9 @@ export default function useSetSingleUser(
 		if (!_.isUndefined(user)) {
 			const extractedUser = extractUserData(user)
 			setRetrievedUser(extractedUser)
-		} else {
-			void setSingleUser()
+			return
 		}
+		void setSingleUser()
 	}, [appContext.authClass.accessToken, appContext.personalData?.username, appContext.usersData])
 
 	const setSingleUser = async (): Promise<SingleUserResponse | void> => {
