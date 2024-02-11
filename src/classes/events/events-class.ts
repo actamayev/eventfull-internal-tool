@@ -4,7 +4,7 @@ import EventClass from "./event-class"
 
 export default class EventsClass {
 	public eventsMap: Map<string, EventClass> = new Map() // key: event id, value: EventClass
-	public eventTypes: Map<string, EventTypeFromDB> = new Map() // key: event type, value: EventType
+	public eventTypes: Map<string, EventTypeFromDB> = new Map() // key: event type _id, value: EventType
 	public eventCategories: Map<string, EventCategoryFromDB> = new Map() // key: category _id, value: Event Category
 
 	constructor() {
@@ -56,12 +56,7 @@ export default class EventsClass {
 	public addEventCategory = action((newCategory: EventCategoryFromDB): void => {
 		if (this.eventCategories.has(newCategory._id)) return
 		this.eventCategories.set(newCategory._id, {
-			_id: newCategory._id,
-			eventCategoryName: newCategory.eventCategoryName,
-			description: newCategory.description,
-			createdBy: newCategory.createdBy,
-			createdAt: newCategory.createdAt,
-			updatedAt: newCategory.updatedAt,
+			...newCategory
 		})
 	})
 
@@ -98,13 +93,7 @@ export default class EventsClass {
 	public addEventType = action((eventType: EventTypeFromDB): void => {
 		if (this.eventTypes.has(eventType._id)) return
 		this.eventTypes.set(eventType._id, {
-			_id: eventType._id,
-			eventTypeName: eventType.eventTypeName,
-			description: eventType.description,
-			categories: eventType.categories,
-			createdAt: eventType.createdAt,
-			updatedAt: eventType.updatedAt,
-			createdBy: eventType.createdBy,
+			...eventType
 		})
 	})
 

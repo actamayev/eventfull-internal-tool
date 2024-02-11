@@ -1,8 +1,8 @@
 import AuthDataService from "../services/auth-data-service"
+import EventfullHttpClient from "./eventfull-it-http-client"
+import UsersDataService from "../services/users-data-service"
 import EventsDataService from "../services/events-data-service"
 import PersonalDataService from "../services/personal-data-service"
-import UsersDataService from "../services/users-data-service"
-import EventfullHttpClient from "./eventfull-it-http-client"
 
 export default class EventfullITApiClient {
 	public readonly httpClient: EventfullHttpClient

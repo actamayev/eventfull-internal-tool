@@ -1,12 +1,14 @@
 import { Routes, Route } from "react-router-dom"
-import Login from "./pages/auth/login"
+
 import Missing from "./pages/missing"
+import Login from "./pages/auth/login"
 import AddAdmin from "./pages/add-admin"
 import AddEvent from "./pages/add-event"
 import ViewUser from "./pages/view-user"
 import EditEvent from "./pages/edit-event"
 import OTPLogin from "./pages/auth/otp-login"
 import AddEventType from "./pages/add-event-type"
+import EditEventType from "./pages/edit-event-type"
 import UsersDashboard from "./pages/users-dashboard"
 import EventsDashboard from "./pages/events-dashboard"
 import AddEventCategory from "./pages/add-event-category"
@@ -16,7 +18,6 @@ import EventCategoriesDashboard from "./pages/event-categories-dashboard"
 import FinishAdminRegistration from "./pages/auth/finish-admin-registration"
 
 import useRetrievePersonalInfo from "./hooks/retrieve-personal-info"
-import EditEventType from "./pages/edit-event-type"
 
 export default function App() {
 	useRetrievePersonalInfo()
