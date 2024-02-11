@@ -14,13 +14,12 @@ export default function DescriptionInput(props: Props) {
 
 	return (
 		<FormGroup
-			id="description"
 			label="Description"
 			type="text"
 			placeholder="Embark on a thrilling quest through the perilous corridors of Bowser's Castle."
 			value={eventDetails.eventDescription}
 			onChange={handleDescriptionChange}
-			// multiline = {true}
+			multiline = {true}
 		/>
 	)
 }

@@ -10,7 +10,6 @@ export default function ContactInput (props: Props) {
 
 	return (
 		<FormGroup
-			id = "contact"
 			label = "Email/Username"
 			type = "contact"
 			placeholder = "abc@123.com"

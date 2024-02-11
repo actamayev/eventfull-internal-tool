@@ -2,10 +2,9 @@ import { observer } from "mobx-react"
 import { useCallback,  useState } from "react"
 import { useLoadScript } from "@react-google-maps/api"
 import Button from "../components/button"
-import useAddEvent from "../hooks/events/add-event"
-import EventTemplate from "../components/event-template"
+import useAddEvent from "../hooks/events/add/add-event"
+import CardTemplate from "../components/card-template"
 import ImageUploader from "../components/image-uploader"
-import isAddOrSaveEventDisabled from "../utils/events/is-add-or-save-event-disabled"
 import SelectTimes from "../components/add-or-edit-event/select-times"
 import AddressInput from "../components/add-or-edit-event/address-input"
 import EventURLInput from "../components/add-or-edit-event/event-url-input"
@@ -17,6 +16,7 @@ import TogglePublicEvent from "../components/add-or-edit-event/is-event-public"
 import DescriptionInput from "../components/add-or-edit-event/description-input"
 import ToggleVirtualEvent from "../components/add-or-edit-event/is-event-virtual"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
+import isAddOrSaveEventDisabled from "../utils/events/is-add-or-save-event-disabled"
 import ChooseEventFrequency from "../components/add-or-edit-event/choose-event-frequency"
 import FillInPreviousEventButton from "../components/add-or-edit-event/fill-in-previous-event-button"
 
@@ -28,7 +28,10 @@ function AddEvent() {
 	const [eventDetails, setEventDetails] = useState<CreatingEvent>({
 		eventName: "",
 		eventPrice: 0,
-		eventType: "",
+		eventType: {
+			eventTypeId: "",
+			eventTypeName: "",
+		},
 		isVirtual: false,
 		isActive: true,
 		eventPublic: true,
@@ -63,7 +66,7 @@ function AddEvent() {
 	}, [setEventDetails])
 
 	return (
-		<EventTemplate title="Add">
+		<CardTemplate title="Add Event">
 			<FillInPreviousEventButton setEventDetails={setEventDetails} />
 			<form onSubmit={addEvent}>
 				<EventNameInput
@@ -130,7 +133,7 @@ function AddEvent() {
 					/>
 				</div>
 			</form>
-		</EventTemplate>
+		</CardTemplate>
 	)
 }
 

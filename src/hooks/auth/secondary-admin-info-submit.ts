@@ -32,7 +32,7 @@ export default function useSecondaryAdminInfoSubmit (
 				return
 			}
 			appContext.setUsername(secondaryRegisterInformation.username)
-			navigate("/dashboard")
+			navigate("/events-dashboard")
 		} catch (error: unknown) {
 			setErrorAxiosResponse(error, setError, "Unable to register")
 		} finally {

@@ -1,7 +1,7 @@
-import dayjs from "dayjs"
+import formatReadableDate from "../format-readable-date"
 import EventClass from "../../classes/events/event-class"
 
-export default function createEventsArrayForGrid(eventsData: Map<string, EventClass>): GridRowData[] {
+export default function createEventsArrayForGrid(eventsData: Map<string, EventClass>): EventGridRowData[] {
 	const eventsArray = eventsData instanceof Map
 		? Array.from(eventsData.values())
 		: eventsData
@@ -9,7 +9,7 @@ export default function createEventsArrayForGrid(eventsData: Map<string, EventCl
 	return eventsArray
 		.filter(event => event.isActive)
 		.map(event => ({
-			eventId: event._id,
+			id: event._id,
 			eventName: event.eventName,
 			eventDescription: event.eventDescription,
 			address: event.address,
@@ -17,8 +17,4 @@ export default function createEventsArrayForGrid(eventsData: Map<string, EventCl
 			createdAt: formatReadableDate(event.createdAt),
 			updatedAt: formatReadableDate(event.updatedAt)
 		}))
-}
-
-export function formatReadableDate(date: Date): string {
-	return dayjs(date).format("M/D/YY [at] h:mmA")
 }

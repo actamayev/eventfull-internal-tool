@@ -14,7 +14,6 @@ export default function EventNameInput(props: Props) {
 
 	return (
 		<FormGroup
-			id="event-name"
 			label="Event Name *"
 			type="text"
 			placeholder="Save Princess Peach"

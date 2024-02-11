@@ -39,8 +39,7 @@ declare global {
 	type EventsResponse = { events: EventFromDB[] }
 	type SingleEventResponse = { event: EventFromDB }
 
-	interface EventFromDB extends TimestampsInterface {
-		_id: string // This is actually Types.ObjectId, but I don't want to import it here
+	interface EventFromDB extends TimestampsInterface, IDInterface {
 		__v: number
 		address: string
 		attendees: EventfullAttendee[]
@@ -62,15 +61,63 @@ declare global {
 		eventPrice: number
 		eventPublic: boolean
 		eventReviewable: boolean
-		eventType: string
+		eventType: {
+			eventTypeId: string
+			eventTypeName: string
+		}
 		eventURL?: string
-		extraEventCategories: string[]
+		extraEventCategories: {
+			categoryId: string
+			eventCategoryName: string
+		}[]
 		invitees: EventfullInvitee[]
 		isActive: boolean
 		isVirtual: boolean
 		ongoingEventTimes: OngoingEvents[]
 		singularEventTime?: BaseEventTime
 		organizer?: SocialData
+	}
+
+	type EventTypesResponse = { eventTypes: EventTypeFromDB[] }
+	type SingleEventTypeResponse = { eventType: EventTypeFromDB }
+	type AddEventTypeResponse = {
+		_id: string
+		createdAt: Date
+		updatedAt: Date
+		createdBy: AdminSocialData
+	}
+	type EventCategoriesResponse = { eventCategories: EventCategoryFromDB[] }
+	type SingleEventCategoryResponse = { eventCategory: EventCategoryFromDB }
+
+	interface EventTypeFromDB extends IDInterface, TimestampsInterface {
+		eventTypeName: string
+		description: string
+		categories: {
+			categoryId: string
+			eventCategoryName: string
+			description: string
+		}[]
+		createdBy: AdminSocialData
+	}
+
+	interface EventCategoryFromDB extends IDInterface, TimestampsInterface {
+		eventCategoryName: string
+		description: string
+		createdBy: AdminSocialData
+	}
+
+	// Users:
+	type UsersResponse = { users: UserFromDB[] }
+	type SingleUserResponse = { user: UserFromDB }
+
+	interface UserFromDB extends TimestampsInterface, IDInterface {
+		firstName: string
+		lastName?: string
+		email?: string
+		phoneNumber?: string
+		friends: SocialDataWithTimestamp[]
+		username?: string
+		loginHistory: LoginHistory[]
 	}
 }
 

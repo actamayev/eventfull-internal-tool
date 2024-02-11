@@ -4,14 +4,14 @@ import { useParams } from "react-router-dom"
 import { useContext, useState } from "react"
 import { useLoadScript } from "@react-google-maps/api"
 import Button from "../components/button"
-import useEditEvent from "../hooks/events/edit-event"
-import EventTemplate from "../components/event-template"
-import AppContext from "../contexts/eventfull-it-context"
+import CardTemplate from "../components/card-template"
 import ImageUploader from "../components/image-uploader"
-import useSetSingleEvent from "../hooks/events/set-single-event"
-import isAddOrSaveEventDisabled from "../utils/events/is-add-or-save-event-disabled"
+import AppContext from "../contexts/eventfull-it-context"
+import useEditEvent from "../hooks/events/edit/edit-event"
+import useSetSingleEvent from "../hooks/events/set/set-single-event"
 import SelectTimes from "../components/add-or-edit-event/select-times"
 import AddressInput from "../components/add-or-edit-event/address-input"
+import ShowPictures from "../components/add-or-edit-event/show-pictures"
 import EventURLInput from "../components/add-or-edit-event/event-url-input"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 import EventNameInput from "../components/add-or-edit-event/event-name-input"
@@ -21,8 +21,8 @@ import TogglePublicEvent from "../components/add-or-edit-event/is-event-public"
 import DescriptionInput from "../components/add-or-edit-event/description-input"
 import ToggleVirtualEvent from "../components/add-or-edit-event/is-event-virtual"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
+import isAddOrSaveEventDisabled from "../utils/events/is-add-or-save-event-disabled"
 import ChooseEventFrequency from "../components/add-or-edit-event/choose-event-frequency"
-import ShowPictures from "../components/add-or-edit-event/show-pictures"
 
 const libraries: ("places")[] = ["places"]
 
@@ -37,7 +37,10 @@ function EditEvent() {
 		__v: 0,
 		eventName: "",
 		eventPrice: 0,
-		eventType: "",
+		eventType: {
+			eventTypeId: "",
+			eventTypeName: "",
+		},
 		isVirtual: false,
 		isActive: true,
 		eventPublic: true,
@@ -111,7 +114,7 @@ function EditEvent() {
 	const activeImagesCount = eventDetails.eventImages.reduce((count, image) => image.isActive ? count + 1 : count, 0)
 
 	return (
-		<EventTemplate title="Edit">
+		<CardTemplate title="Edit Event">
 			<form onSubmit={editEvent}>
 				<EventNameInput
 					eventDetails={eventDetails}
@@ -182,7 +185,7 @@ function EditEvent() {
 					<ChangesMade />
 				</div>
 			</form>
-		</EventTemplate>
+		</CardTemplate>
 	)
 }
 

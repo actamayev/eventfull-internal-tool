@@ -1,12 +1,21 @@
 import { Routes, Route } from "react-router-dom"
-import Login from "./pages/login"
+
 import Missing from "./pages/missing"
+import Login from "./pages/auth/login"
 import AddAdmin from "./pages/add-admin"
-import OTPLogin from "./pages/otp-login"
 import AddEvent from "./pages/add-event"
-import Dashboard from "./pages/dashboard"
+import ViewUser from "./pages/view-user"
 import EditEvent from "./pages/edit-event"
-import FinishAdminRegistration from "./pages/finish-admin-registration"
+import OTPLogin from "./pages/auth/otp-login"
+import AddEventType from "./pages/add-event-type"
+import EditEventType from "./pages/edit-event-type"
+import UsersDashboard from "./pages/users-dashboard"
+import EventsDashboard from "./pages/events-dashboard"
+import AddEventCategory from "./pages/add-event-category"
+import EditEventCategory from "./pages/edit-event-category"
+import EventTypesDashboard from "./pages/event-types-dashboard"
+import EventCategoriesDashboard from "./pages/event-categories-dashboard"
+import FinishAdminRegistration from "./pages/auth/finish-admin-registration"
 
 import useRetrievePersonalInfo from "./hooks/retrieve-personal-info"
 
@@ -20,10 +29,20 @@ export default function App() {
 			<Route path = "/otp-login" element = {<OTPLogin />} />
 			<Route path = "/finish-admin-registration" element = {<FinishAdminRegistration />} />
 
-			<Route path = "/dashboard" element = {<Dashboard />} />
+			<Route path = "/events-dashboard" element = {<EventsDashboard />} />
 			<Route path = "/add-event" element = {<AddEvent />} />
 			<Route path = "/edit-event/:eventId" element = {<EditEvent />} />
 
+			<Route path = "/users-dashboard" element = {<UsersDashboard />} />
+			<Route path = "/view-user/:userId" element = {<ViewUser />} />
+
+			<Route path = "/event-types-dashboard" element = {<EventTypesDashboard />} />
+			<Route path = "/add-event-type" element = {<AddEventType />} />
+			<Route path = "/edit-event-type/:eventTypeId" element = {<EditEventType />} />
+
+			<Route path = "/event-categories-dashboard" element = {<EventCategoriesDashboard />} />
+			<Route path = "/add-event-category" element = {<AddEventCategory />} />
+			<Route path = "/edit-event-category/:eventCategoryId" element = {<EditEventCategory />} />
 
 			<Route path = "*" element = {<Missing />} />
 		</Routes>

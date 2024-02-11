@@ -22,7 +22,10 @@ declare global {
 	interface CreatingEvent {
 		eventName: string
 		eventPrice: number
-		eventType: string
+		eventType: {
+			eventTypeId: string
+			eventTypeName: string
+		}
 		isVirtual: boolean
 		isActive: boolean
 		eventPublic: boolean
@@ -33,7 +36,10 @@ declare global {
 		eventDescription: string
 
 		eventURL?: string
-		extraEventCategories?: string[]
+		extraEventCategories?: {
+			eventCategoryId: string
+			eventCategoryName: string
+		}[]
 
 		// For one time events:
 		singularEventTime?: BaseEventTime | null
@@ -48,20 +54,15 @@ declare global {
 		eventCapacity: number
 	}
 
+	interface SendingCreateEvent extends CreatingEvent {
+		eventType: string
+		extraEventCategories: string[]
+	}
+
 	interface ImageURLs {
 		imageId: string
 		imageURL?: string
 		isActive: boolean
-	}
-
-	interface GridRowData {
-		eventId: string
-		eventName: string
-		eventDescription: string
-		address: string
-		createdByUsername: string
-		createdAt: string
-		updatedAt: string
 	}
 
 	interface EventfullInvitee {
@@ -80,6 +81,26 @@ declare global {
 	interface EventfullCoHost {
 		user: SocialData
 		invitedBy: SocialDataWithTimestamp
+	}
+
+	interface CreatingEventCategory {
+		eventCategoryName: string
+		description: string
+	}
+
+	interface CreatingEventType {
+		eventTypeName: string
+		description: string
+		categories: {
+			categoryId: string
+			eventCategoryName: string
+			description: string
+		}[]
+	}
+
+	interface SendingUpdateEvent extends EventFromDB {
+		eventType: string
+		extraEventCategories: string[]
 	}
 }
 

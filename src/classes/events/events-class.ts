@@ -3,14 +3,19 @@ import { action, makeObservable, observable } from "mobx"
 import EventClass from "./event-class"
 
 export default class EventsClass {
-	public eventsMap: Map<string, EventClass> = new Map()
+	public eventsMap: Map<string, EventClass> = new Map() // key: event id, value: EventClass
+	public eventTypes: Map<string, EventTypeFromDB> = new Map() // key: event type _id, value: EventType
+	public eventCategories: Map<string, EventCategoryFromDB> = new Map() // key: category _id, value: Event Category
 
 	constructor() {
 		makeObservable(this, {
 			eventsMap: observable,
+			eventTypes: observable,
+			eventCategories: observable,
 		})
 	}
 
+	// Events:
 	public contextForEvent(eventId: string): EventClass | undefined {
 		const event = this.eventsMap.get(eventId)
 		return event
@@ -21,6 +26,12 @@ export default class EventsClass {
 		const newEvent = new EventClass(event)
 		this.eventsMap.set(event._id, newEvent)
 	})
+
+	public getLastEvent(): EventClass | null {
+		const keys = Array.from(this.eventsMap.keys())
+		if (_.isEmpty(keys)) return null
+		return this.eventsMap.get(keys[keys.length - 1]) || null
+	}
 
 	public editEvent = action((event: EventFromDB): void => {
 		if (this.eventsMap.has(event._id) === false) return
@@ -35,9 +46,64 @@ export default class EventsClass {
 		this.eventsMap.delete(eventId)
 	})
 
-	public getLastEvent(): EventClass | null {
-		const keys = Array.from(this.eventsMap.keys())
-		if (_.isEmpty(keys)) return null
-		return this.eventsMap.get(keys[keys.length - 1]) || null
-	}
+	// Event Categories:
+	public assignEventCategories = action((eventCategoriesFromDB: EventCategoryFromDB[]): void => {
+		eventCategoriesFromDB.forEach((eventCategory) => {
+			this.addEventCategory(eventCategory)
+		})
+	})
+
+	public addEventCategory = action((newCategory: EventCategoryFromDB): void => {
+		if (this.eventCategories.has(newCategory._id)) return
+		this.eventCategories.set(newCategory._id, {
+			...newCategory
+		})
+	})
+
+	public editEventCategory = action((category: EventCategoryFromDB): void => {
+		if (this.eventCategories.has(category._id) === false) return
+		this.eventCategories.set(category._id, category)
+		if (_.isEmpty(this.eventTypes)) return
+		this.eventTypes.forEach((eventType) => {
+			// Check if any category within eventType.categories matches the given category._id
+			const categoryIndex = eventType.categories.findIndex(cat => cat.categoryId === category._id)
+
+			if (categoryIndex !== -1) {
+				// Found the category, now updating it with new values
+				eventType.categories[categoryIndex].eventCategoryName = category.eventCategoryName
+				eventType.categories[categoryIndex].description = category.description
+
+				// Update the eventType in the map
+				this.eventTypes.set(eventType._id, eventType)
+			}
+		})
+	})
+
+	public removeEventCategory = action((categoryId: string): void => {
+		this.eventCategories.delete(categoryId)
+	})
+
+	// Event Types:
+	public assignEventTypes = action((eventTypesFromDB: EventTypeFromDB[]): void => {
+		eventTypesFromDB.forEach((eventType) => {
+			this.addEventType(eventType)
+		})
+	})
+
+	public addEventType = action((eventType: EventTypeFromDB): void => {
+		if (this.eventTypes.has(eventType._id)) return
+		this.eventTypes.set(eventType._id, {
+			...eventType
+		})
+	})
+
+	public editEventType = action((eventType: EventTypeFromDB): void => {
+		if (this.eventTypes.has(eventType._id) === false) return
+		this.eventTypes.set(eventType._id, eventType)
+	})
+
+	public removeEventType = action((eventTypeId: string): void => {
+		this.eventTypes.delete(eventTypeId)
+	})
+
 }

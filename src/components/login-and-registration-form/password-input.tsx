@@ -11,7 +11,6 @@ export default function PasswordInput (props: Props) {
 
 	return (
 		<FormGroup
-			id = "password"
 			label = "Password"
 			type = {showPassword}
 			placeholder = "Password"

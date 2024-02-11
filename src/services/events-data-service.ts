@@ -5,21 +5,13 @@ export default class EventsDataService {
 	constructor(private readonly httpClient: EventfullITHttpClient) {
 	}
 
+	// Events:
 	async addEvent(
-		eventfullEventData: CreatingEvent,
+		eventfullEventData: SendingCreateEvent,
 		numberOfImages: number
 	): Promise<AxiosResponse<NewEventResponse | NonSuccessResponse>> {
 		return await this.httpClient.http.post<NewEventResponse | NonSuccessResponse>(
 			"/events/add-event", { eventfullEventData, numberOfImages }
-		)
-	}
-
-	async editEvent(
-		eventfullEventData: EventFromDB,
-		numberOfImages: number
-	): Promise<AxiosResponse<UpdatedEventResponse | NonSuccessResponse>> {
-		return await this.httpClient.http.post<UpdatedEventResponse | NonSuccessResponse>(
-			"/events/update-event", { eventfullEventData, numberOfImages }
 		)
 	}
 
@@ -31,11 +23,66 @@ export default class EventsDataService {
 		return await this.httpClient.http.get<SingleEventResponse | ErrorResponses>(`/events/get-event/${eventId}`)
 	}
 
-	async deleteEvent(eventId: string): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
-		return await this.httpClient.http.delete<SuccessResponse | ErrorResponses>(`/events/delete-event/${eventId}`)
+	async editEvent(
+		eventfullEventData: SendingUpdateEvent,
+		numberOfImages: number
+	): Promise<AxiosResponse<UpdatedEventResponse | NonSuccessResponse>> {
+		return await this.httpClient.http.post<UpdatedEventResponse | NonSuccessResponse>(
+			"/events/update-event", { eventfullEventData, numberOfImages }
+		)
 	}
 
 	async addEventImages(eventId: string, imageURLs: ImageURLs[]): Promise<AxiosResponse<AllCommonResponses>> {
 		return await this.httpClient.http.post<AllCommonResponses>(`/events/add-image-urls/${eventId}`, { imageURLs })
+	}
+
+	async deleteEvent(eventId: string): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
+		return await this.httpClient.http.delete<SuccessResponse | ErrorResponses>(`/events/delete-event/${eventId}`)
+	}
+
+	// Event Categories:
+	async addEventCategory(
+		eventCategoryDetails: CreatingEventCategory
+	): Promise<AxiosResponse<SingleEventCategoryResponse | NonSuccessResponse>> {
+		return await this.httpClient.http.post<SingleEventCategoryResponse | NonSuccessResponse>(
+			"/events/add-event-category", { eventCategoryDetails }
+		)
+	}
+
+	async retrieveEventCategories(): Promise<AxiosResponse<EventCategoriesResponse | ErrorResponse>> {
+		return await this.httpClient.http.get<EventCategoriesResponse | ErrorResponse>("/events/get-event-categories")
+	}
+
+	async getEventCategoryById(eventCategoryId: string): Promise<AxiosResponse<SingleEventCategoryResponse | ErrorResponses>> {
+		return await this.httpClient.http.get<SingleEventCategoryResponse | ErrorResponses>(`/events/get-event-category/${eventCategoryId}`)
+	}
+
+	async editEventCategory(eventCategoryDetails: EventCategoryFromDB): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
+		return await this.httpClient.http.post<SuccessResponse | ErrorResponses>("/events/update-event-category", { eventCategoryDetails })
+	}
+
+	async deleteEventCategory(eventCategoryId: string): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
+		return await this.httpClient.http.delete<SuccessResponse | ErrorResponses>(`/events/delete-event-category/${eventCategoryId}`)
+	}
+
+	// Event Types:
+	async addEventType(eventTypeDetails: CreatingEventType): Promise<AxiosResponse<AddEventTypeResponse | NonSuccessResponse>> {
+		return await this.httpClient.http.post<AddEventTypeResponse | NonSuccessResponse>("/events/add-event-type", { eventTypeDetails })
+	}
+
+	async retrieveEventTypes(): Promise<AxiosResponse<EventTypesResponse | ErrorResponse>> {
+		return await this.httpClient.http.get<EventTypesResponse | ErrorResponse>("/events/get-event-types")
+	}
+
+	async getEventTypeById(eventTypeId: string): Promise<AxiosResponse<SingleEventTypeResponse | ErrorResponses>> {
+		return await this.httpClient.http.get<SingleEventTypeResponse | ErrorResponses>(`/events/get-event-type/${eventTypeId}`)
+	}
+
+	async editEventType(eventTypeDetails: EventTypeFromDB): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
+		return await this.httpClient.http.post<SuccessResponse | ErrorResponses>("/events/update-event-type", { eventTypeDetails })
+	}
+
+	async deleteEventType(eventTypeId: string): Promise<AxiosResponse<SuccessResponse | ErrorResponses>> {
+		return await this.httpClient.http.delete<SuccessResponse | ErrorResponses>(`/events/delete-event-type/${eventTypeId}`)
 	}
 }
