@@ -1,5 +1,5 @@
-import dayjs from "dayjs"
 import UserClass from "../../classes/users/user-class"
+import formatReadableDate from "../format-readable-date"
 
 export default function createUsersArrayForGrid(usersData: Map<string, UserClass>): UserGridRowData[] {
 	const usersArray = usersData instanceof Map
@@ -16,8 +16,8 @@ export default function createUsersArrayForGrid(usersData: Map<string, UserClass
 			phoneNumber: user.phoneNumber,
 			numberOfFriends: user.friends.length,
 			lastLogin: user.loginHistory.length > 0
-				? dayjs(user.loginHistory[user.loginHistory.length - 1].loginTime).format("M/D/YY [at] h:mmA")
+				? formatReadableDate(user.loginHistory[user.loginHistory.length - 1].loginTime)
 				: "Never",
-			createdAt: dayjs(user.createdAt).format("M/D/YY [at] h:mmA")
+			createdAt: formatReadableDate(user.createdAt)
 		}))
 }

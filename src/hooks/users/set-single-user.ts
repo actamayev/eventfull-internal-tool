@@ -2,7 +2,6 @@ import _ from "lodash"
 import { useContext, useEffect, useState } from "react"
 import AppContext from "../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
-import extractUserData from "../../utils/users/extract-user-data"
 
 export default function useSetSingleUser(userId: string | undefined): UserFromDB | undefined {
 	const appContext = useContext(AppContext)
@@ -18,8 +17,7 @@ export default function useSetSingleUser(userId: string | undefined): UserFromDB
 
 		const user = appContext.usersData.contextForUser(userId)
 		if (!_.isUndefined(user)) {
-			const extractedUser = extractUserData(user)
-			setRetrievedUser(extractedUser)
+			setRetrievedUser({...user })
 			return
 		}
 		void setSingleUser()
