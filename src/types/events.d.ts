@@ -19,11 +19,6 @@ declare global {
 		dayOfWeek: DayOfWeek
 	}
 
-	interface ExtraEventCategory {
-		categoryId: string
-		eventCategoryName: string
-	}
-
 	interface CreatingEvent {
 		eventName: string
 		eventPrice: number
