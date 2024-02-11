@@ -47,7 +47,7 @@ function UsersGrid () {
 						id="filter-text-box"
 						placeholder="Search Users..."
 						onInput={onFilterTextBoxChanged}
-						className="p-2 border-2 border-gray-300 rounded-md w-1/6"
+						className="p-2 border-2 border-gray-300 rounded-md w-56"
 					/>
 				</div>
 			</div>

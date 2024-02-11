@@ -68,7 +68,7 @@ function EventTypesGrid () {
 						id="filter-text-box"
 						placeholder="Search Event Types..."
 						onInput={onFilterTextBoxChanged}
-						className="p-2 border-2 border-gray-300 rounded-md w-1/6"
+						className="p-2 border-2 border-gray-300 rounded-md w-56"
 					/>
 				</div>
 				<div>
