@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react"
 import { Autocomplete } from "@react-google-maps/api"
 import FormGroup from "../form-group"
+import CharacterLimit from "../character-limit"
 
 interface Props {
 	eventDetails: CreatingEvent | EventFromDB
@@ -37,14 +38,24 @@ export default function AddressInput(props: Props) {
 				autocompleteRef.current = autocomplete
 			}}
 		>
-			<FormGroup
-				label="Address *"
-				type="text"
-				placeholder="Bowser's Castle"
-				value={eventDetails.address}
-				onChange={handleAddressChange}
-				required
-			/>
+			<div className="flex items-center justify-between">
+				<FormGroup
+					label="Address *"
+					type="text"
+					placeholder="Bowser's Castle"
+					value={eventDetails.address}
+					onChange={handleAddressChange}
+					required
+					maxLength={100}
+					className="flex-grow mr-4"
+				/>
+				<div className="shrink-0">
+					<CharacterLimit
+						variable={eventDetails.address}
+						maxLength={100}
+					/>
+				</div>
+			</div>
 		</Autocomplete>
 	)
 }

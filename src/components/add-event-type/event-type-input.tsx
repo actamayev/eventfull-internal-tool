@@ -1,3 +1,4 @@
+import CharacterLimit from "../character-limit"
 import FormGroup from "../form-group"
 
 interface Props {
@@ -13,13 +14,24 @@ export default function EventTypeNameInput(props: Props) {
 	}
 
 	return (
-		<FormGroup
-			label="Event Type Name *"
-			type="text"
-			placeholder="Basketball game"
-			onChange={handleEventTypeNameChange}
-			required
-			value={eventType.eventTypeName}
-		/>
+		<div className="flex items-center justify-between">
+
+			<FormGroup
+				label="Event Type Name *"
+				type="text"
+				placeholder="Basketball game"
+				onChange={handleEventTypeNameChange}
+				required
+				value={eventType.eventTypeName}
+				maxLength={20}
+				className="flex-grow mr-4"
+			/>
+			<div className="shrink-0">
+				<CharacterLimit
+					variable={eventType.eventTypeName}
+					maxLength={20}
+				/>
+			</div>
+		</div>
 	)
 }

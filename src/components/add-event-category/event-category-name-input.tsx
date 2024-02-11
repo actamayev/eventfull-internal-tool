@@ -1,3 +1,4 @@
+import CharacterLimit from "../character-limit"
 import FormGroup from "../form-group"
 
 interface Props {
@@ -13,13 +14,24 @@ export default function EventCategoryNameInput(props: Props) {
 	}
 
 	return (
-		<FormGroup
-			label="Event Category Name *"
-			type="text"
-			placeholder="Entertainment"
-			onChange={handleEventCategoryNameChange}
-			required
-			value={eventCategory.eventCategoryName}
-		/>
+		<div className="flex items-center justify-between">
+
+			<FormGroup
+				label="Event Category Name *"
+				type="text"
+				placeholder="Entertainment"
+				onChange={handleEventCategoryNameChange}
+				required
+				value={eventCategory.eventCategoryName}
+				maxLength={20}
+				className="flex-grow mr-4"
+			/>
+			<div className="shrink-0">
+				<CharacterLimit
+					variable={eventCategory.eventCategoryName}
+					maxLength={20}
+				/>
+			</div>
+		</div>
 	)
 }

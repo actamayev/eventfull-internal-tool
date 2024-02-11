@@ -1,3 +1,4 @@
+import CharacterLimit from "../character-limit"
 import FormGroup from "../form-group"
 
 interface Props {
@@ -13,13 +14,24 @@ export default function DescriptionInput(props: Props) {
 	}
 
 	return (
-		<FormGroup
-			label="Description"
-			type="text"
-			placeholder="Embark on a thrilling quest through the perilous corridors of Bowser's Castle."
-			value={eventDetails.eventDescription}
-			onChange={handleDescriptionChange}
-			multiline = {true}
-		/>
+		<div className="flex items-center justify-between">
+			<FormGroup
+				label="Description"
+				type="text"
+				placeholder="Embark on a thrilling quest through the perilous corridors of Bowser's Castle."
+				value={eventDetails.eventDescription}
+				onChange={handleDescriptionChange}
+				multiline = {true}
+				maxLength={500}
+				className="flex-grow mr-4"
+
+			/>
+			<div className="shrink-0">
+				<CharacterLimit
+					variable={eventDetails.eventDescription}
+					maxLength={500}
+				/>
+			</div>
+		</div>
 	)
 }
