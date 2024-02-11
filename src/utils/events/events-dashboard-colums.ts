@@ -8,8 +8,8 @@ import { caseInsensitiveComparator, dateComparator } from "../comparators"
 
 const eventsDashboardColumns: ColDef[] = [
 	{ headerName: "Event Name", field: "eventName", comparator: caseInsensitiveComparator, width: 175 },
-	{ headerName: "Description", field: "eventDescription", comparator: caseInsensitiveComparator, width: 450 },
-	{ headerName: "Location", field: "address", comparator: caseInsensitiveComparator, width: 450 },
+	{ headerName: "Description", field: "eventDescription", comparator: caseInsensitiveComparator, width: 375 },
+	{ headerName: "Location", field: "address", comparator: caseInsensitiveComparator, width: 375 },
 	{ headerName: "Created By", field: "createdByUsername", comparator: caseInsensitiveComparator, width: 120 },
 	{ headerName: "Created At", field: "createdAt", comparator: dateComparator, width: 151 },
 	{ headerName: "Last Updated At", field: "updatedAt", comparator: dateComparator, width: 151 },
