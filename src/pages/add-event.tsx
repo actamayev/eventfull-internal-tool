@@ -7,6 +7,7 @@ import CardTemplate from "../components/card-template"
 import ImageUploader from "../components/image-uploader"
 import SelectTimes from "../components/add-or-edit-event/select-times"
 import AddressInput from "../components/add-or-edit-event/address-input"
+import useRetrieveEvents from "../hooks/events/retrieve/retrieve-events"
 import EventURLInput from "../components/add-or-edit-event/event-url-input"
 import useRedirectUnknownUser from "../hooks/redirects/redirect-unknown-user"
 import EventNameInput from "../components/add-or-edit-event/event-name-input"
@@ -26,6 +27,7 @@ const libraries: ("places")[] = ["places"]
 // eslint-disable-next-line max-lines-per-function
 function AddEvent() {
 	useRedirectUnknownUser()
+	useRetrieveEvents()
 	const [eventDetails, setEventDetails] = useState<CreatingEvent>({
 		eventName: "",
 		eventPrice: 0,
