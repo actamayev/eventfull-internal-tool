@@ -111,7 +111,6 @@ function EditEvent() {
 
 	const activeImagesCount = eventDetails.eventImages.reduce((count, image) => image.isActive ? count + 1 : count, 0)
 
-	console.log(eventDetails)
 	return (
 		<CardTemplate title="Edit Event">
 			<form onSubmit={editEvent}>
