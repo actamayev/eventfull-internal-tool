@@ -27,12 +27,11 @@ function ChooseEventType(props: Props) {
 					if (_.isNull(appContext.eventsData)) return
 					const selectedEventType = appContext.eventsData.eventTypes.get(e.target.value)
 					if (selectedEventType) {
-					// Update eventDetails with the selected event type's ID and name
 						setEventDetails({
 							...eventDetails,
 							eventType: {
-								eventTypeId: e.target.value, // Assuming e.target.value is the eventTypeId
-								eventTypeName: selectedEventType.eventTypeName // Get the name from the selected EventTypeFromDB object
+								eventTypeId: e.target.value,
+								eventTypeName: selectedEventType.eventTypeName
 							}
 						})
 					}}}

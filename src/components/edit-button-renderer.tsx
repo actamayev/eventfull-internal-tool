@@ -12,7 +12,6 @@ interface CustomCellRendererProps {
 }
 
 export default function EditButtonRenderer (props: CustomCellRendererProps) {
-	// TODO: Vary the width of the button based on the length of the text
 	const navigate = useNavigate()
 
 	const handleClick = () => {

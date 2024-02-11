@@ -2,8 +2,8 @@ import Button from "../button"
 import DayTimeSelector from "./day-time-selector"
 import ChooseOneTimeEvent from "./choose-one-time-event"
 import DayOfWeekEnum from "../../types/day-of-week-enum"
-import CustomEventDateSelector from "./custom-event-date-selector"
 import formatReadableDate from "../../utils/format-readable-date"
+import CustomEventDateSelector from "./custom-event-date-selector"
 
 interface Props {
 	eventDetails: CreatingEvent | EventFromDB

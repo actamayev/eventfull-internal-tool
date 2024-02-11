@@ -1,6 +1,7 @@
 import _ from "lodash"
 import { useContext } from "react"
 import { observer } from "mobx-react"
+import Button from "../button"
 import AppContext from "../../contexts/eventfull-it-context"
 
 interface Props {
@@ -47,7 +48,14 @@ function SelectEventCategories(props: Props) {
 			<ul>
 				{eventType.categories.map(category => (
 					<li key={category.categoryId}>
-						{category.eventCategoryName} <button onClick={() => handleRemoveCategory(category.categoryId)}>X</button>
+						{category.eventCategoryName}
+						<Button
+							title="Delete"
+							onClick={() => handleRemoveCategory(category.categoryId)}
+							colorClass="bg-red-500"
+							hoverClass="hover:bg-red-600"
+							className="text-white font-semibold"
+						/>
 					</li>
 				))}
 			</ul>

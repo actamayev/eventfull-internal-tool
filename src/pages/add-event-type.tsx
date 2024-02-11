@@ -50,7 +50,6 @@ function AddEventType() {
 					eventType={eventType}
 					setEventType={setEventTypeGeneric}
 				/>
-				{/* TODO: Add a list of selected categories here (with a delete button for each one) */}
 
 				<ErrorMessage error={error} />
 
