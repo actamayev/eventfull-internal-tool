@@ -20,7 +20,7 @@ export default function useRetrieveEvents(): void {
 			const response = await appContext.eventfullApiClient.eventsDataService.getEvents()
 
 			if (!_.isEqual(response.status, 200) || isErrorResponse(response.data)) {
-				console.error(response)
+				console.error("Error retrieving events:", response)
 				return
 			}
 
@@ -29,7 +29,7 @@ export default function useRetrieveEvents(): void {
 				appContext.eventsData.addEvent(event)
 			}
 		} catch (error) {
-			console.error(error)
+			console.error("Error retrieving events:", error)
 		}
 	}
 }

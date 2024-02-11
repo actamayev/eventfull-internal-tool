@@ -24,9 +24,9 @@ export default function useSetSingleEventType(
 		if (!_.isUndefined(eventType)) {
 			setEventType(eventType)
 			setRetrievedEventType(eventType)
-		} else {
-			void setSingleEvent()
+			return
 		}
+		void setSingleEvent()
 	}, [appContext.authClass.accessToken, appContext.personalData?.username, appContext.eventsData])
 
 	const setSingleEvent = async (): Promise<SingleEventResponse | void> => {
@@ -38,7 +38,6 @@ export default function useSetSingleEventType(
 			}
 			setEventType(response.data.eventType)
 			setRetrievedEventType(response.data.eventType) // Update the state with the fetched event
-
 		} catch (err) {
 			setErrorAxiosResponse(err, setError, "Failed to retrieve event type")
 		}

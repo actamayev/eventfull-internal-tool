@@ -24,9 +24,9 @@ export default function useSetSingleEventCategory(
 		if (!_.isUndefined(eventCategory)) {
 			setEventCategory(eventCategory)
 			setRetrievedEventCategory(eventCategory)
-		} else {
-			void setSingleEvent()
+			return
 		}
+		void setSingleEvent()
 	}, [appContext.authClass.accessToken, appContext.personalData?.username, appContext.eventsData])
 
 	const setSingleEvent = async (): Promise<SingleEventResponse | void> => {
@@ -38,7 +38,6 @@ export default function useSetSingleEventCategory(
 			}
 			setEventCategory(response.data.eventCategory)
 			setRetrievedEventCategory(response.data.eventCategory) // Update the state with the fetched event
-
 		} catch (err) {
 			setErrorAxiosResponse(err, setError, "Failed to retrieve event category")
 		}

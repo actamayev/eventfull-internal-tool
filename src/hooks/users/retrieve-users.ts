@@ -20,7 +20,7 @@ export default function useRetrieveUsers(): void {
 			const response = await appContext.eventfullApiClient.usersDataService.getUsersEvents()
 
 			if (!_.isEqual(response.status, 200) || isErrorResponse(response.data)) {
-				console.error(response)
+				console.error("Error retrieving users:", response)
 				return
 			}
 
@@ -29,7 +29,7 @@ export default function useRetrieveUsers(): void {
 				appContext.usersData.addUser(user)
 			}
 		} catch (error) {
-			console.error(error)
+			console.error("Error retrieving users:", error)
 		}
 	}
 }
