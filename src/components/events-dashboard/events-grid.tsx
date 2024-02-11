@@ -1,12 +1,12 @@
 import _ from "lodash"
 import { autorun, toJS } from "mobx"
 import { observer } from "mobx-react"
+import { GridApi } from "ag-grid-community"
 import { AgGridReact } from "ag-grid-react"
 import "ag-grid-community/styles/ag-grid.css"
 import { useNavigate } from "react-router-dom"
 import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
-import { GridApi, RowDoubleClickedEvent  } from "ag-grid-community"
 import Button from "../button"
 import useSetGridHeight from "../../hooks/set-grid-height"
 import { isErrorResponses } from "../../utils/type-checks"
@@ -43,10 +43,6 @@ function EventsGrid () {
 	const adjustDeleteColumnWidth = (newWidth: number) => {
 		if (_.isNull(gridApi)) return
 		gridApi.setColumnWidth("delete", newWidth)
-	}
-
-	const handleRowDoubleClicked = (event: RowDoubleClickedEvent) => {
-		navigate(`/edit-event/${event.data.id}`)
 	}
 
 	const handleConfirmDelete = async (e: React.MouseEvent<HTMLButtonElement>, eventId: string) => {
@@ -101,7 +97,7 @@ function EventsGrid () {
 						whatIsThis: "Event",
 						getNavigationPath: (id: string) => `/edit-event/${id}`
 					}}
-					onRowDoubleClicked={handleRowDoubleClicked}
+					onRowDoubleClicked={(event) => navigate(`/edit-event/${event.data.id}`)}
 				/>
 			</div>
 		</div>
