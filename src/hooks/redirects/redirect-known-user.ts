@@ -8,8 +8,7 @@ export default function useRedirectKnownUser (): void  {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		if (!_.isNil(appContext.authClass.accessToken)) {
-			navigate("/events-dashboard")
-		}
+		if (_.isNil(appContext.authClass.accessToken)) return
+		navigate("/events-dashboard")
 	}, [])
 }
