@@ -7,7 +7,6 @@ import ErrorMessage from "../components/login-and-registration-form/error-messag
 import useAddEventCategory from "../hooks/events/add/add-event-category"
 import EventCategoryInput from "../components/add-event-category/event-category-name-input"
 import EventCategoryDescriptionInput from "../components/add-event-category/event-category-description-input"
-import useRetrieveEventTypes from "../hooks/events/retrieve/retrieve-event-types"
 import useRetrieveEventCategories from "../hooks/events/retrieve/retrieve-event-categories"
 import useIsNewEventCategoryDisabled from "../hooks/events/is-button-disabled/is-new-event-category-disabled"
 
@@ -20,7 +19,6 @@ function AddEventCategory() {
 	const [error, setError] = useState("")
 	const [message, setMessage] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
-	useRetrieveEventTypes()
 	useRetrieveEventCategories()
 	const isNewEventCategoryDisabled = useIsNewEventCategoryDisabled(eventCategory, setMessage)
 	const addEventCategory = useAddEventCategory(eventCategory, setError, setIsSubmitting)

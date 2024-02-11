@@ -8,8 +8,10 @@ export default function useRetrieveEventCategories(): void {
 	const appContext = useContext(AppContext)
 
 	useEffect(() => {
-		if (_.isNull(appContext.eventfullApiClient.httpClient.accessToken)) return
-		if (!_.isEmpty(appContext.eventsData?.eventCategories)) return
+		if (
+			_.isNull(appContext.eventfullApiClient.httpClient.accessToken) ||
+			!_.isEmpty(appContext.eventsData?.eventCategories)
+		) return
 		void retrieveEventCategories()
 	}, [appContext.eventfullApiClient.httpClient.accessToken])
 

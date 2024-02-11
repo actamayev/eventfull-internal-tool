@@ -26,9 +26,7 @@ export default function useEditEventType(
 		}
 		setLoading(true)
 		try {
-			const response = await appContext.eventfullApiClient.eventsDataService.editEventType(
-				eventType
-			)
+			const response = await appContext.eventfullApiClient.eventsDataService.editEventType(eventType)
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
 				setError("Unable to edit event type. Please reload and try again.")

@@ -25,9 +25,7 @@ export default function useEditEventCategory(
 		}
 		setLoading(true)
 		try {
-			const response = await appContext.eventfullApiClient.eventsDataService.editEventCategory(
-				eventCategory
-			)
+			const response = await appContext.eventfullApiClient.eventsDataService.editEventCategory(eventCategory)
 
 			if (!_.isEqual(response.status, 200) || isNonSuccessResponse(response.data)) {
 				setError("Unable to edit event category. Please reload and try again.")
