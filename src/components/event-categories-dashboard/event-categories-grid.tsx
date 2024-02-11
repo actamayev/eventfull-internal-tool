@@ -2,18 +2,17 @@ import _ from "lodash"
 import { autorun, toJS } from "mobx"
 import { observer } from "mobx-react"
 import { AgGridReact } from "ag-grid-react"
+import { GridApi } from "ag-grid-community"
 import "ag-grid-community/styles/ag-grid.css"
 import { useNavigate } from "react-router-dom"
 import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
-import { GridApi, RowDoubleClickedEvent } from "ag-grid-community"
 import Button from "../button"
-import AppContext from "../../contexts/eventfull-it-context"
-import createEventCategoriesArrayForGrid
-	from "../../utils/event-categories/create-event-categories-array-for-grid"
-import eventCategoriesDashboardColumns from "../../utils/event-categories/event-categories-dashboard-columns"
-import useSetGridHeight from "../../hooks/set-grid-height"
 import { isErrorResponses } from "../../utils/type-checks"
+import useSetGridHeight from "../../hooks/set-grid-height"
+import AppContext from "../../contexts/eventfull-it-context"
+import eventCategoriesDashboardColumns from "../../utils/event-categories/event-categories-dashboard-columns"
+import createEventCategoriesArrayForGrid from "../../utils/event-categories/create-event-categories-array-for-grid"
 
 function EventCategoriesGrid () {
 	const appContext = useContext(AppContext)
@@ -32,7 +31,7 @@ function EventCategoriesGrid () {
 			setRowData(eventCategoriesArray)
 		})
 		return () => disposeAutorun()
-	}, [appContext.usersData?.usersMap])
+	}, [appContext.eventsData?.eventCategories])
 
 	const onFilterTextBoxChanged = useCallback(() => {
 		if (!gridRef.current) return
@@ -44,10 +43,6 @@ function EventCategoriesGrid () {
 	const adjustDeleteColumnWidth = (newWidth: number) => {
 		if (_.isNull(gridApi)) return
 		gridApi.setColumnWidth("delete", newWidth)
-	}
-
-	const handleRowDoubleClicked = (eventCategory: RowDoubleClickedEvent) => {
-		navigate(`/edit-event-category/${eventCategory.data.id}`)
 	}
 
 	const handleConfirmDelete = async (e: React.MouseEvent<HTMLButtonElement>, eventCategoryId: string) => {
@@ -102,7 +97,7 @@ function EventCategoriesGrid () {
 						whatIsThis: "Event Category",
 						getNavigationPath: (id: string) => `/edit-event-category/${id}`
 					}}
-					onRowDoubleClicked={handleRowDoubleClicked}
+					onRowDoubleClicked={(eventCategory) => navigate(`/edit-event-category/${eventCategory.data.id}`)}
 				/>
 			</div>
 		</div>

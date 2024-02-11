@@ -2,17 +2,17 @@ import _ from "lodash"
 import { autorun, toJS } from "mobx"
 import { observer } from "mobx-react"
 import { AgGridReact } from "ag-grid-react"
+import { GridApi } from "ag-grid-community"
 import "ag-grid-community/styles/ag-grid.css"
 import { useNavigate } from "react-router-dom"
 import "ag-grid-community/styles/ag-theme-alpine.css"
 import { useState, useEffect, useContext, useRef, useCallback } from "react"
-import { GridApi, RowDoubleClickedEvent } from "ag-grid-community"
 import Button from "../button"
+import { isErrorResponses } from "../../utils/type-checks"
+import useSetGridHeight from "../../hooks/set-grid-height"
 import AppContext from "../../contexts/eventfull-it-context"
 import eventTypesDashboardColumns from "../../utils/event-types/event-types-dashboard-columns"
 import createEventTypesArrayForGrid from "../../utils/event-types/create-event-types-array-for-grid"
-import useSetGridHeight from "../../hooks/set-grid-height"
-import { isErrorResponses } from "../../utils/type-checks"
 
 function EventTypesGrid () {
 	const appContext = useContext(AppContext)
@@ -31,7 +31,7 @@ function EventTypesGrid () {
 			setRowData(eventTypesArray)
 		})
 		return () => disposeAutorun()
-	}, [appContext.usersData?.usersMap])
+	}, [appContext.eventsData?.eventTypes])
 
 	const adjustDeleteColumnWidth = (newWidth: number) => {
 		if (_.isNull(gridApi)) return
@@ -44,10 +44,6 @@ function EventTypesGrid () {
 		const filterText = (document.getElementById("filter-text-box") as HTMLInputElement).value
 		gridRef.current.api.updateGridOptions({ quickFilterText: filterText })
 	}, [gridRef])
-
-	const handleRowDoubleClicked = (eventType: RowDoubleClickedEvent) => {
-		navigate(`/edit-event-type/${eventType.data.id}`)
-	}
 
 	const handleConfirmDelete = async (e: React.MouseEvent<HTMLButtonElement>, eventTypeId: string) => {
 		try {
@@ -101,7 +97,7 @@ function EventTypesGrid () {
 						whatIsThis: "Event Type",
 						getNavigationPath: (id: string) => `/edit-event-type/${id}`
 					}}
-					onRowDoubleClicked={handleRowDoubleClicked}
+					onRowDoubleClicked={(eventType) => navigate(`/edit-event-type/${eventType.data.id}`)}
 				/>
 			</div>
 		</div>
