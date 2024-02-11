@@ -48,7 +48,7 @@ function EventsGrid () {
 	const handleConfirmDelete = async (e: React.MouseEvent<HTMLButtonElement>, eventId: string) => {
 		try {
 			e.preventDefault()
-			const response = await appContext.eventfullApiClient.eventsDataService.deleteEventCategory(eventId)
+			const response = await appContext.eventfullApiClient.eventsDataService.deleteEvent(eventId)
 			if (!_.isEqual(response.status, 200) || isErrorResponses(response.data)) {
 				console.error(response)
 				return
