@@ -21,9 +21,9 @@ import TogglePublicEvent from "../components/add-or-edit-event/is-event-public"
 import DescriptionInput from "../components/add-or-edit-event/description-input"
 import ToggleVirtualEvent from "../components/add-or-edit-event/is-event-virtual"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
-import isAddOrSaveEventDisabled from "../utils/events/is-add-or-save-event-disabled"
 import ChooseEventFrequency from "../components/add-or-edit-event/choose-event-frequency"
 import ChooseExtraEventCategories from "../components/add-or-edit-event/choose-extra-event-categories"
+import isAddOrSaveEventDisabled, { checkIfImagesInEditEvent } from "../utils/events/is-add-or-save-event-disabled"
 
 const libraries: ("places")[] = ["places"]
 
@@ -179,7 +179,11 @@ function EditEvent() {
 				<div className="flex flex-row mt-2">
 					<Button
 						title= {`Edit ${eventDetails.eventName}`}
-						disabled={isAddOrSaveEventDisabled(eventDetails) || isSubmitting}
+						disabled={
+							isAddOrSaveEventDisabled(eventDetails) ||
+							isSubmitting ||
+							checkIfImagesInEditEvent(eventDetails, selectedImages)
+						}
 						colorClass="bg-orange-500"
 						hoverClass="hover:bg-orange-600"
 						className="text-white font-bold"

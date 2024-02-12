@@ -17,10 +17,10 @@ import TogglePublicEvent from "../components/add-or-edit-event/is-event-public"
 import DescriptionInput from "../components/add-or-edit-event/description-input"
 import ToggleVirtualEvent from "../components/add-or-edit-event/is-event-virtual"
 import ErrorMessage from "../components/login-and-registration-form/error-message"
-import isAddOrSaveEventDisabled from "../utils/events/is-add-or-save-event-disabled"
 import ChooseEventFrequency from "../components/add-or-edit-event/choose-event-frequency"
 import FillInPreviousEventButton from "../components/add-or-edit-event/fill-in-previous-event-button"
 import ChooseExtraEventCategories from "../components/add-or-edit-event/choose-extra-event-categories"
+import isAddOrSaveEventDisabled, { checkIfImagesAreSelected } from "../utils/events/is-add-or-save-event-disabled"
 
 const libraries: ("places")[] = ["places"]
 
@@ -130,7 +130,11 @@ function AddEvent() {
 				<div className="mt-2">
 					<Button
 						title= {`Add${eventDetails.eventName ? (": " + eventDetails.eventName) : ""}`}
-						disabled={isAddOrSaveEventDisabled(eventDetails) || isSubmitting}
+						disabled={
+							isAddOrSaveEventDisabled(eventDetails) ||
+							isSubmitting ||
+							checkIfImagesAreSelected(selectedImages)
+						}
 						colorClass="bg-emerald-600"
 						hoverClass="hover:bg-emerald-700"
 						className="text-white font-semibold"

@@ -24,3 +24,13 @@ export function frequencyCheck (eventDetails: Partial<CreatingEvent | EventFromD
 		return true
 	}
 }
+
+export function checkIfImagesAreSelected(selectedImages: File[]): boolean {
+	return _.isEmpty(selectedImages)
+}
+
+export function checkIfImagesInEditEvent(eventDetails: EventFromDB, selectedImages: File[]): boolean {
+	const areAciveImages = eventDetails.eventImages.filter(image => image.isActive)
+	const totalImages = areAciveImages.length + selectedImages.length
+	return totalImages === 0
+}
