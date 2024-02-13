@@ -24,6 +24,7 @@ export default function handleTimeChangeOngoingEvent (
 		endTime: dayDetails?.endTime || defaultEndTime,
 	}
 
+
 	const timeValue = new Date(currentTimes[type])
 	timeValue.setHours(value.getHours(), value.getMinutes())
 
