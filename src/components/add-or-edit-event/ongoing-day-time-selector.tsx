@@ -1,8 +1,8 @@
 import { LocalizationProvider } from "@mui/x-date-pickers"
 import { TimePicker }  from "@mui/x-date-pickers/TimePicker"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3"
-import handleTimeChange from "../../utils/events/handle-time-change"
 import handleCheckboxChange from "../../utils/events/handle-checkbox-change"
+import handleTimeChangeOngoingEventOngoingEvent from "../../utils/events/time-change/handle-time-change-ongoing-event"
 
 interface Props {
 	day: DayOfWeek
@@ -11,7 +11,7 @@ interface Props {
 	setEventDetails: (newEventDetails: Partial<CreatingEvent | EventFromDB>) => void
 }
 
-export default function DayTimeSelector (props: Props) {
+export default function OngoingDayTimeSelector (props: Props) {
 	const { day, eventDetails, setEventDetails, index } = props
 
 	const dayDetails = eventDetails.ongoingEventTimes?.find(d => d.dayOfWeek === day)
@@ -34,13 +34,15 @@ export default function DayTimeSelector (props: Props) {
 					label="Start Time"
 					value={dayDetails?.startTime}
 					disabled={!isEnabled}
-					onChange={(e) => handleTimeChange("startTime", e, dayDetails, day, eventDetails, setEventDetails)}
+					onChange={(e) => {
+						handleTimeChangeOngoingEventOngoingEvent("startTime", e, dayDetails, day, eventDetails, setEventDetails)
+					}}
 				/>
 				<TimePicker
 					label="End Time"
 					value={dayDetails?.endTime}
 					disabled={!isEnabled}
-					onChange={(e) => handleTimeChange("endTime", e, dayDetails, day, eventDetails, setEventDetails)}
+					onChange={(e) => handleTimeChangeOngoingEventOngoingEvent("endTime", e, dayDetails, day, eventDetails, setEventDetails)}
 					minTime={dayDetails?.startTime}
 				/>
 			</LocalizationProvider>

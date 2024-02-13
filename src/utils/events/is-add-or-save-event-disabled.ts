@@ -15,12 +15,26 @@ export default function isAddOrSaveEventDisabled(eventDetails: Partial<CreatingE
 
 export function frequencyCheck (eventDetails: Partial<CreatingEvent | EventFromDB>): boolean {
 	if (eventDetails.eventFrequency === "one-time") {
-		return _.isNull(eventDetails.singularEventTime)
+		if (_.isNil(eventDetails.singularEventTime)) return true
+		return isTimeInvalid(eventDetails.singularEventTime)
 	} else if (eventDetails.eventFrequency === "custom") {
-		return _.isEmpty(eventDetails.customEventDates)
+		if (_.isEmpty(eventDetails.customEventDates)) return true
+		return eventDetails.customEventDates ? eventDetails.customEventDates.some(isTimeInvalid) : true
 	} else if (eventDetails.eventFrequency === "ongoing") {
-		return _.isEmpty(eventDetails.ongoingEventTimes)
-	} else {
-		return true
+		if (_.isEmpty(eventDetails.ongoingEventTimes)) return true
+		return eventDetails.ongoingEventTimes ? eventDetails.ongoingEventTimes.some(isTimeInvalid) : true
 	}
+	return true
+}
+
+export function checkIfImagesInEditEvent(eventDetails: EventFromDB, selectedImages: File[]): boolean {
+	const areAciveImages = eventDetails.eventImages.filter(image => image.isActive)
+	const totalImages = areAciveImages.length + selectedImages.length
+	return totalImages === 0
+}
+
+function isTimeInvalid(eventTime?: BaseEventTime | null): boolean {
+	if (!eventTime) return true // Invalid if event time is not provided
+	const { startTime, endTime } = eventTime
+	return _.isNull(startTime) || _.isNull(endTime) || startTime >= endTime
 }

@@ -1,3 +1,4 @@
+import _ from "lodash"
 import { observer } from "mobx-react"
 import { useCallback,  useState } from "react"
 import { useLoadScript } from "@react-google-maps/api"
@@ -130,7 +131,11 @@ function AddEvent() {
 				<div className="mt-2">
 					<Button
 						title= {`Add${eventDetails.eventName ? (": " + eventDetails.eventName) : ""}`}
-						disabled={isAddOrSaveEventDisabled(eventDetails) || isSubmitting}
+						disabled={
+							isAddOrSaveEventDisabled(eventDetails) ||
+							isSubmitting ||
+							_.isEmpty(selectedImages)
+						}
 						colorClass="bg-emerald-600"
 						hoverClass="hover:bg-emerald-700"
 						className="text-white font-semibold"

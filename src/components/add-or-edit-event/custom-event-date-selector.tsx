@@ -3,6 +3,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers"
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3"
 import Button from "../button"
+import handleStartDateTimeChange from "../../utils/events/time-change/handle-start-date-time-change"
 
 interface Props {
 	onConfirm: (newEventDate: BaseEventTime) => void
@@ -10,7 +11,6 @@ interface Props {
 
 export default function CustomEventDateSelector(props: Props) {
 	const { onConfirm } = props
-
 	const [startTime, setStartTime] = useState<Date | null>(null)
 	const [endTime, setEndTime] = useState<Date | null>(null)
 	const currentDateTime = new Date()
@@ -37,7 +37,7 @@ export default function CustomEventDateSelector(props: Props) {
 					<DateTimePicker
 						label="Start Time & Date"
 						value={startTime}
-						onChange={setStartTime}
+						onChange={(e) => handleStartDateTimeChange(e, setStartTime)}
 						minDate={currentDateTime}
 					/>
 					<div className="mx-2">
@@ -54,7 +54,7 @@ export default function CustomEventDateSelector(props: Props) {
 				<Button
 					title="Confirm"
 					onClick={handleConfirm}
-					disabled={!startTime || !endTime}
+					disabled={!startTime || !endTime || startTime >= endTime}
 					colorClass="bg-blue-500"
 					hoverClass="hover:bg-blue-600"
 					className="text-white font-semibold"

@@ -9,7 +9,12 @@ export function calculateEventDurationForNewEvents(eventDetails: CreatingEvent):
 			return eventDetails
 		}
 		const eventDuration = calculateEventDuration(eventDetails.singularEventTime.startTime, eventDetails.singularEventTime.endTime)
-		return { ...eventDetails, singularEventTime: { ...eventDetails.singularEventTime, eventDuration } }
+		return {
+			...eventDetails,
+			customEventDates: [],
+			ongoingEventTimes: [],
+			singularEventTime: { ...eventDetails.singularEventTime, eventDuration }
+		}
 	} else if (eventDetails.eventFrequency === "ongoing") {
 		if (!eventDetails.ongoingEventTimes) {
 			return eventDetails
@@ -18,7 +23,11 @@ export function calculateEventDurationForNewEvents(eventDetails: CreatingEvent):
 			const eventDuration = calculateEventDuration(ongoingEventTime.startTime, ongoingEventTime.endTime)
 			ongoingEventTime.eventDuration = eventDuration
 		}
-		return eventDetails
+		return {
+			...eventDetails,
+			customEventDates: [],
+			singularEventTime: null
+		}
 	} else {
 		if (!eventDetails.customEventDates) {
 			return eventDetails
@@ -27,7 +36,11 @@ export function calculateEventDurationForNewEvents(eventDetails: CreatingEvent):
 			const eventDuration = calculateEventDuration(customEventDate.startTime, customEventDate.endTime)
 			customEventDate.eventDuration = eventDuration
 		}
-		return eventDetails
+		return {
+			...eventDetails,
+			ongoingEventTimes: [],
+			singularEventTime: null
+		}
 	}
 }
 
@@ -37,19 +50,32 @@ export function calculateEventDurationForEditEvents(eventDetails: EventFromDB): 
 			return eventDetails
 		}
 		const eventDuration = calculateEventDuration(eventDetails.singularEventTime.startTime, eventDetails.singularEventTime.endTime)
-		return { ...eventDetails, singularEventTime: { ...eventDetails.singularEventTime, eventDuration } }
+		return {
+			...eventDetails,
+			customEventDates: [],
+			ongoingEventTimes: [],
+			singularEventTime: { ...eventDetails.singularEventTime, eventDuration }
+		}
 	} else if (eventDetails.eventFrequency === "ongoing") {
 		for (const ongoingEventTime of eventDetails.ongoingEventTimes) {
 			const eventDuration = calculateEventDuration(ongoingEventTime.startTime, ongoingEventTime.endTime)
 			ongoingEventTime.eventDuration = eventDuration
 		}
-		return eventDetails
+		return {
+			...eventDetails,
+			customEventDates: [],
+			singularEventTime: undefined
+		}
 	} else {
 		for (const customEventDate of eventDetails.customEventDates) {
 			const eventDuration = calculateEventDuration(customEventDate.startTime, customEventDate.endTime)
 			customEventDate.eventDuration = eventDuration
 		}
-		return eventDetails
+		return {
+			...eventDetails,
+			ongoingEventTimes: [],
+			singularEventTime: undefined
+		}
 	}
 }
 

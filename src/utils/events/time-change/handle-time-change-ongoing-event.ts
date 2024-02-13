@@ -1,7 +1,6 @@
 import _ from "lodash"
 
-// Handle time change for ongoing events
-export default function handleTimeChange (
+export default function handleTimeChangeOngoingEvent (
 	type: "startTime" | "endTime",
 	value: Date | null,
 	dayDetails: OngoingEvents | undefined,
@@ -29,16 +28,6 @@ export default function handleTimeChange (
 	timeValue.setHours(value.getHours(), value.getMinutes())
 
 	currentTimes[type] = timeValue
-
-	if (currentTimes.startTime > currentTimes.endTime) {
-		alert("Start time cannot be after end time.")
-		return
-	}
-
-	if (currentTimes.endTime < currentTimes.startTime) {
-		alert("End time cannot be before start time.")
-		return
-	}
 
 	const updatedEventTimes = eventDetails.ongoingEventTimes?.map(d =>
 		d.dayOfWeek === day ? currentTimes : d

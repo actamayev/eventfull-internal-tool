@@ -13,6 +13,17 @@ function FillInPreviousEventButton(props: Props) {
 	const appContext = useContext(AppContext)
 
 	const convertEventToCreatingEvent = useCallback((event: EventFromDB): CreatingEvent => {
+		const convertBaseEventTimeToJsDate = (baseEventTime: BaseEventTime): BaseEventTime => ({
+			...baseEventTime,
+			startTime: new Date(baseEventTime.startTime),
+			endTime: new Date(baseEventTime.endTime),
+		})
+
+		const convertOngoingEventsToJsDate = (ongoingEvent: OngoingEvents): OngoingEvents => ({
+			...ongoingEvent,
+			startTime: new Date(ongoingEvent.startTime),
+			endTime: new Date(ongoingEvent.endTime),
+		})
 		return {
 			eventName: event.eventName,
 			eventPrice: event.eventPrice,
@@ -33,9 +44,9 @@ function FillInPreviousEventButton(props: Props) {
 			coHosts: [],
 			eventCapacity: event.eventCapacity || 10,
 
-			singularEventTime: event.singularEventTime,
-			customEventDates: event.customEventDates,
-			ongoingEventTimes: event.ongoingEventTimes
+			singularEventTime: event.singularEventTime ? convertBaseEventTimeToJsDate(event.singularEventTime) : undefined,
+			customEventDates: event.customEventDates.map(convertBaseEventTimeToJsDate),
+			ongoingEventTimes: event.ongoingEventTimes.map(convertOngoingEventsToJsDate)
 		}
 	}, [])
 
