@@ -62,7 +62,7 @@ export default function SelectTimes(props: Props) {
 				{eventDetails.customEventDates && eventDetails.customEventDates.map((date, index) => (
 					<div key={index}>
 						Start: {formatReadableDate(date.startTime)},
-						End: {formatReadableDate(date.endTime)}
+						End: {formatReadableDate(date.endTime as Date)}
 						<Button
 							title="Delete"
 							onClick={() => deleteCustomEventDate(index)}
