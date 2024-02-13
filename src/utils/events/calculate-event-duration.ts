@@ -79,7 +79,7 @@ export function calculateEventDurationForEditEvents(eventDetails: EventFromDB): 
 	}
 }
 
-function calculateEventDuration(startDateTime: Date, endDateTime: Date): { hours: number, minutes: number} {
+export function calculateEventDuration(startDateTime: Date, endDateTime: Date): { hours: number, minutes: number} {
 	const diffInMinutes = dayjs(endDateTime).diff(dayjs(startDateTime), "minute")
 	const hours = Math.floor(diffInMinutes / 60)
 	const minutes = diffInMinutes % 60

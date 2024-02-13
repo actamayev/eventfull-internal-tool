@@ -22,13 +22,13 @@ export default function useSetSingleEvent(
 		) return
 
 		const event = appContext.eventsData.contextForEvent(eventId)
-		if (!_.isUndefined(event)) {
-			const extractedEvent = extractEventData(event)
-			setEventDetails(extractedEvent)
-			setRetrievedEvent(extractedEvent)
+		if (_.isUndefined(event)) {
+			void setSingleEvent()
 			return
 		}
-		void setSingleEvent()
+		const extractedEvent = extractEventData(event)
+		setEventDetails(extractedEvent)
+		setRetrievedEvent(extractedEvent)
 	}, [appContext.authClass.accessToken, appContext.personalData?.username, appContext.eventsData])
 
 	const setSingleEvent = async (): Promise<SingleEventResponse | void> => {

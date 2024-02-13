@@ -3,6 +3,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers"
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3"
 import handleStartDateTimeChange from "../../utils/events/time-change/handle-start-date-time-change"
+import { calculateEventDuration } from "../../utils/events/calculate-event-duration"
 
 interface Props {
 	eventDetails: CreatingEvent | EventFromDB
@@ -16,11 +17,13 @@ export default function ChooseOneTimeEvent(props: Props) {
 
 	useEffect(() => {
 		if (!startTime || !endTime) return
+		const eventDuration = calculateEventDuration(startTime, endTime)
 		setEventDetails({
 			...eventDetails,
 			singularEventTime: {
 				startTime,
 				endTime,
+				eventDuration
 			}
 		})
 	}, [startTime, endTime])

@@ -102,6 +102,9 @@ function EditEvent() {
 	}
 
 	function ChangesMade () {
+		// TODO: Ajudst the _.isEqual.
+		// eslint-disable-next-line max-len
+		// If the retrieved event was a one time evnet, and the user changes to custom, adds a date, and then changes back to one time, the changes made will still show.
 		if (
 			!_.isEqual(eventDetails, retrievedEvent) ||
 			!_.isEmpty(selectedImages)

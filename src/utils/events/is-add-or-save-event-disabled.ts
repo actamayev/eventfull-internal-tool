@@ -36,5 +36,5 @@ export function checkIfImagesInEditEvent(eventDetails: EventFromDB, selectedImag
 function isTimeInvalid(eventTime?: BaseEventTime | null): boolean {
 	if (!eventTime) return true // Invalid if event time is not provided
 	const { startTime, endTime } = eventTime
-	return _.isNull(startTime) || _.isNull(endTime) || startTime >= endTime
+	return _.isNull(startTime) || _.isNull(endTime) || startTime >= endTime || startTime < new Date()
 }
