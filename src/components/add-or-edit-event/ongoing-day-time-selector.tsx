@@ -11,7 +11,7 @@ interface Props {
 	setEventDetails: (newEventDetails: Partial<CreatingEvent | EventFromDB>) => void
 }
 
-export default function DayTimeSelector (props: Props) {
+export default function OngoingDayTimeSelector (props: Props) {
 	const { day, eventDetails, setEventDetails, index } = props
 
 	const dayDetails = eventDetails.ongoingEventTimes?.find(d => d.dayOfWeek === day)

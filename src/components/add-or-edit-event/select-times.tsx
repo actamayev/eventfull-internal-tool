@@ -1,5 +1,5 @@
 import Button from "../button"
-import DayTimeSelector from "./day-time-selector"
+import OngoingDayTimeSelector from "./ongoing-day-time-selector"
 import ChooseOneTimeEvent from "./choose-one-time-event"
 import DayOfWeekEnum from "../../types/day-of-week-enum"
 import formatReadableDate from "../../utils/format-readable-date"
@@ -46,7 +46,7 @@ export default function SelectTimes(props: Props) {
 		return (
 			<>
 				{Object.values(DayOfWeekEnum).map((day, index) => (
-					<DayTimeSelector
+					<OngoingDayTimeSelector
 						key={day}
 						day={day}
 						index={index}
