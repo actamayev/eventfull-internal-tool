@@ -1,3 +1,4 @@
+import _ from "lodash"
 import { observer } from "mobx-react"
 import { useCallback,  useState } from "react"
 import { useLoadScript } from "@react-google-maps/api"
@@ -20,7 +21,7 @@ import ErrorMessage from "../components/login-and-registration-form/error-messag
 import ChooseEventFrequency from "../components/add-or-edit-event/choose-event-frequency"
 import FillInPreviousEventButton from "../components/add-or-edit-event/fill-in-previous-event-button"
 import ChooseExtraEventCategories from "../components/add-or-edit-event/choose-extra-event-categories"
-import isAddOrSaveEventDisabled, { checkIfImagesAreSelected } from "../utils/events/is-add-or-save-event-disabled"
+import isAddOrSaveEventDisabled from "../utils/events/is-add-or-save-event-disabled"
 
 const libraries: ("places")[] = ["places"]
 
@@ -133,7 +134,7 @@ function AddEvent() {
 						disabled={
 							isAddOrSaveEventDisabled(eventDetails) ||
 							isSubmitting ||
-							checkIfImagesAreSelected(selectedImages)
+							_.isEmpty(selectedImages)
 						}
 						colorClass="bg-emerald-600"
 						hoverClass="hover:bg-emerald-700"

@@ -15,6 +15,7 @@ export default function isAddOrSaveEventDisabled(eventDetails: Partial<CreatingE
 
 export function frequencyCheck (eventDetails: Partial<CreatingEvent | EventFromDB>): boolean {
 	if (eventDetails.eventFrequency === "one-time") {
+		if (_.isNil(eventDetails.singularEventTime)) return true
 		return isTimeInvalid(eventDetails.singularEventTime)
 	} else if (eventDetails.eventFrequency === "custom") {
 		if (_.isEmpty(eventDetails.customEventDates)) return true
@@ -24,10 +25,6 @@ export function frequencyCheck (eventDetails: Partial<CreatingEvent | EventFromD
 		return eventDetails.ongoingEventTimes ? eventDetails.ongoingEventTimes.some(isTimeInvalid) : true
 	}
 	return true
-}
-
-export function checkIfImagesAreSelected(selectedImages: File[]): boolean {
-	return _.isEmpty(selectedImages)
 }
 
 export function checkIfImagesInEditEvent(eventDetails: EventFromDB, selectedImages: File[]): boolean {

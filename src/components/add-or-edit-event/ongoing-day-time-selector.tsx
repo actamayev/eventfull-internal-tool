@@ -1,8 +1,8 @@
 import { LocalizationProvider } from "@mui/x-date-pickers"
 import { TimePicker }  from "@mui/x-date-pickers/TimePicker"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3"
-import handleTimeChangeOngoingEventOngoingEvent from "../../utils/events/time-change/handle-time-change-ongoing-event"
 import handleCheckboxChange from "../../utils/events/handle-checkbox-change"
+import handleTimeChangeOngoingEventOngoingEvent from "../../utils/events/time-change/handle-time-change-ongoing-event"
 
 interface Props {
 	day: DayOfWeek

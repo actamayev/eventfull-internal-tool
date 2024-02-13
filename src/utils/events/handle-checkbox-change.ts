@@ -10,7 +10,7 @@ export default function handleCheckboxChange (
 		updatedEventTimes = eventDetails.ongoingEventTimes?.filter(d => d.dayOfWeek !== day) || []
 	} else {
 		const defaultStartTime = new Date()
-		defaultStartTime.setHours(9, 0, 0, 0) // Reset to start of the day
+		defaultStartTime.setHours(9, 0, 0, 0)
 
 		const defaultEndTime = new Date(defaultStartTime.getTime() + (8 * 60 * 60 * 1000)) // Add 8 hours in milliseconds
 
