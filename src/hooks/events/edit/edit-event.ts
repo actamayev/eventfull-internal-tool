@@ -23,7 +23,7 @@ export default function useEditEvent(
 	const editEvent = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
 		const eventDetailsWithEventDuration = calculateEventDurationForEditEvents(eventDetails)
-		if (previousEventDetails === eventDetailsWithEventDuration && _.isEmpty(selectedFiles)) {
+		if (_.isEqual(previousEventDetails, eventDetailsWithEventDuration) && _.isEmpty(selectedFiles)) {
 			navigate("/events-dashboard")
 			return
 		}
