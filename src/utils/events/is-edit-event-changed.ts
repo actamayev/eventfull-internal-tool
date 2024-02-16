@@ -16,7 +16,6 @@ export default function isEditEventChanged(
 		...retrievedEventWithoutDates
 	} = retrievedEvent
 
-
 	if (!_.isEqual(eventDetailsWithoutDates, retrievedEventWithoutDates)) return true
 
 	if (eventDetails.eventFrequency === "custom") {

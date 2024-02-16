@@ -43,16 +43,12 @@ export default class EventsClass {
 
 	// Event Categories:
 	public assignEventCategories = action((eventCategoriesFromDB: EventCategoryFromDB[]): void => {
-		eventCategoriesFromDB.forEach((eventCategory) => {
-			this.addEventCategory(eventCategory)
-		})
+		eventCategoriesFromDB.forEach((eventCategory) => this.addEventCategory(eventCategory))
 	})
 
 	public addEventCategory = action((newCategory: EventCategoryFromDB): void => {
 		if (this.eventCategories.has(newCategory._id)) return
-		this.eventCategories.set(newCategory._id, {
-			...newCategory
-		})
+		this.eventCategories.set(newCategory._id, newCategory)
 	})
 
 	public editEventCategory = action((category: EventCategoryFromDB): void => {
@@ -80,16 +76,12 @@ export default class EventsClass {
 
 	// Event Types:
 	public assignEventTypes = action((eventTypesFromDB: EventTypeFromDB[]): void => {
-		eventTypesFromDB.forEach((eventType) => {
-			this.addEventType(eventType)
-		})
+		eventTypesFromDB.forEach((eventType) => this.addEventType(eventType))
 	})
 
 	public addEventType = action((eventType: EventTypeFromDB): void => {
 		if (this.eventTypes.has(eventType._id)) return
-		this.eventTypes.set(eventType._id, {
-			...eventType
-		})
+		this.eventTypes.set(eventType._id, eventType)
 	})
 
 	public editEventType = action((eventType: EventTypeFromDB): void => {
