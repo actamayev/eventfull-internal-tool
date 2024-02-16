@@ -19,7 +19,7 @@ export default function useEditEventCategory(
 
 	const editEvent = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
-		if (previousEventCategory === eventCategory) {
+		if (_.isEqual(previousEventCategory, eventCategory)) {
 			navigate("/event-categories-dashboard")
 			return
 		}
