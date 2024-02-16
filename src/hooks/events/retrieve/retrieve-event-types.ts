@@ -1,7 +1,7 @@
 import _ from "lodash"
 import { useContext, useEffect } from "react"
-import { isErrorResponse } from "../../../utils/type-checks"
 import EventsClass from "../../../classes/events-class"
+import { isErrorResponse } from "../../../utils/type-checks"
 import AppContext from "../../../contexts/eventfull-it-context"
 
 export default function useRetrieveEventTypes(): void {
