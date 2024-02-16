@@ -10,6 +10,7 @@ import AppContext from "../contexts/eventfull-it-context"
 import useEditEvent from "../hooks/events/edit/edit-event"
 import useSetSingleEvent from "../hooks/events/set/set-single-event"
 import SelectTimes from "../components/add-or-edit-event/select-times"
+import isEditEventChanged from "../utils/events/is-edit-event-changed"
 import AddressInput from "../components/add-or-edit-event/address-input"
 import ShowPictures from "../components/add-or-edit-event/show-pictures"
 import EventURLInput from "../components/add-or-edit-event/event-url-input"
@@ -102,13 +103,8 @@ function EditEvent() {
 	}
 
 	function ChangesMade () {
-		// TODO: Ajudst the _.isEqual.
-		// eslint-disable-next-line max-len
-		// If the retrieved event was a one time evnet, and the user changes to custom, adds a date, and then changes back to one time, the changes made will still show.
-		if (
-			!_.isEqual(eventDetails, retrievedEvent) ||
-			!_.isEmpty(selectedImages)
-		) return null
+		const isEventChanged = isEditEventChanged(eventDetails, retrievedEvent, selectedImages)
+		if (isEventChanged === true) return null
 		return <>(No Changes made)</>
 	}
 

@@ -19,12 +19,12 @@ export default class PersonalInfoClass {
 		this._firstName = firstName
 	}
 
-	set lastName(lastName: string | null) {
-		this._lastName = lastName
-	}
-
 	get lastName(): string | null {
 		return this._lastName
+	}
+
+	set lastName(lastName: string | null) {
+		this._lastName = lastName
 	}
 
 	get email(): string | null {

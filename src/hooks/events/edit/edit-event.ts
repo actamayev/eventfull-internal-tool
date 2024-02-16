@@ -1,7 +1,7 @@
 import _ from "lodash"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import EventsClass from "../../../classes/events/events-class"
+import EventsClass from "../../../classes/events-class"
 import AppContext from "../../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../../utils/type-checks"
 import uploadImageLoop from "../../../utils/events/upload-image-loop"
@@ -9,7 +9,7 @@ import setErrorAxiosResponse from "../../../utils/error-handling/set-error-axios
 import { calculateEventDurationForEditEvents } from "../../../utils/events/calculate-event-duration"
 
 export default function useEditEvent(
-	previousEventDetails: EventFromDB | undefined,
+	previousEventDetails: EventFromDB | null,
 	eventDetails: EventFromDB,
 	selectedFiles: File[],
 	setError: React.Dispatch<React.SetStateAction<string>>,
@@ -23,7 +23,7 @@ export default function useEditEvent(
 	const editEvent = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault()
 		const eventDetailsWithEventDuration = calculateEventDurationForEditEvents(eventDetails)
-		if (previousEventDetails === eventDetailsWithEventDuration && _.isEmpty(selectedFiles)) {
+		if (_.isEqual(previousEventDetails, eventDetailsWithEventDuration) && _.isEmpty(selectedFiles)) {
 			navigate("/events-dashboard")
 			return
 		}

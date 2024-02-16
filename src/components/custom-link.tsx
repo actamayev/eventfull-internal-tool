@@ -1,3 +1,4 @@
+import _ from "lodash"
 import classNames from "classnames" // This is a utility for conditionally joining classNames together
 import { Link, useLocation } from "react-router-dom"
 
@@ -44,7 +45,7 @@ export function TopNavLink(props: Props) {
 export function VerticalNavLink(props: Props) {
 	const location = useLocation()
 	let css
-	if (location.pathname === props.href) {
+	if (_.isEqual(location.pathname, props.href)) {
 		css = "bg-black text-white block px-3 py-1 rounded-md text-base font-medium"
 	} else {
 		css = "bg-gray-200 text-black hover:bg-gray-800 hover:text-white block px-3 py-1 rounded-md text-base font-medium"

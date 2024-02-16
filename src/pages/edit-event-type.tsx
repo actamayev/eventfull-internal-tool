@@ -48,7 +48,7 @@ function EditEventType() {
 	if (_.isUndefined(retrievedEventType)) return null
 
 	function ChangesMade () {
-		if (_.isUndefined(retrievedEventType)) return null
+		if (_.isNull(retrievedEventType)) return null
 		else if (!determineIfEventTypesEqual(retrievedEventType, eventType)) return null
 		else if (_.isEmpty(eventType.categories)) return null
 		return <>(No Changes made)</>

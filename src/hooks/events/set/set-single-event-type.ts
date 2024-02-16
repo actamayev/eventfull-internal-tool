@@ -8,9 +8,9 @@ export default function useSetSingleEventType(
 	eventTypeId: string | undefined,
 	setError: React.Dispatch<React.SetStateAction<string>>,
 	setEventType: React.Dispatch<React.SetStateAction<EventTypeFromDB>>
-): EventTypeFromDB | undefined {
+): EventTypeFromDB | null {
 	const appContext = useContext(AppContext)
-	const [retrievedEventType, setRetrievedEventType] = useState<EventTypeFromDB | undefined>(undefined)
+	const [retrievedEventType, setRetrievedEventType] = useState<EventTypeFromDB | null>(null)
 
 	useEffect(() => {
 		if (
@@ -21,12 +21,12 @@ export default function useSetSingleEventType(
 		) return
 
 		const eventType = appContext.eventsData.eventTypes.get(eventTypeId)
-		if (!_.isUndefined(eventType)) {
-			setEventType(eventType)
-			setRetrievedEventType(eventType)
+		if (_.isUndefined(eventType)) {
+			void setSingleEvent()
 			return
 		}
-		void setSingleEvent()
+		setEventType(eventType)
+		setRetrievedEventType(eventType)
 	}, [appContext.authClass.accessToken, appContext.personalData?.username, appContext.eventsData])
 
 	const setSingleEvent = async (): Promise<SingleEventResponse | void> => {

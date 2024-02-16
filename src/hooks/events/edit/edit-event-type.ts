@@ -2,13 +2,13 @@ import _ from "lodash"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { isErrorResponses } from "../../../utils/type-checks"
-import EventsClass from "../../../classes/events/events-class"
+import EventsClass from "../../../classes/events-class"
 import AppContext from "../../../contexts/eventfull-it-context"
 import setErrorAxiosResponse from "../../../utils/error-handling/set-error-axios-response"
 import determineIfEventTypesEqual from "../../../utils/event-types/determine-if-event-types-equal"
 
 export default function useEditEventType(
-	previousEventType: EventTypeFromDB | undefined,
+	previousEventType: EventTypeFromDB | null,
 	eventType: EventTypeFromDB,
 	setError: React.Dispatch<React.SetStateAction<string>>,
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>

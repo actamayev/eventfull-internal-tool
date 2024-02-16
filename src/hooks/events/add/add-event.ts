@@ -1,7 +1,7 @@
 import _ from "lodash"
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import EventsClass from "../../../classes/events/events-class"
+import EventsClass from "../../../classes/events-class"
 import AppContext from "../../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../../utils/type-checks"
 import uploadImageLoop from "../../../utils/events/upload-image-loop"
