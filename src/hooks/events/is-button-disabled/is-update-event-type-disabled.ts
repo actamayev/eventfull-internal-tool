@@ -4,7 +4,7 @@ import AppContext from "../../../contexts/eventfull-it-context"
 
 export default function useIsUpdateEventTypeDisabled(
 	newEventType: EventTypeFromDB,
-	savedEventType: EventTypeFromDB | undefined,
+	savedEventType: EventTypeFromDB | null,
 	setMessage: React.Dispatch<React.SetStateAction<string>>
 ): boolean {
 	const appContext = useContext(AppContext)
@@ -14,7 +14,7 @@ export default function useIsUpdateEventTypeDisabled(
 		if (_.isEmpty(newEventType.eventTypeName)) {
 			return true
 		} else if (
-			!_.isUndefined(savedEventType) &&
+			!_.isNull(savedEventType) &&
 			newEventType.eventTypeName !== savedEventType.eventTypeName &&
 			appContext.eventsData?.eventTypes &&
 			Array.from(appContext.eventsData.eventTypes.values()).some(

@@ -3,9 +3,9 @@ import { useContext, useEffect, useState } from "react"
 import AppContext from "../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../utils/type-checks"
 
-export default function useSetSingleUser(userId: string | undefined): UserFromDB | undefined {
+export default function useSetSingleUser(userId: string | undefined): UserFromDB | null {
 	const appContext = useContext(AppContext)
-	const [retrievedUser, setRetrievedUser] = useState<UserFromDB | undefined>(undefined)
+	const [retrievedUser, setRetrievedUser] = useState<UserFromDB | null>(null)
 
 	useEffect(() => {
 		if (
@@ -16,11 +16,11 @@ export default function useSetSingleUser(userId: string | undefined): UserFromDB
 		) return
 
 		const user = appContext.usersData.contextForUser(userId)
-		if (!_.isUndefined(user)) {
-			setRetrievedUser({...user })
+		if (_.isUndefined(user)) {
+			void setSingleUser()
 			return
 		}
-		void setSingleUser()
+		setRetrievedUser(user)
 	}, [appContext.authClass.accessToken, appContext.personalData?.username, appContext.usersData])
 
 	const setSingleUser = async (): Promise<SingleUserResponse | void> => {

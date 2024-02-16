@@ -2,16 +2,15 @@ import _ from "lodash"
 import { useContext, useEffect, useState } from "react"
 import AppContext from "../../../contexts/eventfull-it-context"
 import { isNonSuccessResponse } from "../../../utils/type-checks"
-import extractEventData from "../../../utils/events/extract-event-data"
 import setErrorAxiosResponse from "../../../utils/error-handling/set-error-axios-response"
 
 export default function useSetSingleEvent(
 	eventId: string | undefined,
 	setError: React.Dispatch<React.SetStateAction<string>>,
 	setEventDetails: (value: React.SetStateAction<EventFromDB>) => void
-): EventFromDB | undefined {
+): EventFromDB | null {
 	const appContext = useContext(AppContext)
-	const [retrievedEvent, setRetrievedEvent] = useState<EventFromDB | undefined>(undefined)
+	const [retrievedEvent, setRetrievedEvent] = useState<EventFromDB | null>(null)
 
 	useEffect(() => {
 		if (
@@ -26,9 +25,8 @@ export default function useSetSingleEvent(
 			void setSingleEvent()
 			return
 		}
-		const extractedEvent = extractEventData(event)
-		setEventDetails(extractedEvent)
-		setRetrievedEvent(extractedEvent)
+		setEventDetails(event)
+		setRetrievedEvent(event)
 	}, [appContext.authClass.accessToken, appContext.personalData?.username, appContext.eventsData])
 
 	const setSingleEvent = async (): Promise<SingleEventResponse | void> => {

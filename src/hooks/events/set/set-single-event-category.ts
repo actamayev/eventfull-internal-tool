@@ -8,9 +8,9 @@ export default function useSetSingleEventCategory(
 	eventCategoryId: string | undefined,
 	setError: React.Dispatch<React.SetStateAction<string>>,
 	setEventCategory: React.Dispatch<React.SetStateAction<EventCategoryFromDB>>
-): EventCategoryFromDB | undefined {
+): EventCategoryFromDB | null {
 	const appContext = useContext(AppContext)
-	const [retrievedEventCategory, setRetrievedEventCategory] = useState<EventCategoryFromDB | undefined>(undefined)
+	const [retrievedEventCategory, setRetrievedEventCategory] = useState<EventCategoryFromDB | null>(null)
 
 	useEffect(() => {
 		if (
@@ -21,12 +21,12 @@ export default function useSetSingleEventCategory(
 		) return
 
 		const eventCategory = appContext.eventsData.eventCategories.get(eventCategoryId)
-		if (!_.isUndefined(eventCategory)) {
-			setEventCategory(eventCategory)
-			setRetrievedEventCategory(eventCategory)
+		if (_.isUndefined(eventCategory)) {
+			void setSingleEvent()
 			return
 		}
-		void setSingleEvent()
+		setEventCategory(eventCategory)
+		setRetrievedEventCategory(eventCategory)
 	}, [appContext.authClass.accessToken, appContext.personalData?.username, appContext.eventsData])
 
 	const setSingleEvent = async (): Promise<SingleEventResponse | void> => {

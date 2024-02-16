@@ -1,7 +1,6 @@
 import formatReadableDate from "../format-readable-date"
-import EventClass from "../../classes/events/event-class"
 
-export default function createEventsArrayForGrid(eventsData: Map<string, EventClass>): EventGridRowData[] {
+export default function createEventsArrayForGrid(eventsData: Map<string, EventFromDB>): EventGridRowData[] {
 	const eventsArray = eventsData instanceof Map
 		? Array.from(eventsData.values())
 		: eventsData

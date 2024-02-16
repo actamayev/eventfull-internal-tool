@@ -1,7 +1,6 @@
-import UserClass from "../../classes/users/user-class"
 import formatReadableDate from "../format-readable-date"
 
-export default function createUsersArrayForGrid(usersData: Map<string, UserClass>): UserGridRowData[] {
+export default function createUsersArrayForGrid(usersData: Map<string, UserFromDB>): UserGridRowData[] {
 	const usersArray = usersData instanceof Map
 		? Array.from(usersData.values())
 		: usersData

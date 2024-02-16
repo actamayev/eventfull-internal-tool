@@ -1,8 +1,8 @@
 import _ from "lodash"
 import { useContext, useEffect } from "react"
-import AppContext from "../../contexts/eventfull-it-context"
+import UsersClass from "../../classes/users-class"
 import { isErrorResponse } from "../../utils/type-checks"
-import UsersClass from "../../classes/users/users-class"
+import AppContext from "../../contexts/eventfull-it-context"
 
 export default function useRetrieveUsers(): void {
 	const appContext = useContext(AppContext)

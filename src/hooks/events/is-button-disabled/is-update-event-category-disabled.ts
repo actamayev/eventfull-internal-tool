@@ -4,7 +4,7 @@ import AppContext from "../../../contexts/eventfull-it-context"
 
 export default function useIsUpdateEventCategoryDisabled(
 	newEventCategory: EventCategoryFromDB,
-	savedEventCategory: EventCategoryFromDB | undefined,
+	savedEventCategory: EventCategoryFromDB | null,
 	setMessage: React.Dispatch<React.SetStateAction<string>>
 ): boolean {
 	const appContext = useContext(AppContext)
@@ -14,7 +14,7 @@ export default function useIsUpdateEventCategoryDisabled(
 		if (_.isEmpty(newEventCategory.eventCategoryName)) {
 			return true
 		} else if (
-			!_.isUndefined(savedEventCategory) &&
+			!_.isNull(savedEventCategory) &&
 			newEventCategory.eventCategoryName !== savedEventCategory.eventCategoryName &&
 			appContext.eventsData?.eventCategories &&
 			Array.from(appContext.eventsData.eventCategories.values()).some(

@@ -2,10 +2,10 @@ import _ from "lodash"
 import { createContext } from "react"
 import { makeAutoObservable, runInAction } from "mobx"
 import AuthClass from "../classes/auth-class"
-import EventsClass from "../classes/events/events-class"
+import UsersClass from "../classes/users-class"
+import EventsClass from "../classes/events-class"
 import PersonalInfoClass from "../classes/personal-info-class"
 import EventfullITApiClient from "../classes/eventfull-it-api-client"
-import UsersClass from "../classes/users/users-class"
 
 export class EventfullITContext {
 	private _authClass = new AuthClass()

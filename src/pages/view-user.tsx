@@ -19,7 +19,7 @@ function ViewUser() {
 		_.isNil(appContext.personalData?.username)
 	) return null
 
-	if (_.isUndefined(userId) || _.isUndefined(retrievedEvent)) {
+	if (_.isUndefined(userId) || _.isNull(retrievedEvent)) {
 		return <>This user does not exist</>
 	}
 
